@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Product } from '@/types';
 
 interface ProductCardProps {
@@ -9,7 +10,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   const formattedPrice = product.price.toLocaleString();
 
   return (
-    <article
+    <Link
+      href={`/shop/product/${product.id}`}
       className={[
         'group cursor-pointer',
         // Mobile: outer is the card
@@ -87,25 +89,21 @@ export default function ProductCard({ product }: ProductCardProps) {
               {formattedPrice}원
             </span>
 
-            {/* Mobile: favorite */}
-            <button
-              type="button"
+            {/* Mobile: favorite — div to avoid button-in-a nesting */}
+            <div
               aria-label="Add to wishlist"
-              className="md:hidden text-on-surface-variant hover:text-primary transition-colors"
+              className="md:hidden text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
             >
               <span className="material-symbols-outlined text-[20px]">favorite</span>
-            </button>
+            </div>
 
             {/* Desktop: Add to Cart */}
-            <button
-              type="button"
-              className="hidden md:block bg-primary-container text-white px-4 py-1.5 rounded-full text-[12px] text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
+            <div className="hidden md:block bg-primary-container text-white px-4 py-1.5 rounded-full text-[12px] text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
               Add to Cart
-            </button>
+            </div>
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

@@ -25,6 +25,56 @@
 
 <!-- 실제 세션 기록은 여기서부터 -->
 
+## 2026-06-01 세션 6
+
+### 완료
+- `public/images/placeholder.jpg` — 유효한 1×1 JPEG 바이너리로 재생성 (기존 SVG 내용 → 실제 JPEG, 브라우저 정상 렌더링)
+- `app/shop/product/[id]/page.tsx` — 레퍼런스 기준 전면 점검·개선
+  - 모든 `imageUrl: '/images/placeholder.svg'` → `/images/placeholder.jpg`로 교체 (AGENTS.md 규칙 준수)
+  - BADGE_STYLE 맵 추가 (NEW/BEST/HIT 색상 토큰 통일)
+  - 썸네일 간격 `gap-3`으로 조정, 비활성 썸네일 opacity `0.6`
+  - 스펙 테이블 `grid-cols-[110px_1fr]`로 정렬 개선, value를 `text-on-surface`로 명시
+  - 수량 컨트롤 `rounded-lg overflow-hidden` + `aria-label` 추가 (접근성)
+  - 총액 `min-w-[72px] text-right`로 우측 정렬 고정
+  - 탭 설명 이미지 영역 `max-w-2xl` (기존 `max-w-lg` → 레퍼런스 기준 wider)
+  - 모바일 info card `px-margin-mobile` 패딩으로 통일
+  - 데스크톱 푸터 `hidden md:block` 유지, 모바일 하단 액션바 `border-outline-variant rounded-lg overflow-hidden` 개선
+- 브라우저 확인: 데스크톱(이미지+썸네일+스펙+옵션박스+탭 5개), 모바일(히어로+배지+하단 액션바) 정상
+
+### 현재 상태
+- `pnpm dev`: 정상 동작
+- 마지막 수정 파일: `CHANGELOG.md`
+
+## 2026-06-01 세션 5
+
+### 완료
+- `components/ui/CategorySidebar.tsx` — `'use client'`, `usePathname` 기반 활성 상태. 동물별(강아지/고양이) + 상품 유형(사료/간식/용품/영양제) 2섹션. 부모 경로 활성 시 자식 링크 자동 확장(강아지→사료/간식/용품/영양제, 고양이→간식/용품). 현재 경로 primary 컬러 하이라이트
+- `components/ui/ShopListContent.tsx` — 모든 리스트 페이지 공유 레이아웃. 데스크톱: CategorySidebar(sticky) + 정렬바 + 그리드 + 페이지네이션. 모바일: 필터 버튼 + 정렬 칩 + 그리드. `title`, `products` props만으로 페이지 구성
+- `app/shop/page.tsx` — ShopListContent로 리팩터링 (기존 인라인 코드 제거)
+- `app/shop/dog/page.tsx` — ShopListContent로 리팩터링
+- `app/shop/cat/page.tsx` — 고양이 전체 페이지 신규 생성
+- `app/shop/food/page.tsx` — 전체 사료 페이지 신규 생성
+- `app/shop/treats/page.tsx` — 전체 간식 페이지 신규 생성
+- `app/shop/supplies/page.tsx` — 전체 용품 페이지 신규 생성
+- `app/shop/supplements/page.tsx` — 전체 영양제 페이지 신규 생성
+- `app/shop/dog/food/page.tsx` — 강아지 사료 신규 생성
+- `app/shop/dog/treats/page.tsx` — 강아지 간식 신규 생성
+- `app/shop/dog/supplies/page.tsx` — 강아지 용품 신규 생성
+- `app/shop/dog/supplements/page.tsx` — 강아지 영양제 신규 생성
+- `app/shop/cat/treats/page.tsx` — 고양이 간식 신규 생성
+- `app/shop/cat/supplies/page.tsx` — 고양이 용품 신규 생성
+- 브라우저 확인 완료: `/shop`, `/shop/dog`, `/shop/dog/food`, `/shop/cat` 렌더링 및 사이드바 active 상태 정상
+
+### 미완료 / 다음 세션
+- `placeholder.jpg` 포맷 불일치 (SVG 내용에 .jpg 확장자) → 실제 상품 이미지 준비 시 교체
+- `ARCHITECTURE.md` 갱신 (실제 구조에 맞게 `src/` 불일치 정리, CategorySidebar·ShopListContent 추가 반영)
+- 정렬·필터 실제 인터랙션 연동 (현재 UI만 존재)
+
+### 현재 상태
+- `pnpm dev`: 정상 동작
+- 구현된 라우트: `/shop`, `/shop/dog`, `/shop/cat`, `/shop/food`, `/shop/treats`, `/shop/supplies`, `/shop/supplements`, `/shop/dog/food`, `/shop/dog/treats`, `/shop/dog/supplies`, `/shop/dog/supplements`, `/shop/cat/treats`, `/shop/cat/supplies`
+- 마지막 수정 파일: `CHANGELOG.md`
+
 ## 2026-06-01 세션 4
 
 ### 완료

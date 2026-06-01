@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Product } from '@/types';
 
 interface ProductGridProps {
@@ -13,7 +14,7 @@ const BADGE_STYLES: Record<string, string> = {
 
 function ShopProductCard({ product }: { product: Product }) {
   return (
-    <a href="#" className="group block">
+    <Link href={`/shop/product/${product.id}`} className="group block">
       {/* Image container */}
       <div className="relative w-full aspect-square md:aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.05)] group-hover:-translate-y-1 group-hover:shadow-[0px_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300">
         <Image
@@ -39,24 +40,20 @@ function ShopProductCard({ product }: { product: Product }) {
           </div>
         )}
 
-        {/* Desktop: favorite button (hover) */}
-        <button
-          type="button"
+        {/* Desktop: favorite icon (hover) — div to avoid button-in-a nesting */}
+        <div
           aria-label="Add to wishlist"
-          className="hidden md:block absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container"
+          className="hidden md:flex absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container cursor-pointer"
         >
           <span className="material-symbols-outlined text-[20px]">favorite</span>
-        </button>
+        </div>
 
         {/* Desktop: Quick Add to Cart (slides up on hover) */}
         <div className="hidden md:block absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <button
-            type="button"
-            className="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md"
-          >
+          <div className="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm flex justify-center items-center gap-2 shadow-md cursor-pointer">
             <span className="material-symbols-outlined text-[18px]">shopping_bag</span>
             Add to Cart
-          </button>
+          </div>
         </div>
       </div>
 
@@ -70,7 +67,7 @@ function ShopProductCard({ product }: { product: Product }) {
           {product.price.toLocaleString()}원
         </p>
       </div>
-    </a>
+    </Link>
   );
 }
 

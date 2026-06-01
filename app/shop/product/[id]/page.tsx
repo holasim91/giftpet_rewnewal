@@ -1,6 +1,6 @@
 'use client';
 
-// 수량·탭 상태가 필요하여 'use client' 사용 (AGENTS.md: 상태 필요 시 허용)
+// 수량·탭 상태 필요 → 'use client' (AGENTS.md 허용)
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,15 +8,14 @@ import Header from '@/components/layout/Header';
 import MobileHeader from '@/components/layout/MobileHeader';
 import Footer from '@/components/layout/Footer';
 
-// v0.1 더미 데이터 — 실제 이미지 준비 시 imageUrl을 '/images/placeholder.jpg' 등으로 교체
 const PRODUCT = {
   id: '1',
   name: '[오프라인 전용] 트럼펫 소프트클로버 이뮨부스터 1kg',
   price: 35000,
-  badge: 'BEST',
+  badge: 'BEST' as const,
   categoryLabel: 'DOG SUPPLEMENT',
   categoryLabelKo: '영양제',
-  imageUrl: '/images/placeholder.svg',
+  imageUrl: '/images/placeholder.jpg',
   specs: {
     deliveryFee: '₩3,000 (₩50,000 이상 무료)',
     manufacturer: '(주)인터펫코리아',
@@ -43,6 +42,12 @@ const DESKTOP_TABS = [
 ];
 const MOBILE_TABS = ['상세정보', '리뷰 (124)', 'Q&A'];
 
+const BADGE_STYLE: Record<string, string> = {
+  NEW: 'bg-primary-container text-on-primary',
+  BEST: 'bg-[#343434] text-white',
+  HIT: 'bg-[#343434] text-white',
+};
+
 export default function ProductDetailPage() {
   const [qty, setQty] = useState(1);
   const [activeThumb, setActiveThumb] = useState(0);
@@ -58,11 +63,11 @@ export default function ProductDetailPage() {
 
       <main className="flex-1 w-full pb-40 md:pb-0">
 
-        {/* ── 데스크톱 레이아웃 ── */}
+        {/* ── 데스크톱 ── */}
         <div className="hidden md:block max-w-container mx-auto px-margin-desktop py-12">
 
           {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-secondary text-label-sm mb-6">
+          <nav aria-label="breadcrumb" className="flex items-center gap-2 text-secondary text-label-sm mb-8">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <span className="material-symbols-outlined text-[16px]">chevron_right</span>
             <Link href="/shop/dog" className="hover:text-primary transition-colors">강아지</Link>
@@ -70,12 +75,11 @@ export default function ProductDetailPage() {
             <span className="text-on-surface">{PRODUCT.categoryLabelKo}</span>
           </nav>
 
-          {/* Product Hero: 2-column grid */}
+          {/* Product Hero — 2-column */}
           <div className="grid grid-cols-2 gap-12 mb-16">
 
             {/* Left — Gallery */}
             <div className="flex flex-col gap-4">
-              {/* Main image */}
               <div className="w-full aspect-square bg-surface-container-low rounded-xl overflow-hidden shadow-sm relative group">
                 <Image
                   src={THUMBNAILS[activeThumb]}
@@ -87,8 +91,7 @@ export default function ProductDetailPage() {
                   sizes="(max-width: 1280px) 50vw, 560px"
                 />
               </div>
-              {/* Thumbnails */}
-              <div className="grid grid-cols-5 gap-4">
+              <div className="grid grid-cols-5 gap-3">
                 {THUMBNAILS.map((thumb, i) => (
                   <button
                     key={i}
@@ -97,28 +100,26 @@ export default function ProductDetailPage() {
                     className={`aspect-square bg-surface-container-low rounded-lg overflow-hidden transition-all ${
                       i === activeThumb
                         ? 'border-2 border-primary-container'
-                        : 'border border-surface-variant opacity-70 hover:opacity-100'
+                        : 'border border-surface-variant opacity-60 hover:opacity-100'
                     }`}
                   >
                     <Image
                       src={thumb}
-                      alt={`Thumbnail ${i + 1}`}
+                      alt={`썸네일 ${i + 1}`}
                       width={80}
                       height={80}
                       unoptimized
-                      className={`w-full h-full object-cover ${
-                        i !== activeThumb ? 'grayscale' : ''
-                      }`}
+                      className={`w-full h-full object-cover ${i !== activeThumb ? 'grayscale' : ''}`}
                     />
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Right — Product Info */}
+            {/* Right — Info */}
             <div className="flex flex-col gap-6">
 
-              {/* Title & price */}
+              {/* Title & Price */}
               <div className="pb-6 border-b border-surface-variant">
                 <div className="flex gap-2 mb-3">
                   <span className="px-2 py-1 bg-surface-container-high text-on-surface-variant rounded text-[10px] font-bold uppercase tracking-wider">
@@ -139,9 +140,9 @@ export default function ProductDetailPage() {
                   { label: '원산지',  value: PRODUCT.specs.origin },
                   { label: '바코드',  value: PRODUCT.specs.barcode },
                 ].map(({ label, value }) => (
-                  <div key={label} className="grid grid-cols-[120px_1fr] gap-4">
+                  <div key={label} className="grid grid-cols-[110px_1fr] gap-4">
                     <span className="text-secondary">{label}</span>
-                    <span>{value}</span>
+                    <span className="text-on-surface">{value}</span>
                   </div>
                 ))}
               </div>
@@ -165,24 +166,26 @@ export default function ProductDetailPage() {
                     <span className="text-body-md font-medium">이뮨부스터 1kg</span>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center border border-surface-variant rounded bg-surface-container-lowest">
+                    <div className="flex items-center border border-surface-variant rounded-lg bg-surface-container-lowest overflow-hidden">
                       <button
                         type="button"
-                        className="px-2 py-1 text-secondary hover:text-on-surface"
+                        aria-label="수량 감소"
+                        className="w-8 h-8 flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container transition-colors"
                         onClick={() => setQty(Math.max(1, qty - 1))}
                       >
                         <span className="material-symbols-outlined text-[18px]">remove</span>
                       </button>
-                      <span className="w-10 text-center text-body-md">{qty}</span>
+                      <span className="w-10 text-center text-body-md font-medium">{qty}</span>
                       <button
                         type="button"
-                        className="px-2 py-1 text-secondary hover:text-on-surface"
+                        aria-label="수량 증가"
+                        className="w-8 h-8 flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container transition-colors"
                         onClick={() => setQty(qty + 1)}
                       >
                         <span className="material-symbols-outlined text-[18px]">add</span>
                       </button>
                     </div>
-                    <span className="text-body-md font-bold">
+                    <span className="text-body-md font-bold min-w-[72px] text-right">
                       ₩{(PRODUCT.price * qty).toLocaleString()}
                     </span>
                   </div>
@@ -199,7 +202,7 @@ export default function ProductDetailPage() {
                   </div>
                 </div>
 
-                {/* Buttons */}
+                {/* CTA */}
                 <div className="flex gap-3">
                   <button
                     type="button"
@@ -243,19 +246,21 @@ export default function ProductDetailPage() {
                 </button>
               ))}
             </div>
+
             {desktopTab === 0 ? (
               <div className="py-12 flex flex-col items-center gap-8">
-                <div className="w-full max-w-lg rounded-xl overflow-hidden bg-surface-container">
+                {/* 상세 설명 이미지 — 레퍼런스 기준 full-width centered */}
+                <div className="w-full max-w-2xl rounded-xl overflow-hidden shadow-sm bg-surface-container-low">
                   <Image
                     src={PRODUCT.imageUrl}
                     alt="상품 상세 이미지"
-                    width={520}
-                    height={520}
+                    width={672}
+                    height={672}
                     unoptimized
                     className="w-full object-cover"
                   />
                 </div>
-                <div className="w-full max-w-lg bg-surface-container-low p-6 rounded-xl border border-surface-variant">
+                <div className="w-full max-w-2xl bg-surface-container-low p-6 rounded-xl border border-surface-variant">
                   <h3 className="text-label-md text-on-surface mb-3 flex items-center gap-2">
                     <span className="material-symbols-outlined text-primary text-[18px]">verified</span>
                     주요 성분
@@ -268,17 +273,17 @@ export default function ProductDetailPage() {
                 </div>
               </div>
             ) : (
-              <div className="py-16 text-center text-body-md text-on-surface-variant">
+              <div className="py-20 text-center text-body-md text-on-surface-variant">
                 해당 내용은 준비 중입니다.
               </div>
             )}
           </div>
         </div>
 
-        {/* ── 모바일 레이아웃 ── */}
+        {/* ── 모바일 ── */}
         <div className="md:hidden">
 
-          {/* Product image hero */}
+          {/* Hero image */}
           <div className="w-full aspect-square bg-surface-container-low relative overflow-hidden">
             <Image
               src={PRODUCT.imageUrl}
@@ -289,26 +294,23 @@ export default function ProductDetailPage() {
               className="object-cover"
               sizes="100vw"
             />
-            {/* Badge */}
-            <div className="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm uppercase tracking-wider shadow-sm">
+            <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-label-sm uppercase tracking-wider shadow-sm font-bold ${BADGE_STYLE[PRODUCT.badge] ?? 'bg-surface-container text-on-surface'}`}>
               {PRODUCT.badge}
             </div>
           </div>
 
-          {/* Product info card */}
+          {/* Info card */}
           <div className="px-margin-mobile py-6 bg-surface-container-lowest shadow-[0px_4px_20px_rgba(0,0,0,0.02)]">
-            <div className="flex flex-col gap-2">
-              <span className="text-label-md text-on-surface-variant uppercase">
-                {PRODUCT.categoryLabel}
+            <span className="text-label-md text-on-surface-variant uppercase tracking-wide">
+              {PRODUCT.categoryLabel}
+            </span>
+            <h1 className="text-headline-sm text-on-surface leading-tight mt-2">{PRODUCT.name}</h1>
+            <div className="mt-3">
+              <span className="text-headline-lg-mobile font-bold text-primary">
+                ₩{PRODUCT.price.toLocaleString()}
               </span>
-              <h1 className="text-headline-sm text-on-surface leading-tight">{PRODUCT.name}</h1>
-              <div className="mt-2">
-                <span className="text-headline-lg-mobile font-bold text-primary">
-                  ₩{PRODUCT.price.toLocaleString()}
-                </span>
-              </div>
             </div>
-            {/* Meta details */}
+            {/* Meta */}
             <div className="mt-6 border-t border-surface-variant pt-4 flex flex-col gap-3">
               {[
                 { label: '배송비', value: PRODUCT.specs.deliveryFee },
@@ -341,9 +343,10 @@ export default function ProductDetailPage() {
                 </button>
               ))}
             </div>
+
             {mobileTab === 0 ? (
-              <div className="p-5 flex flex-col gap-6">
-                <h2 className="text-headline-sm text-on-surface text-center mt-4">
+              <div className="px-margin-mobile py-6 flex flex-col gap-6">
+                <h2 className="text-headline-sm text-on-surface text-center mt-2">
                   우리 아이 면역력을 위한 특별한 선택
                 </h2>
                 <p className="text-body-md text-on-surface-variant leading-relaxed text-center">
@@ -380,21 +383,20 @@ export default function ProductDetailPage() {
         </div>
       </main>
 
-      {/* 데스크톱 푸터 */}
       <div className="hidden md:block">
         <Footer />
       </div>
 
-      {/* 모바일 고정 하단 액션 바 */}
+      {/* 모바일 하단 고정 액션 바 */}
       <div className="md:hidden fixed bottom-0 left-0 w-full z-40 bg-surface-container-lowest border-t border-surface-variant shadow-[0px_-4px_20px_rgba(0,0,0,0.05)] rounded-t-xl">
-        {/* 수량 + 총 금액 */}
         <div className="px-margin-mobile py-4 border-b border-surface-container bg-surface-bright">
           <div className="flex items-center justify-between">
             <span className="text-label-md text-on-surface">수량</span>
-            <div className="flex items-center border border-outline-variant rounded-lg bg-surface-container-lowest">
+            <div className="flex items-center border border-outline-variant rounded-lg bg-surface-container-lowest overflow-hidden">
               <button
                 type="button"
-                className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors rounded-l-lg"
+                aria-label="수량 감소"
+                className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors"
                 onClick={() => setQty(Math.max(1, qty - 1))}
               >
                 <span className="material-symbols-outlined text-[18px]">remove</span>
@@ -402,21 +404,21 @@ export default function ProductDetailPage() {
               <span className="w-10 text-center text-body-md font-medium">{qty}</span>
               <button
                 type="button"
-                className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors rounded-r-lg"
+                aria-label="수량 증가"
+                className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors"
                 onClick={() => setQty(qty + 1)}
               >
                 <span className="material-symbols-outlined text-[18px]">add</span>
               </button>
             </div>
           </div>
-          <div className="flex justify-between items-center mt-3">
+          <div className="flex justify-between items-center mt-4">
             <span className="text-label-md text-on-surface-variant">총 상품 금액</span>
             <span className="text-headline-sm font-bold text-primary">
               ₩{totalPrice.toLocaleString()}
             </span>
           </div>
         </div>
-        {/* 버튼 */}
         <div className="px-margin-mobile py-3 flex gap-3 bg-surface-container-lowest">
           <button
             type="button"
