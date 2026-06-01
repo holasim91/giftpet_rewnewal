@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GIFT PET - Unboxing Happiness</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#181c1e",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#e0bfb8",
+                        "secondary-container": "#e1e3e4",
+                        "secondary": "#5c5f60",
+                        "on-secondary-fixed": "#191c1d",
+                        "on-surface": "#181c1e",
+                        "primary-fixed-dim": "#ffb4a4",
+                        "primary-container": "#ff7051",
+                        "tertiary-container": "#9e9c9c",
+                        "surface-bright": "#f7fafd",
+                        "on-primary-fixed-variant": "#8a1c04",
+                        "secondary-fixed-dim": "#c5c7c8",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#ac341b",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#ac341b",
+                        "inverse-primary": "#ffb4a4",
+                        "surface-dim": "#d7dadd",
+                        "outline": "#8c716b",
+                        "tertiary-fixed": "#e4e2e1",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e0e3e6",
+                        "inverse-surface": "#2d3133",
+                        "surface-container": "#ebeef1",
+                        "primary-fixed": "#ffdad3",
+                        "surface-container-highest": "#e0e3e6",
+                        "secondary-fixed": "#e1e3e4",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-surface-variant": "#59413c",
+                        "on-primary-container": "#6a1000",
+                        "on-secondary-container": "#626566",
+                        "inverse-on-surface": "#eef1f4",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "surface-container-low": "#f1f4f7",
+                        "on-secondary-fixed-variant": "#454748",
+                        "tertiary": "#5f5e5e",
+                        "on-tertiary-container": "#343434",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#3d0500",
+                        "background": "#f7fafd",
+                        "surface-container-high": "#e5e8eb",
+                        "surface": "#f7fafd",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "80px",
+                        "gutter": "24px",
+                        "container-max-width": "1280px",
+                        "base": "8px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-xl": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1.0", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- Drawer Navigation Overlay -->
+<div class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300" id="drawer-overlay" onclick="toggleDrawer()"></div>
+<!-- Drawer Menu -->
+<div class="fixed inset-y-0 left-0 w-[280px] bg-surface z-50 transform -translate-x-full transition-transform duration-300 flex flex-col shadow-xl" id="drawer-menu">
+<div class="p-4 border-b border-outline-variant flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Menu</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors" onclick="toggleDrawer()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+</div>
+<div class="flex flex-col p-4 space-y-6">
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 self-start" href="#">NEW</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">BEST</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">EVENT</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">COMMUNITY</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Q&amp;A</a>
+</div>
+<div class="mt-auto p-4 bg-surface-container-low border-t border-outline-variant">
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-body-md text-body-md text-on-surface">Login / Sign up</span>
+</div>
+</div>
+</div>
+<!-- TopAppBar -->
+<header class="bg-surface sticky top-0 z-30 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border-b border-outline-variant w-full">
+<div class="flex flex-col w-full px-margin-mobile mx-auto py-4 space-y-4">
+<!-- Top Row: Hamburger, Logo, Icons -->
+<div class="flex items-center justify-between w-full">
+<!-- Hamburger Menu -->
+<button class="text-on-surface-variant focus:outline-none p-1" onclick="toggleDrawer()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<!-- Brand Logo -->
+<a class="font-headline-sm text-headline-sm font-bold tracking-tighter text-on-surface mx-auto text-center" href="#">GIFT PET</a>
+<!-- Trailing Icons -->
+<div class="flex items-center space-x-3 text-on-surface-variant">
+<button class="hover:text-primary transition-colors duration-200 ease-out focus:outline-none">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+<button class="hover:text-primary transition-colors duration-200 ease-out focus:outline-none">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<button class="hover:text-primary transition-colors duration-200 ease-out focus:outline-none relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-primary-container text-on-primary font-label-sm text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+</button>
+</div>
+</div>
+<!-- Search Bar (Mobile specific, usually hidden or simplified, keeping a clean line) -->
+<div class="w-full relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg pl-10 pr-4 py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors" placeholder="Search for treats, beds..." type="text"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col w-full">
+<!-- Hero Banner -->
+<section class="relative w-full aspect-[4/3] bg-surface-container overflow-hidden">
+<img alt="Featured Pet Products Hero" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujojTDCfsEm-AhjQI2RBe4THEgE-gNtAOS1jnxjob27r9DfwtJg6Nu5StacVaZ_zhp7GIx3aBExHJJdGFmFhcdBR9Q-68yDuaW-y-kXOngHI5o1ZSvUzjPDCtdf3AjF9hbnz5aWKyrUwYtUXSIw9TZNJW3DQFesc3fK9cMXIFdW6jd9zB9lDRdPic23ikmU50v1v2AEKozHfsOTEIa_N9LkWvJ4DZKF5qGslyvcnfy5p_ZbPwbFjqcjSj4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-margin-mobile pb-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary mb-2">Unboxing Happiness</h2>
+<p class="font-body-md text-body-md text-surface-bright mb-6 max-w-sm">Discover premium, healthy treats and cozy essentials for your furry friends.</p>
+<button class="bg-primary-container text-on-primary font-label-md text-label-md py-3 px-6 rounded-lg w-full max-w-[200px] shadow-sm active:scale-95 transition-transform duration-150">Shop Now</button>
+</div>
+</section>
+<!-- Category Pills (Horizontal Scroll) -->
+<section class="w-full py-6 pl-margin-mobile overflow-hidden">
+<div class="flex space-x-3 overflow-x-auto no-scrollbar pr-margin-mobile pb-2">
+<button class="flex-shrink-0 bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-full shadow-sm">All</button>
+<button class="flex-shrink-0 bg-surface-container-low border border-outline-variant text-on-surface font-label-md text-label-md px-4 py-2 rounded-full">Dogs</button>
+<button class="flex-shrink-0 bg-surface-container-low border border-outline-variant text-on-surface font-label-md text-label-md px-4 py-2 rounded-full">Cats</button>
+<button class="flex-shrink-0 bg-surface-container-low border border-outline-variant text-on-surface font-label-md text-label-md px-4 py-2 rounded-full">Toys</button>
+<button class="flex-shrink-0 bg-surface-container-low border border-outline-variant text-on-surface font-label-md text-label-md px-4 py-2 rounded-full">Health</button>
+</div>
+</section>
+<!-- New Arrivals (2-column grid) -->
+<section class="px-margin-mobile py-6 bg-surface">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">New Arrivals</h3>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Product Card 1 -->
+<div class="bg-surface rounded-lg flex flex-col hover:shadow-[0px_4px_20px_rgba(0,0,0,0.05)] transition-shadow duration-300 group">
+<div class="relative aspect-square rounded-t-lg overflow-hidden bg-surface-container-low mb-3">
+<img alt="Organic Salmon Cat Treats" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0ujojTDCfsEm-AhjQI2RBe4THEgE-gNtAOS1jnxjob27r9DfwtJg6Nu5StacVaZ_zhp7GIx3aBExHJJdGFmFhcdBR9Q-68yDuaW-y-kXOngHI5o1ZSvUzjPDCtdf3AjF9hbnz5aWKyrUwYtUXSIw9TZNJW3DQFesc3fK9cMXIFdW6jd9zB9lDRdPic23ikmU50v1v2AEKozHfsOTEIa_N9LkWvJ4DZKF5qGslyvcnfy5p_ZbPwbFjqcjSj4"/>
+<div class="absolute top-2 left-2 flex flex-col gap-1">
+<span class="bg-primary-container text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded uppercase font-bold tracking-wider">NEW</span>
+</div>
+</div>
+<div class="flex flex-col flex-grow px-1 pb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Treats</span>
+<h4 class="font-body-md text-body-md text-on-surface line-clamp-2 mb-2 leading-tight">Organic Salmon Cat Treats (100g)</h4>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-headline-sm text-[16px] font-semibold text-on-surface">$12.99</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface rounded-lg flex flex-col hover:shadow-[0px_4px_20px_rgba(0,0,0,0.05)] transition-shadow duration-300 group">
+<div class="relative aspect-square rounded-t-lg overflow-hidden bg-surface-container-low mb-3">
+<img alt="Premium Orthopedic Dog Bed" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0ujojTDCfsEm-AhjQI2RBe4THEgE-gNtAOS1jnxjob27r9DfwtJg6Nu5StacVaZ_zhp7GIx3aBExHJJdGFmFhcdBR9Q-68yDuaW-y-kXOngHI5o1ZSvUzjPDCtdf3AjF9hbnz5aWKyrUwYtUXSIw9TZNJW3DQFesc3fK9cMXIFdW6jd9zB9lDRdPic23ikmU50v1v2AEKozHfsOTEIa_N9LkWvJ4DZKF5qGslyvcnfy5p_ZbPwbFjqcjSj4"/>
+<div class="absolute top-2 left-2 flex flex-col gap-1">
+<span class="bg-surface-variant text-on-surface font-label-sm text-[10px] px-2 py-0.5 rounded uppercase font-bold tracking-wider">BEST</span>
+</div>
+</div>
+<div class="flex flex-col flex-grow px-1 pb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Beds</span>
+<h4 class="font-body-md text-body-md text-on-surface line-clamp-2 mb-2 leading-tight">Premium Orthopedic Dog Bed (Medium)</h4>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-headline-sm text-[16px] font-semibold text-on-surface">$89.00</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MD's Recommendation (Horizontal Scroll) -->
+<section class="py-8 bg-surface-container-lowest">
+<div class="px-margin-mobile mb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">MD's Recommendation</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mt-1">Handpicked favorites for this season.</p>
+</div>
+<div class="pl-margin-mobile flex space-x-6 overflow-x-auto no-scrollbar pb-4 pr-margin-mobile">
+<!-- Circular Item 1 -->
+<div class="flex flex-col items-center flex-shrink-0 w-24">
+<div class="w-20 h-20 rounded-full bg-surface-container overflow-hidden mb-3 shadow-sm border border-outline-variant/30">
+<img alt="Cat Teaser Toy" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujojTDCfsEm-AhjQI2RBe4THEgE-gNtAOS1jnxjob27r9DfwtJg6Nu5StacVaZ_zhp7GIx3aBExHJJdGFmFhcdBR9Q-68yDuaW-y-kXOngHI5o1ZSvUzjPDCtdf3AjF9hbnz5aWKyrUwYtUXSIw9TZNJW3DQFesc3fK9cMXIFdW6jd9zB9lDRdPic23ikmU50v1v2AEKozHfsOTEIa_N9LkWvJ4DZKF5qGslyvcnfy5p_ZbPwbFjqcjSj4"/>
+</div>
+<span class="font-label-md text-label-md text-center text-on-surface leading-tight">Feather Teaser</span>
+</div>
+<!-- Circular Item 2 -->
+<div class="flex flex-col items-center flex-shrink-0 w-24">
+<div class="w-20 h-20 rounded-full bg-surface-container overflow-hidden mb-3 shadow-sm border border-outline-variant/30">
+<img alt="Dog Chew Bone" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujojTDCfsEm-AhjQI2RBe4THEgE-gNtAOS1jnxjob27r9DfwtJg6Nu5StacVaZ_zhp7GIx3aBExHJJdGFmFhcdBR9Q-68yDuaW-y-kXOngHI5o1ZSvUzjPDCtdf3AjF9hbnz5aWKyrUwYtUXSIw9TZNJW3DQFesc3fK9cMXIFdW6jd9zB9lDRdPic23ikmU50v1v2AEKozHfsOTEIa_N9LkWvJ4DZKF5qGslyvcnfy5p_ZbPwbFjqcjSj4"/>
+</div>
+<span class="font-label-md text-label-md text-center text-on-surface leading-tight">Tough Chew</span>
+</div>
+<!-- Circular Item 3 -->
+<div class="flex flex-col items-center flex-shrink-0 w-24">
+<div class="w-20 h-20 rounded-full bg-surface-container overflow-hidden mb-3 shadow-sm border border-outline-variant/30">
+<img alt="Pet Shampoo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujojTDCfsEm-AhjQI2RBe4THEgE-gNtAOS1jnxjob27r9DfwtJg6Nu5StacVaZ_zhp7GIx3aBExHJJdGFmFhcdBR9Q-68yDuaW-y-kXOngHI5o1ZSvUzjPDCtdf3AjF9hbnz5aWKyrUwYtUXSIw9TZNJW3DQFesc3fK9cMXIFdW6jd9zB9lDRdPic23ikmU50v1v2AEKozHfsOTEIa_N9LkWvJ4DZKF5qGslyvcnfy5p_ZbPwbFjqcjSj4"/>
+</div>
+<span class="font-label-md text-label-md text-center text-on-surface leading-tight">Oatmeal Wash</span>
+</div>
+<!-- Circular Item 4 -->
+<div class="flex flex-col items-center flex-shrink-0 w-24">
+<div class="w-20 h-20 rounded-full bg-surface-container overflow-hidden mb-3 shadow-sm border border-outline-variant/30">
+<img alt="Ceramic Bowl" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujojTDCfsEm-AhjQI2RBe4THEgE-gNtAOS1jnxjob27r9DfwtJg6Nu5StacVaZ_zhp7GIx3aBExHJJdGFmFhcdBR9Q-68yDuaW-y-kXOngHI5o1ZSvUzjPDCtdf3AjF9hbnz5aWKyrUwYtUXSIw9TZNJW3DQFesc3fK9cMXIFdW6jd9zB9lDRdPic23ikmU50v1v2AEKozHfsOTEIa_N9LkWvJ4DZKF5qGslyvcnfy5p_ZbPwbFjqcjSj4"/>
+</div>
+<span class="font-label-md text-label-md text-center text-on-surface leading-tight">Ceramic Bowl</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low w-full mt-auto border-t border-surface-container">
+<div class="w-full py-8 px-margin-mobile flex flex-col space-y-8">
+<!-- Newsletter Mobile Optimized -->
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">GIFT PET</span>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-4">Join our community for tips, stories, and exclusive offers.</p>
+<div class="flex w-full">
+<input class="flex-grow bg-surface border border-outline-variant rounded-l-lg px-3 py-2 font-body-md text-sm text-on-surface focus:outline-none focus:border-primary-container" placeholder="Enter your email" type="email"/>
+<button class="bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-r-lg">Subscribe</button>
+</div>
+</div>
+<!-- Collapsible Sections (Simplified for vanilla HTML without complex JS) -->
+<div class="space-y-4">
+<div class="border-b border-outline-variant/50 pb-2">
+<h4 class="font-label-md text-label-md text-on-surface mb-2">Customer Care</h4>
+<ul class="flex flex-col space-y-2">
+<li><a class="font-body-md text-[14px] text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a></li>
+<li><a class="font-body-md text-[14px] text-on-surface-variant hover:text-primary transition-colors" href="#">Shipping</a></li>
+<li><a class="font-body-md text-[14px] text-on-surface-variant hover:text-primary transition-colors" href="#">Returns</a></li>
+</ul>
+</div>
+<div class="border-b border-outline-variant/50 pb-2">
+<h4 class="font-label-md text-label-md text-on-surface mb-2">Company</h4>
+<ul class="flex flex-col space-y-2">
+<li><a class="font-body-md text-[14px] text-on-surface-variant hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="font-body-md text-[14px] text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="font-body-md text-[14px] text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-4 flex flex-col items-center text-center">
+<p class="font-body-md text-[12px] text-on-surface-variant">© 2024 GIFT PET. Unboxing happiness for every pet.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Simple drawer toggle logic
+        function toggleDrawer() {
+            const drawer = document.getElementById('drawer-menu');
+            const overlay = document.getElementById('drawer-overlay');
+            
+            if (drawer.classList.contains('-translate-x-full')) {
+                // Open drawer
+                drawer.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                // slight delay for opacity transition to work after display block
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    overlay.classList.add('opacity-100');
+                }, 10);
+            } else {
+                // Close drawer
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.remove('opacity-100');
+                overlay.classList.add('opacity-0');
+                // wait for transition before hiding
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
+</body></html>

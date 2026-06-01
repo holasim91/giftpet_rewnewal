@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GIFT PET - Dog Products</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#d7dadd",
+                      "surface-container-low": "#f1f4f7",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#1b1c1c",
+                      "on-secondary-fixed-variant": "#454748",
+                      "on-primary-fixed-variant": "#8a1c04",
+                      "inverse-on-surface": "#eef1f4",
+                      "on-secondary-fixed": "#191c1d",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "tertiary-fixed": "#e4e2e1",
+                      "on-primary-fixed": "#3d0500",
+                      "surface-bright": "#f7fafd",
+                      "secondary-fixed-dim": "#c5c7c8",
+                      "surface-variant": "#e0e3e6",
+                      "primary-container": "#ff7051",
+                      "surface": "#f7fafd",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#e1e3e4",
+                      "secondary-container": "#e1e3e4",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#ffdad3",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#9e9c9c",
+                      "outline-variant": "#e0bfb8",
+                      "primary": "#ac341b",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#ffb4a4",
+                      "on-secondary-container": "#626566",
+                      "surface-container-highest": "#e0e3e6",
+                      "secondary": "#5c5f60",
+                      "on-tertiary-container": "#343434",
+                      "on-surface-variant": "#59413c",
+                      "on-surface": "#181c1e",
+                      "background": "#f7fafd",
+                      "surface-container-high": "#e5e8eb",
+                      "on-background": "#181c1e",
+                      "inverse-primary": "#ffb4a4",
+                      "tertiary-fixed-dim": "#c8c6c6",
+                      "on-primary-container": "#6a1000",
+                      "outline": "#8c716b",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#ebeef1",
+                      "inverse-surface": "#2d3133",
+                      "surface-tint": "#ac341b",
+                      "tertiary": "#5f5e5e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "20px",
+                      "container-max-width": "1280px",
+                      "gutter": "24px",
+                      "margin-desktop": "80px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "headline-xl": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "headline-sm": ["Plus Jakarta Sans"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                      "headline-xl": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                      "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                      "label-md": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                      "label-sm": ["12px", { "lineHeight": "1.0", "fontWeight": "500" }],
+                      "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                      "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                      "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 w-full flex flex-col items-center px-margin-desktop max-w-container-max-width mx-auto bg-surface dark:bg-surface shadow-sm">
+<div class="w-full flex justify-between items-center py-4">
+<!-- Search Bar (Left) -->
+<div class="flex-1 flex justify-start">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary dark:text-secondary-fixed-dim text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low dark:bg-surface-container border-none rounded-full focus:ring-2 focus:ring-primary-container text-sm" placeholder="Search..." type="text"/>
+</div>
+</div>
+<!-- Brand Logo (Center) -->
+<div class="flex-1 flex justify-center">
+<a class="text-headline-md font-headline-md font-extrabold text-primary dark:text-primary-fixed-dim tracking-tight" href="#">GIFT PET</a>
+</div>
+<!-- Trailing Icons (Right) -->
+<div class="flex-1 flex justify-end gap-4 text-primary dark:text-primary-fixed-dim">
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#"><span class="material-symbols-outlined">person</span></a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#"><span class="material-symbols-outlined">favorite</span></a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 relative" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-primary-container text-on-primary text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">2</span>
+</a>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="w-full flex justify-center gap-8 py-4 border-t border-surface-variant dark:border-surface-container-high font-label-md text-label-md uppercase">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">NEW</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 scale-95 transition-transform" href="#">BEST</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">EVENT</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">COMMUNITY</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Q&amp;A</a>
+</nav>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Category Header -->
+<div class="text-center mb-12">
+<h1 class="text-headline-lg font-headline-lg mb-4 text-on-background">강아지</h1>
+<p class="text-body-md font-body-md text-secondary">총 <span class="text-primary font-bold">34</span>개 상품</p>
+</div>
+<!-- Filter/Sort Bar -->
+<div class="flex justify-between items-center border-b border-surface-variant pb-4 mb-8">
+<div class="flex gap-4">
+<button class="px-4 py-2 text-sm font-medium bg-surface-container-low rounded-full hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> 필터
+                </button>
+</div>
+<div class="flex gap-6 text-sm text-secondary">
+<button class="font-semibold text-on-background hover:text-primary transition-colors">추천순</button>
+<button class="hover:text-primary transition-colors">신상품순</button>
+<button class="hover:text-primary transition-colors">낮은가격순</button>
+<button class="hover:text-primary transition-colors">높은가격순</button>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter mb-16">
+<!-- Product Card 1 -->
+<div class="group flex flex-col bg-surface rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative aspect-[4/5] bg-surface-container-low overflow-hidden">
+<img alt="Dog food bag with fresh salmon" class="w-full h-full object-cover" data-alt="A premium bag of dog food standing upright next to a fresh cut piece of raw salmon on a clean, light blue studio background. Soft, even lighting creates a modern, high-end commercial photography look. The mood is fresh and healthy, aligning with a premium pet care brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcCtBE7w1q3c22s4zxTxmERrt87w37z8so5yA-kiVycoXMd6hojC51y7dsTogPVP72ykMfXD_zZ3a5gXHLLVEgZEL7GyZpQgF5Jv_WzbOt0gOB7dptifb-XYPB-Hao5cQI_sdxFo0snOOYxSreSOBOMu_n3T-mbn5ZVHrj-bnwbV8F6IyC2RNhSvIzkboOIjijqGlh4hPe5ri9Wus1CM9yzbkoIgfCBuBEoF87rvfTJMpkdhvftDWbVINmURjHuw4SzFBColaZb80"/>
+<div class="absolute top-3 left-3 flex flex-col gap-2">
+<span class="bg-primary-container text-on-primary text-xs font-bold px-2 py-1 rounded">NEW</span>
+</div>
+<button class="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<!-- Hover Quick Add -->
+<div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Add to Cart
+                        </button>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<span class="text-xs text-secondary mb-1">프리미엄 사료</span>
+<h3 class="text-body-md font-body-md font-medium text-on-surface line-clamp-2 mb-2 flex-grow">[오프라인 전용] 트럼펫 소프트클로버 스킨앤코트</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="text-headline-sm font-headline-sm text-on-background">24,000원</span>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group flex flex-col bg-surface rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative aspect-[4/5] bg-surface-container-low overflow-hidden">
+<img alt="Dog treats with fresh meat" class="w-full h-full object-cover" data-alt="A premium bag of dog treats placed vertically against a vibrant coral red background. Beside the bag is a raw piece of premium beef. The lighting is bright and crisp, highlighting the textures of the meat and the sleek packaging. The overall aesthetic is bold, modern, and appetizing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuwRUtor0iM-wwB0-oc_N6olDLWL-TCSGTYdIFsV7vJS_cxTwJfxCcGScNYlyYgTp2z-5bVVWpLLow57W0FBzjfgI8d50cnF2CY20BgaT0rBIyas1t-jBQIV3_6qfwgvB8TPT3E7zQdi4g6Heq5lTOpHf-SO1Aqavu2Vvvi84RkrQ38iAaViAp5Fea_NHaZD-DfUQgpbv0RqVsDuTHWKHkWFcu6ujpQsn8UMvKO6ruS0Juvey-YXIS_uXNJUnLBYV52RpYBSHFe6o"/>
+<div class="absolute top-3 left-3 flex flex-col gap-2">
+<span class="bg-[#343434] text-white text-xs font-bold px-2 py-1 rounded">BEST</span>
+</div>
+<button class="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Add to Cart
+                        </button>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<span class="text-xs text-secondary mb-1">건강 간식</span>
+<h3 class="text-body-md font-body-md font-medium text-on-surface line-clamp-2 mb-2 flex-grow">[오프라인 전용] 트럼펫 소프트클로버 이뮨부스터</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="text-headline-sm font-headline-sm text-on-background">18,500원</span>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group flex flex-col bg-surface rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative aspect-[4/5] bg-surface-container-low overflow-hidden">
+<img alt="Dog hip and joint supplements" class="w-full h-full object-cover" data-alt="A modern, clean white pouch of dog hip and joint supplements standing on a bright yellow background. Next to it are some natural ingredients like dried mussels and herbs. The lighting is studio quality, creating a pop-art feel with vivid colors and sharp contrasts, perfect for a joyful pet brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMibe9A6noFG9E_wCXPx11OchuEpfB0FgWiTn2PklSNng5wibkeENLm-HpbkL2lqsh1Kup5evFtZH947VCslMCcHNeKXTHOne70iqUJ87h5omYO4H3phRhyDBRm42HwDTct8tRcbIoUfNzB-HTAAXnlBZkK-Tmv-tJdjCTz5SMfNNxB63-XxqUtSQNW2ofBje1cep5CHMReC7dUYzUsard5L64VfoMhxYSfLJH9_BfJZplroPmxoKHPX3jc6HNTYWmV2Dq1KVHQ_0"/>
+<button class="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Add to Cart
+                        </button>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<span class="text-xs text-secondary mb-1">영양제</span>
+<h3 class="text-body-md font-body-md font-medium text-on-surface line-clamp-2 mb-2 flex-grow">[오프라인 전용] 트럼펫 소프트클로버 힙앤조인트</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="text-headline-sm font-headline-sm text-on-background">32,000원</span>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group flex flex-col bg-surface rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative aspect-[4/5] bg-surface-container-low overflow-hidden">
+<img alt="Dog dental chews" class="w-full h-full object-cover" data-alt="A clear plastic package showing dog dental chews inside, laid flat on a soft pastel pink background. A few loose chews are scattered elegantly beside the package. High-key lighting ensures the product looks clean and premium, evoking a sense of modern, trustworthy pet care." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEoigFUut73jzScMXIOPjUNYuSvPNZzBeV38XT_QgycbQQ4JFTsQI7IH2JHzSfbpfhvxl1YappSka6MRFGKjggyQrTEoMQ78ObRRG50_Vn_YT2oHDMyBgW4P6zjIKw2Kdx0oAWtCLzOOqlAsl7BJDHt4rG2F8Zm1CRyDOdgWGVl7KNsv4gIdtGW6xdsBkstt0eyoSUz-zvZfiBmT1NYRq5GL3Y5axUh6IRofeeSyntc_QSyyLDmsz5YJQYl1Z-bfl9iiqrGw-ID64"/>
+<button class="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Add to Cart
+                        </button>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<span class="text-xs text-secondary mb-1">덴탈 케어</span>
+<h3 class="text-body-md font-body-md font-medium text-on-surface line-clamp-2 mb-2 flex-grow">위시츄 덴탈집중케어 190g</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="text-headline-sm font-headline-sm text-on-background">15,000원</span>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group flex flex-col bg-surface rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative aspect-[4/5] bg-surface-container-low overflow-hidden">
+<img alt="Dog shampoo bottle" class="w-full h-full object-cover" data-alt="A white pump bottle of dog shampoo with minimal typography on the label, placed on a clean white surface. A small dollop of white foam sits next to the bottle. The lighting is soft and diffused, creating a serene, spa-like atmosphere suitable for a premium pet grooming product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTI6K-ykXKhZK1xIKyJApROzOUDvqe_WDlstJANcC4s-8RWXVOWVzKkeKWBpFJqzSL7wBRwjZPy7yYwlwiTDLGhm41xC2lR7g6Tkzixr1RrLilWj6kok8a2z7B9j87QVX81lpu6h-TlXcv-p3DtWy0vYyxloR4Y35YaazI5RfCTAhm5f-BhkKfldBLsW8Q9BuALz-3LCuDNGsMs6lej8Bfc-30YWlODg2I-4z_w10bJbTZoor0DaQs6l8D2ikkCsHYqkY8KKCpCLs"/>
+<button class="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Add to Cart
+                        </button>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<span class="text-xs text-secondary mb-1">목욕 용품</span>
+<h3 class="text-body-md font-body-md font-medium text-on-surface line-clamp-2 mb-2 flex-grow">[오프라인 전용] 헬로마이펫 댕댕 발세정제</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="text-headline-sm font-headline-sm text-on-background">19,800원</span>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group flex flex-col bg-surface rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative aspect-[4/5] bg-surface-container-low overflow-hidden">
+<img alt="Dog toothbrush and toothpaste" class="w-full h-full object-cover" data-alt="An orange dog toothbrush standing upright next to its matching orange packaging box on a plain white background. The composition is highly symmetrical and minimalist, lit evenly to showcase the bright, joyful coral color of the brand. The style is modern e-commerce product photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFqB3qMZSMkYG0LlyYYxRjEYhe5HfMXkP3dFt-73Gyr_EyqrCglV_K1QtD-FFCul3WBlf3LhF3t0hg49GoBJZzycsIl4CCfdYgfdqvvLwj-UYkttpU8TqvnUgY9Hf7yJfUyL6o3IOLUM2LIQG8TBBYEq3KbcBKDelZwqwB-GFeu6ruBbskEey3Te7C7ThuzDuSsr5hwCYdtZSsIccwkM4EunW1yfgObdjg4eNA_TKkY71fW1wgSR1WCr2pm0sMuYu2IE56ODgH4cc"/>
+<div class="absolute top-3 left-3 flex flex-col gap-2">
+<span class="bg-[#343434] text-white text-xs font-bold px-2 py-1 rounded">HIT</span>
+</div>
+<button class="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Add to Cart
+                        </button>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<span class="text-xs text-secondary mb-1">덴탈 케어</span>
+<h3 class="text-body-md font-body-md font-medium text-on-surface line-clamp-2 mb-2 flex-grow">[오프라인 전용] 헬로마이펫 댕티스트 칫솔</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="text-headline-sm font-headline-sm text-on-background">8,500원</span>
+</div>
+</div>
+</div>
+<!-- Product Card 7 -->
+<div class="group flex flex-col bg-surface rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative aspect-[4/5] bg-surface-container-low overflow-hidden">
+<img alt="Dog ear cleaner" class="w-full h-full object-cover" data-alt="A transparent bottle containing clear yellow liquid dog ear cleaner with a white pump top. Beside it is its clean white packaging box. Set against a pure white background, the lighting highlights the clarity of the liquid. The aesthetic is clinical, clean, and trustworthy, suitable for a premium pet health product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0E5OxerUOv3D7msxt7LxT--S-BlfbrTwrIicybmqzh8bzLSCxDDACJelgFK_l85DQWLfF9hPNmIVzd5rT5o6aot-bH5X1vupU6GCzHkn07QroQVFzHb5bmJvjjSlsoF7Xuy3hL3HMh1GDB0fTK4G8exg3YQOrnRrm9qtWcA3qEPbpZj9GQY5vIHM00MsVei2gReOrDPabOWl3Os7vLhJIVVA1q1GNE8SrEoabby7VXacdFY5afkZlntNKO55dMdRcyzDMV-Op7Xw"/>
+<button class="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Add to Cart
+                        </button>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<span class="text-xs text-secondary mb-1">위생 용품</span>
+<h3 class="text-body-md font-body-md font-medium text-on-surface line-clamp-2 mb-2 flex-grow">[오프라인 전용] 헬로마이펫 댕댕귀세정제</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="text-headline-sm font-headline-sm text-on-background">16,500원</span>
+</div>
+</div>
+</div>
+<!-- Product Card 8 -->
+<div class="group flex flex-col bg-surface rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative aspect-[4/5] bg-surface-container-low overflow-hidden">
+<img alt="Dog eye care drops" class="w-full h-full object-cover" data-alt="A small white dropper bottle of dog eye care solution placed next to a sleek orange packaging box. The setup is on a pristine white surface with soft, diffused lighting that creates a sterile, high-quality look. The modern minimalist design communicates safety and premium care." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg-QM-et6hMD96uK5t9P9l_kxW9qHURcdk95tpavIJXneQ99GZjWeCIa7VQRdzIjmMEbsTaTfDFCi0ZaaP4py8eE9e3QMJMGv0c-l8cYILaEeqTJCsSCgmz5d3nUcWSwXwfCPq46tP5Kz8kXpcTeTFuFFo89Sa4Hn1opV6CBS4zDmURLTkXn66EKa_u2DtkZvB4VkK6Oh1Yq9wdwXYOcp48qyl6cGo883_W76dR_uO133qYLnDZQh8JjItzZEisN8mldSftazhMBo"/>
+<button class="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full text-secondary opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary-container">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full bg-primary text-white py-3 rounded-lg font-medium text-sm hover:bg-primary/90 flex justify-center items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Add to Cart
+                        </button>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<span class="text-xs text-secondary mb-1">위생 용품</span>
+<h3 class="text-body-md font-body-md font-medium text-on-surface line-clamp-2 mb-2 flex-grow">[오프라인 전용] 헬로마이펫 댕댕눈물세정제</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="text-headline-sm font-headline-sm text-on-background">14,000원</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center items-center gap-2 mt-8">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-surface-variant text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-container text-on-primary font-bold shadow-sm">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-secondary hover:bg-surface-container transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-secondary hover:bg-surface-container transition-colors">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-surface-variant text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-10 px-margin-desktop max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between bg-surface-container-low dark:bg-surface-container mt-auto">
+<div class="flex flex-col gap-4 mb-8 md:mb-0">
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface dark:text-on-surface">GIFT PET</span>
+<p class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim">© 2024 GIFT PET. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap gap-x-8 gap-y-4 font-label-sm text-label-sm">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">About Us</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Terms of Service</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Privacy Policy</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Shipping Info</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">FAQ</a>
+</div>
+</footer>
+</body></html>
