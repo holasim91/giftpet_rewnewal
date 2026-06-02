@@ -18,4 +18,9 @@ export default defineConfig({
     // DIRECT_URL이 없으면(로컬 개발 초기) undefined → generate만 실행 시 문제없음
     url: process.env.DIRECT_URL,
   },
+
+  migrations: {
+    // Prisma 7: seed 커맨드는 prisma.config.ts에서 관리 (package.json 아님)
+    seed: 'tsx prisma/seed.ts',
+  },
 });

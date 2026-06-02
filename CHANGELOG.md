@@ -25,6 +25,34 @@
 
 <!-- 실제 세션 기록은 여기서부터 -->
 
+## 2026-06-02 세션 11
+
+### 완료
+- `prisma/seed.ts` — 14개 상품 더미 데이터 시딩 스크립트 작성
+  - 강아지 사료 3개 / 간식 3개 / 용품 2개 / 영양제 2개
+  - 고양이 간식 2개 / 용품 2개
+  - discountPrice 4개 (오리진, 져스트, 쿨링매트, 이나바)
+  - badges: NEW 4개, BEST 4개, 빈 배열 6개
+  - imageUrl: /images/placeholder.jpg 통일, detailContent: null, stock: 15~90
+  - 실행 전 Cart → Product 순서로 기존 데이터 초기화 (idempotent)
+- `prisma.config.ts` — `migrations.seed` 설정 추가 (Prisma 7 방식)
+  - Prisma 7에서 seed 커맨드는 package.json이 아닌 prisma.config.ts에서 관리
+  - `seed: 'tsx prisma/seed.ts'`
+- `package.json` — `"prisma": { "seed": "tsx prisma/seed.ts" }` 추가 (레거시 호환)
+- `pnpm add -D tsx dotenv` — seed 실행 환경 패키지 설치
+- `pnpm-workspace.yaml` — esbuild 빌드 허용
+- `pnpm prisma db seed` 실행 성공: Product 14개 Supabase DB 삽입 확인
+
+### 미완료 / 다음 세션
+- 더미 데이터 → Server Actions으로 교체 (product.ts: getProducts, getProductById)
+- 상품 리스트·상세 페이지를 실제 DB 데이터로 연동
+- NextAuth.js 설치 및 회원가입/로그인 구현
+
+### 현재 상태
+- `pnpm build`: 정상 (17개 라우트)
+- Supabase DB: Product 14개 존재
+- 마지막 수정 파일: `CHANGELOG.md`
+
 ## 2026-06-02 세션 10
 
 ### 완료
