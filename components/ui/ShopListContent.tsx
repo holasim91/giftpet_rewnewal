@@ -45,8 +45,8 @@ export default function ShopListContent({ title, products }: ShopListContentProp
       {/* Main flex layout: sidebar + content */}
       <div className="flex gap-8 items-start">
 
-        {/* Sidebar — desktop only, sticky */}
-        <aside className="hidden md:block sticky top-28">
+        {/* Sidebar — 1024px 이상에서만 표시. 768~1023px 구간에서는 숨겨 카드 너비 확보 */}
+        <aside className="hidden lg:block sticky top-28">
           <CategorySidebar />
         </aside>
 
