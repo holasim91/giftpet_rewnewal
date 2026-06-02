@@ -25,6 +25,36 @@
 
 <!-- 실제 세션 기록은 여기서부터 -->
 
+## 2026-06-02 세션 8
+
+### 완료
+- `pnpm add @prisma/client @prisma/adapter-pg @supabase/supabase-js pg` + `pnpm add -D prisma @types/pg` — 패키지 설치
+- `pnpm-workspace.yaml` — `@prisma/engines`, `prisma` 빌드 스크립트 허용 (pnpm v11 allowBuilds)
+- `.npmrc` — pnpm onlyBuiltDependencies 설정 (npx 경유 npm 경고는 무해)
+- `prisma/schema.prisma` — Product·User·Cart·CartItem 테이블 + Enum 정의
+  - Prisma 7 변경: datasource에서 url 제거 → prisma.config.ts로 이동
+  - Product: id/name/price(Int)/imageUrl/badges(Badge[])/animalCategory?/productCategory/description/stock/isActive/timestamps
+  - User: id/email/name/password?/role(CUSTOMER|ADMIN)/timestamps
+  - Cart: User와 1:1 관계, CartItem 목록 포함
+  - CartItem: [cartId, productId] 복합 unique로 중복 방지
+- `prisma.config.ts` — Prisma 7 설정. datasource.url = DIRECT_URL (migrate 전용), 런타임은 lib/prisma.ts 어댑터 사용
+- `.env.local.example` — 환경변수 키 목록 (값 비움): NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, DATABASE_URL, DIRECT_URL, NEXTAUTH_URL, NEXTAUTH_SECRET
+- `.gitignore` — `.env*` 와일드카드에 `!.env.local.example` 예외 추가
+- `lib/prisma.ts` — PrismaClient 싱글톤. Prisma 7 방식: PrismaPg 어댑터 + DATABASE_URL, HMR 중복 생성 방지
+- `lib/supabase.ts` — 브라우저 클라이언트(anon key) + createSupabaseAdmin()(service role key, 서버 전용)
+- `pnpm build` 최종 통과 (17개 라우트 정상 빌드)
+
+### 미완료 / 다음 세션
+- `.env.local` 실제 값 채우기 (Supabase 프로젝트 생성 후)
+- `prisma migrate dev` 실행 (Supabase DB에 테이블 생성)
+- 더미 데이터 → Server Actions으로 교체 (product.ts, cart.ts)
+- NextAuth.js 설치 및 인증 구현
+
+### 현재 상태
+- `pnpm build`: 정상 (17개 라우트)
+- DB: 미연결 (환경변수 미설정), 빌드·TypeScript는 통과
+- 마지막 수정 파일: `CHANGELOG.md`
+
 ## 2026-06-01 세션 7
 
 ### 완료

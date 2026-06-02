@@ -1,0 +1,117 @@
+// Prisma Schema — GIFT PET
+// DB: Supabase (PostgreSQL)
+// ORM: Prisma
+//
+// DATABASE_URL  : Supabase Transaction Pooler URL (연결 풀링, 런타임 쿼리용)
+// DIRECT_URL    : Supabase Direct Connection URL (마이그레이션 전용)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Prisma 7 변경사항: url/directUrl은 prisma.config.ts로 이동
+// 실제 연결 설정은 프로젝트 루트의 prisma.config.ts를 참고
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────
+// Enum 정의
+// ─────────────────────────────────────────
+
+enum AnimalCategory {
+  dog
+  cat
+}
+
+enum ProductCategory {
+  food
+  treats
+  supplies
+  supplements
+}
+
+enum Badge {
+  NEW
+  BEST
+  HIT
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+// ─────────────────────────────────────────
+// Product
+// ─────────────────────────────────────────
+
+model Product {
+  id              String          @id @default(cuid())
+  name            String
+  price           Int             // 원(₩) 단위 정수
+  imageUrl        String
+  badges          Badge[]
+  animalCategory  AnimalCategory? // null이면 전체 카테고리
+  productCategory ProductCategory
+  description     String?         @db.Text
+  stock           Int             @default(0)
+  isActive        Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  cartItems CartItem[]
+
+  @@map("products")
+}
+
+// ─────────────────────────────────────────
+// User
+// ─────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  // password는 NextAuth Credentials 사용 시에만 저장. OAuth는 null
+  password  String?
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cart Cart?
+
+  @@map("users")
+}
+
+// ─────────────────────────────────────────
+// Cart / CartItem
+// ─────────────────────────────────────────
+
+// 유저 1명당 장바구니 1개 (1:1)
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("carts")
+}
+
+// 장바구니 안의 개별 상품 행
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 동일 장바구니에 같은 상품 중복 행 방지
+  @@unique([cartId, productId])
+  @@map("cart_items")
+}
