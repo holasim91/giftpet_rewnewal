@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 };
 
 const DUMMY_PRODUCTS: Product[] = [
-  { id: '1', name: '냥이조아 스크래처 카펫 하우스', price: 42000, imageUrl: '/images/placeholder.svg', badges: ['NEW'], category: '고양이 용품' },
-  { id: '2', name: '헬로캣 모래 벤토나이트 10L', price: 18000, imageUrl: '/images/placeholder.svg', badges: [], category: '위생 용품' },
-  { id: '3', name: '캣체이스 깃털 낚싯대 장난감', price: 7500, imageUrl: '/images/placeholder.svg', badges: [], category: '고양이 용품' },
-  { id: '4', name: '고양이 자동 급수기 1.5L', price: 38000, imageUrl: '/images/placeholder.svg', badges: ['BEST'], category: '생활 용품' },
+  { id: '1', name: '냥이조아 스크래처 카펫 하우스', price: 42000, imageUrl: '/images/placeholder.jpg', badges: ['NEW'], animalCategory: 'cat', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '2', name: '헬로캣 모래 벤토나이트 10L', price: 18000, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'cat', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '3', name: '캣체이스 깃털 낚싯대 장난감', price: 7500, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'cat', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '4', name: '고양이 자동 급수기 1.5L', price: 38000, imageUrl: '/images/placeholder.jpg', badges: ['BEST'], animalCategory: 'cat', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
 ];
 
 export default function CatSuppliesPage() {

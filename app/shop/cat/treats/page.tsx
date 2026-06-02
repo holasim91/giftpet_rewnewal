@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 };
 
 const DUMMY_PRODUCTS: Product[] = [
-  { id: '1', name: '캣닙 오가닉 드라이 허브 30g', price: 12000, imageUrl: '/images/placeholder.svg', badges: ['NEW'], category: '고양이 간식' },
-  { id: '2', name: '고메 퓨레 참치 앤 치킨 15g×4', price: 9800, imageUrl: '/images/placeholder.svg', badges: ['BEST'], category: '고양이 간식' },
-  { id: '3', name: '치즈 크런치 고양이 간식 50g', price: 6500, imageUrl: '/images/placeholder.svg', badges: [], category: '고양이 간식' },
-  { id: '4', name: '참치 포 고양이 습식 간식 85g×6', price: 14000, imageUrl: '/images/placeholder.svg', badges: ['HIT'], category: '고양이 간식' },
+  { id: '1', name: '캣닙 오가닉 드라이 허브 30g', price: 12000, imageUrl: '/images/placeholder.jpg', badges: ['NEW'], animalCategory: 'cat', productCategory: 'treats', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '2', name: '고메 퓨레 참치 앤 치킨 15g×4', price: 9800, imageUrl: '/images/placeholder.jpg', badges: ['BEST'], animalCategory: null, productCategory: 'treats', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '3', name: '치즈 크런치 고양이 간식 50g', price: 6500, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'cat', productCategory: 'treats', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '4', name: '참치 포 고양이 습식 간식 85g×6', price: 14000, imageUrl: '/images/placeholder.jpg', badges: ['HIT'], animalCategory: 'cat', productCategory: 'treats', description: null, detailContent: null, discountPrice: null, stock: 0 },
 ];
 
 export default function CatTreatsPage() {

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@/types';
+import { PRODUCT_CATEGORY_LABELS } from '@/types';
 
 interface ProductCardProps {
   product: Product;
@@ -70,11 +71,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="flex flex-col flex-grow px-1 pb-2 md:px-0 md:pb-0 md:flex-none">
           {/* Category label — mobile only */}
           <span className="md:hidden text-label-sm text-on-surface-variant uppercase mb-1">
-            {product.category}
+            {PRODUCT_CATEGORY_LABELS[product.productCategory]}
           </span>
 
           {/* Product name */}
-          <h4 className="text-body-md text-on-surface line-clamp-2 mb-2 leading-tight md:min-h-[48px] md:font-medium">
+          <h4 className="text-body-md text-ellipsis text-on-surface line-clamp-2 mb-2 leading-tight md:min-h-[48px] md:font-medium">
             {product.name}
           </h4>
 

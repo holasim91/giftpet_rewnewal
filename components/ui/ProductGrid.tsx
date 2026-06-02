@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@/types';
+import { PRODUCT_CATEGORY_LABELS } from '@/types';
 
 interface ProductGridProps {
   products: Product[];
@@ -59,7 +60,7 @@ function ShopProductCard({ product }: { product: Product }) {
 
       {/* Product info */}
       <div className="mt-3 space-y-1 md:p-4 md:mt-0">
-        <p className="text-label-sm text-on-surface-variant">{product.category}</p>
+        <p className="text-label-sm text-on-surface-variant">{PRODUCT_CATEGORY_LABELS[product.productCategory]}</p>
         <h3 className="text-body-md text-on-surface line-clamp-2 overflow-hidden text-ellipsis leading-snug">
           {product.name}
         </h3>

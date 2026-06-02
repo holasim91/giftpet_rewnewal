@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 };
 
 const DUMMY_PRODUCTS: Product[] = [
-  { id: '1', name: '[오프라인 전용] 트럼펫 소프트클로버 스킨앤코트', price: 24000, imageUrl: '/images/placeholder.svg', badges: ['NEW'], category: '프리미엄 사료' },
-  { id: '2', name: '오리젠 오리지널 그레인프리 11.4kg', price: 89000, imageUrl: '/images/placeholder.svg', badges: ['BEST'], category: '프리미엄 사료' },
-  { id: '3', name: '로얄캐닌 미니 어덜트 8kg', price: 62000, imageUrl: '/images/placeholder.svg', badges: [], category: '강아지 사료' },
-  { id: '4', name: '내추럴코어 유기농 치킨 1.6kg', price: 34000, imageUrl: '/images/placeholder.svg', badges: [], category: '프리미엄 사료' },
+  { id: '1', name: '[오프라인 전용] 트럼펫 소프트클로버 스킨앤코트', price: 24000, imageUrl: '/images/placeholder.jpg', badges: ['NEW'], animalCategory: null, productCategory: 'food', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '2', name: '오리젠 오리지널 그레인프리 11.4kg', price: 89000, imageUrl: '/images/placeholder.jpg', badges: ['BEST'], animalCategory: null, productCategory: 'food', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '3', name: '로얄캐닌 미니 어덜트 8kg', price: 62000, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: null, productCategory: 'food', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '4', name: '내추럴코어 유기농 치킨 1.6kg', price: 34000, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: null, productCategory: 'food', description: null, detailContent: null, discountPrice: null, stock: 0 },
 ];
 
 export default function DogFoodPage() {

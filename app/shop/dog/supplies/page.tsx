@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 };
 
 const DUMMY_PRODUCTS: Product[] = [
-  { id: '1', name: '[오프라인 전용] 헬로마이펫 댕댕 발세정제', price: 19800, imageUrl: '/images/placeholder.svg', badges: [], category: '목욕 용품' },
-  { id: '2', name: '[오프라인 전용] 헬로마이펫 댕티스트 칫솔', price: 8500, imageUrl: '/images/placeholder.svg', badges: ['HIT'], category: '덴탈 케어' },
-  { id: '3', name: '[오프라인 전용] 헬로마이펫 댕댕귀세정제', price: 16500, imageUrl: '/images/placeholder.svg', badges: [], category: '위생 용품' },
-  { id: '4', name: '강아지 쿨링 매트 M 사이즈', price: 32000, imageUrl: '/images/placeholder.svg', badges: ['BEST'], category: '생활 용품' },
+  { id: '1', name: '[오프라인 전용] 헬로마이펫 댕댕 발세정제', price: 19800, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'dog', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '2', name: '[오프라인 전용] 헬로마이펫 댕티스트 칫솔', price: 8500, imageUrl: '/images/placeholder.jpg', badges: ['HIT'], animalCategory: 'dog', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '3', name: '[오프라인 전용] 헬로마이펫 댕댕귀세정제', price: 16500, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'dog', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '4', name: '강아지 쿨링 매트 M 사이즈', price: 32000, imageUrl: '/images/placeholder.jpg', badges: ['BEST'], animalCategory: 'dog', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
 ];
 
 export default function DogSuppliesPage() {

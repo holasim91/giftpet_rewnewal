@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 };
 
 const DUMMY_PRODUCTS: Product[] = [
-  { id: '1', name: '[오프라인 전용] 트럼펫 소프트클로버 스킨앤코트', price: 24000, imageUrl: '/images/placeholder.svg', badges: ['NEW'], category: '프리미엄 사료' },
-  { id: '2', name: '[오프라인 전용] 트럼펫 소프트클로버 이뮨부스터', price: 18500, imageUrl: '/images/placeholder.svg', badges: ['BEST'], category: '건강 간식' },
-  { id: '3', name: '[오프라인 전용] 트럼펫 소프트클로버 힙앤조인트', price: 32000, imageUrl: '/images/placeholder.svg', badges: [], category: '영양제' },
-  { id: '4', name: '위시츄 덴탈집중케어 190g', price: 15000, imageUrl: '/images/placeholder.svg', badges: [], category: '덴탈 케어' },
-  { id: '5', name: '[오프라인 전용] 헬로마이펫 댕댕 발세정제', price: 19800, imageUrl: '/images/placeholder.svg', badges: [], category: '목욕 용품' },
-  { id: '6', name: '[오프라인 전용] 헬로마이펫 댕티스트 칫솔', price: 8500, imageUrl: '/images/placeholder.svg', badges: ['HIT'], category: '덴탈 케어' },
-  { id: '7', name: '[오프라인 전용] 헬로마이펫 댕댕귀세정제', price: 16500, imageUrl: '/images/placeholder.svg', badges: [], category: '위생 용품' },
-  { id: '8', name: '[오프라인 전용] 헬로마이펫 댕댕눈물세정제', price: 14000, imageUrl: '/images/placeholder.svg', badges: [], category: '위생 용품' },
+  { id: '1', name: '[오프라인 전용] 트럼펫 소프트클로버 스킨앤코트', price: 24000, imageUrl: '/images/placeholder.jpg', badges: ['NEW'], animalCategory: null, productCategory: 'food', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '2', name: '[오프라인 전용] 트럼펫 소프트클로버 이뮨부스터', price: 18500, imageUrl: '/images/placeholder.jpg', badges: ['BEST'], animalCategory: null, productCategory: 'treats', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '3', name: '[오프라인 전용] 트럼펫 소프트클로버 힙앤조인트', price: 32000, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: null, productCategory: 'supplements', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '4', name: '위시츄 덴탈집중케어 190g', price: 15000, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: null, productCategory: 'treats', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '5', name: '[오프라인 전용] 헬로마이펫 댕댕 발세정제', price: 19800, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'dog', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '6', name: '[오프라인 전용] 헬로마이펫 댕티스트 칫솔', price: 8500, imageUrl: '/images/placeholder.jpg', badges: ['HIT'], animalCategory: 'dog', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '7', name: '[오프라인 전용] 헬로마이펫 댕댕귀세정제', price: 16500, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'dog', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '8', name: '[오프라인 전용] 헬로마이펫 댕댕눈물세정제', price: 14000, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'dog', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
 ];
 
 export default function DogShopPage() {

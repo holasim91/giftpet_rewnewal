@@ -25,6 +25,27 @@
 
 <!-- 실제 세션 기록은 여기서부터 -->
 
+## 2026-06-02 세션 10
+
+### 완료
+- `types/index.ts` — Prisma 스키마 기반으로 전면 교체
+  - `Product`: `category: string` 제거 → `productCategory: ProductCategory` + `animalCategory: AnimalCategory | null` + `description/detailContent/discountPrice/stock` 추가
+  - `badges: ('NEW'|'BEST'|'HIT')[]` → `badges: string[]` (Prisma String[] 미러링)
+  - `PRODUCT_CATEGORY_LABELS`, `ANIMAL_CATEGORY_LABELS` 유틸 맵 추가
+  - `CircularRecommendation` 유지 (UI 전용)
+- `components/ui/ProductGrid.tsx` — `product.category` → `PRODUCT_CATEGORY_LABELS[product.productCategory]`
+- `components/ui/ProductCard.tsx` — 동일 수정
+- `components/sections/NewArrivals.tsx` — DUMMY_PRODUCTS 새 타입으로 교체
+- shop 페이지 13개 — DUMMY_PRODUCTS 일괄 변환 (Python 스크립트):
+  - `category: '...'` → `productCategory`, `animalCategory` (제품명 기반 자동 결정)
+  - `imageUrl: '/images/placeholder.svg'` → `'/images/placeholder.jpg'`
+  - 누락 필드 추가: `description: null, detailContent: null, discountPrice: null, stock: 0`
+- `pnpm build` 타입 에러 없이 통과 (17개 라우트)
+
+### 현재 상태
+- `pnpm build`: 정상 (TypeScript strict 통과)
+- 마지막 수정 파일: `CHANGELOG.md`
+
 ## 2026-06-02 세션 9
 
 ### 완료

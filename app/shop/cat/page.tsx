@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 };
 
 const DUMMY_PRODUCTS: Product[] = [
-  { id: '1', name: '캣닙 오가닉 드라이 허브 30g', price: 12000, imageUrl: '/images/placeholder.svg', badges: ['NEW'], category: '건강 간식' },
-  { id: '2', name: '고메 퓨레 참치 앤 치킨 15g×4', price: 9800, imageUrl: '/images/placeholder.svg', badges: ['BEST'], category: '건강 간식' },
-  { id: '3', name: '냥이조아 스크래처 카펫 하우스', price: 42000, imageUrl: '/images/placeholder.svg', badges: [], category: '고양이 용품' },
-  { id: '4', name: '퓨리나 원 성묘 살몬 1.5kg', price: 28000, imageUrl: '/images/placeholder.svg', badges: ['HIT'], category: '고양이 사료' },
-  { id: '5', name: '캣체이스 깃털 낚싯대 장난감', price: 7500, imageUrl: '/images/placeholder.svg', badges: [], category: '고양이 용품' },
-  { id: '6', name: '헬로캣 모래 벤토나이트 10L', price: 18000, imageUrl: '/images/placeholder.svg', badges: [], category: '위생 용품' },
+  { id: '1', name: '캣닙 오가닉 드라이 허브 30g', price: 12000, imageUrl: '/images/placeholder.jpg', badges: ['NEW'], animalCategory: 'cat', productCategory: 'treats', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '2', name: '고메 퓨레 참치 앤 치킨 15g×4', price: 9800, imageUrl: '/images/placeholder.jpg', badges: ['BEST'], animalCategory: null, productCategory: 'treats', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '3', name: '냥이조아 스크래처 카펫 하우스', price: 42000, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'cat', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '4', name: '퓨리나 원 성묘 살몬 1.5kg', price: 28000, imageUrl: '/images/placeholder.jpg', badges: ['HIT'], animalCategory: null, productCategory: 'food', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '5', name: '캣체이스 깃털 낚싯대 장난감', price: 7500, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'cat', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
+  { id: '6', name: '헬로캣 모래 벤토나이트 10L', price: 18000, imageUrl: '/images/placeholder.jpg', badges: [], animalCategory: 'cat', productCategory: 'supplies', description: null, detailContent: null, discountPrice: null, stock: 0 },
 ];
 
 export default function CatShopPage() {
