@@ -38,13 +38,13 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
   return (
     <>
-      {/* Overlay */}
+      {/* Overlay — aria-hidden은 닫혀있을 때만 true (열리면 인터랙티브 요소이므로) */}
       <div
         className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
-        aria-hidden="true"
+        aria-hidden={!isOpen}
       />
 
       {/* Drawer Panel */}
