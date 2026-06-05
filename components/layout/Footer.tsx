@@ -23,7 +23,7 @@ const COMPANY = [
 
 export default function Footer() {
   return (
-    <footer className="bg-surface-container-low w-full py-12 px-4 md:px-margin-desktop mt-auto border-t border-surface-container">
+    <footer className="bg-surface-container-low w-full py-12 px-4 md:px-margin-desktop mt-16 md:mt-24 border-t border-surface-container">
       <div className="max-w-container mx-auto">
 
         {/* Desktop layout */}

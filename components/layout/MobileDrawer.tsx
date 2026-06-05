@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import type { Session } from 'next-auth';
+import SignOutButton from '@/components/ui/SignOutButton';
 
 interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  session: Session | null;
 }
 
 const DOG_ITEMS = [
@@ -29,7 +32,8 @@ const CATEGORY_LINKS = [
 
 type AnimalKey = 'dog' | 'cat';
 
-export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
+export default function MobileDrawer({ isOpen, onClose, session }: MobileDrawerProps) {
+  const displayName = session?.user?.name ?? session?.user?.email?.split('@')[0];
   const [openAnimal, setOpenAnimal] = useState<AnimalKey | null>(null);
 
   const toggleAnimal = (animal: AnimalKey) => {
@@ -167,12 +171,26 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
         </div>
 
-        {/* Bottom: Login */}
+        {/* Bottom: Login / User */}
         <div className="p-4 bg-surface-container-low border-t border-outline-variant">
-          <div className="flex items-center space-x-4">
-            <span className="material-symbols-outlined text-on-surface-variant">person</span>
-            <span className="text-body-md text-on-surface">Login / Sign up</span>
-          </div>
+          {session ? (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <span className="material-symbols-outlined text-on-surface-variant">person</span>
+                <span className="text-body-md text-on-surface">{displayName}</span>
+              </div>
+              <SignOutButton className="text-label-md text-primary hover:underline" />
+            </div>
+          ) : (
+            <Link
+              href="/auth/login"
+              onClick={onClose}
+              className="flex items-center space-x-3 hover:text-primary transition-colors"
+            >
+              <span className="material-symbols-outlined text-on-surface-variant">person</span>
+              <span className="text-body-md text-on-surface">로그인 / 회원가입</span>
+            </Link>
+          )}
         </div>
       </div>
     </>

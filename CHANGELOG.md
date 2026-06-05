@@ -5,6 +5,161 @@
 
 ---
 
+## 2026-06-05 세션 19
+
+### 완료
+- `actions/cart.ts` — 장바구니 Server Actions 신규 작성
+  - `getCart()` · `getCartCount()` · `addToCart()` · `removeFromCart()` · `removeSelectedFromCart()` · `updateCartQuantity()` (반환 타입 `{ success: boolean }`으로 변경)
+- `components/ui/AddToCartButton.tsx` — 장바구니 추가 클라이언트 컴포넌트 (비로그인 → /auth/login, 성공 → Toast)
+- `components/ui/Toast.tsx` — 전역 Toast 시스템 (`ToastProvider` + `useToast`, `success`/`error` 타입 분기)
+- `components/ui/ConfirmModal.tsx` — 삭제 확인 모달 (overlay 클릭 취소, `isOpen=false` 시 `pointer-events-none` 수정)
+- `components/ui/ProductCard.tsx` — "Add to Cart" div → `<AddToCartButton>` 교체
+- `components/layout/Header.tsx` — `getCartCount()` 배지 + `/cart` 링크 전환
+- `app/layout.tsx` — `ToastProvider` 전역 등록
+- `app/cart/page.tsx` — 장바구니 서버 컴포넌트 (proxy.ts 미들웨어로 비로그인 차단)
+- `app/cart/CartClient.tsx` — 장바구니 클라이언트 컴포넌트 전체 구현
+  - 빈 장바구니 / 상품 있는 상태 분기
+  - 데스크톱: 좌 2/3 아이템 + 우 1/3 주문 요약 sticky
+  - 모바일: 카드형 목록 + 결제 예정 금액 카드 + 하단 sticky 주문바
+  - 체크박스 전체/개별 선택, 소계·배송비·총액 실시간 계산 (100,000원 이상 무료배송)
+  - `useOptimistic` — 수량 변경 즉시 UI 반영, 서버 실패 시 자동 롤백
+  - pending 상태 3원 분리: `quantityPendingIds` / `deletePendingIds` / `isSelectedDeleting`
+  - 삭제 시 `ConfirmModal` 확인 후 진행, 완료 시 Toast 표시
+  - "함께 구매하면 좋은 상품" 섹션 (UI만)
+- `components/layout/Footer.tsx` — `mt-16 md:mt-24` 상단 여백 추가 (전 페이지 일괄 적용)
+
+### 버그 수정
+- `ConfirmModal` — `isOpen=false`일 때 내부 카드 `pointer-events-none` 누락 → 보이지 않는 카드가 클릭 차단하는 버그 수정
+- `updateCartQuantity` — `revalidatePath` 불필요한 호출 제거 (수량 변경은 헤더 배지에 영향 없음)
+- `handleQuantity` — `setItems`를 `startTransition` 바깥에서 호출하던 구조 → `useOptimistic` 패턴으로 교체 (화면 끊김 제거)
+
+### 현재 상태
+- `pnpm build`: 정상 (20개 라우트, TypeScript 에러 없음)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-05 세션 18
+
+### 완료
+- `AGENTS.md` — 섹션 5·6·7 추가 (기존 내용 유지)
+  - 섹션 5: Toast / ConfirmModal 공통 UI 컴포넌트 사용 규칙
+  - 섹션 6: Server Actions 위치·구조·revalidatePath 규칙
+  - 섹션 7: NextAuth v5 인증 패턴 (세션 확인, 보호 라우트, 로그아웃)
+- `ARCHITECTURE.md` — 기존 내용 유지, 누락 항목만 추가
+  - `layout/` 목록에 `MobileHeaderClient.tsx`, `BottomNav.tsx` 추가 및 `Header`·`MobileHeader` 설명 갱신
+  - `ui/` 목록에 `ShopListContent`, `AddToCartButton`, `SignOutButton`, `ConfirmModal`, `Toast`, `ComingSoon` 추가
+  - v1 목표 완료 항목 체크 (Supabase·DB 연동·인증·장바구니 4개 완료, 검색만 미완료)
+
+### 현재 상태
+- `pnpm build`: 정상
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-05 세션 17
+
+### 완료
+- `actions/cart.ts` — 장바구니 Server Actions 신규 작성
+  - `getCart()` — 로그인 유저 장바구니 조회 (product 포함)
+  - `getCartCount()` — 장바구니 아이템 수 조회 (헤더 배지용)
+  - `addToCart(productId, quantity)` — 이미 있으면 수량 증가, 없으면 생성
+  - `removeFromCart(cartId)` — 단일 삭제 (userId 검증)
+  - `removeSelectedFromCart(cartIds[])` — 선택 삭제
+  - `updateCartQuantity(cartId, quantity)` — 수량 변경
+- `components/ui/AddToCartButton.tsx` — 상품 카드용 "Add to Cart" 클라이언트 컴포넌트
+  - 비로그인 시 `/auth/login` 리다이렉트
+  - 로그인 시 addToCart 호출 후 router.refresh()로 헤더 배지 갱신
+- `components/ui/ProductCard.tsx` — "Add to Cart" div → `<AddToCartButton>` 교체
+- `components/layout/Header.tsx` — 장바구니 아이콘 업데이트
+  - `getCartCount()` 호출로 실제 수량 배지 표시
+  - button → `<Link href="/cart">` 링크로 전환
+  - 0개일 때 배지 숨김, 9개 초과 시 '9+' 표시
+- `app/cart/CartClient.tsx` — 장바구니 클라이언트 컴포넌트 신규 작성
+  - 빈 장바구니: shopping_cart 아이콘 + 안내 문구 + 쇼핑하러 가기 버튼
+  - 상품 있을 때: 체크박스 선택 + 수량 조절 + 삭제 (전체/선택/단일)
+  - 데스크톱: 좌 3/4 아이템 목록 + 우 1/4 주문 요약 (sticky)
+  - 모바일: 전체선택/선택삭제 + 카드형 목록 + 결제 예정금액 카드 + 하단 sticky 주문바
+  - 배송비 3,000원 고정, 100,000원 이상 무료 자동 적용
+  - 체크박스 선택 상태 기반 소계·총액 실시간 계산
+  - "함께 구매하면 좋은 상품" 섹션 (UI만, 정적 더미 데이터, /images/placeholder.jpg)
+- `app/cart/page.tsx` — 장바구니 페이지 서버 컴포넌트 신규 생성
+  - `proxy.ts`가 `/cart/*` 비로그인 접근 차단 (기존 미들웨어 활용)
+  - `getCart()` 호출 후 `CartClient`에 initialItems 전달
+
+### 현재 상태
+- `pnpm build`: 정상 (20개 라우트, /cart ƒ Dynamic 추가)
+- `pnpm dev`: 정상
+- 장바구니: 비로그인 → /auth/login 리다이렉트, 로그인 → 장바구니 CRUD 완전 구현
+- 헤더 장바구니 아이콘: 실제 수량 배지 + /cart 링크
+- 상품 카드 "Add to Cart": DB 연동 완료
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-05 세션 16
+
+### 완료
+- `actions/auth.ts` — `signOut` import 추가 + `logoutUser()` Server Action 추가
+- `components/ui/SignOutButton.tsx` — 로그아웃 폼 클라이언트 컴포넌트 (form action으로 logoutUser 호출)
+- `components/layout/Header.tsx` — async 서버 컴포넌트로 전환
+  - `auth()` 호출로 세션 확인
+  - 로그인 상태: 이름 + `<SignOutButton />` 표시
+  - 비로그인: person 아이콘 → `/auth/login` 링크
+- `components/layout/MobileHeaderClient.tsx` — 기존 MobileHeader 로직을 클라이언트 컴포넌트로 분리 (session prop 수신)
+- `components/layout/MobileHeader.tsx` — async 서버 래퍼로 교체
+  - `auth()` 호출, session을 MobileHeaderClient에 전달
+  - 기존 `<MobileHeader />` 임포트 경로 유지 → 16개 페이지 수정 불필요
+- `components/layout/MobileDrawer.tsx` — session prop 추가, 하단 Login 섹션 교체
+  - 비로그인: `/auth/login` 링크
+  - 로그인: 이름 표시 + `<SignOutButton />`
+- `pnpm build` 정상 (19개 라우트, 모든 shop/* 페이지 ƒ Dynamic으로 전환됨)
+
+### 현재 상태
+- `pnpm build`: 정상 (19개 라우트)
+- `pnpm dev`: 정상
+- 헤더 로그인 연동: 데스크톱(person 아이콘 → 로그인/로그아웃) + 모바일 드로어 하단 완료
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-05 세션 15
+
+### 완료
+- `pnpm add next-auth@beta bcryptjs` — NextAuth v5 (5.0.0-beta.31) + bcryptjs 설치
+- `auth.ts` — NextAuth Credentials Provider 설정
+  - Prisma `User.email` + bcrypt 비밀번호 검증
+  - JWT 세션 전략, `session.user.id` 포함 callback
+  - TypeScript `declare module 'next-auth'` 세션 타입 확장
+- `app/api/auth/[...nextauth]/route.ts` — NextAuth API 핸들러 (GET/POST)
+- `middleware.ts` 삭제 (Supabase SSR 세션 갱신) → `proxy.ts` 신규 생성
+  - `/cart/:path*` 경로 진입 시 비로그인 유저 → `/auth/login?callbackUrl=...` 리다이렉트
+  - Next.js 16 `ƒ Proxy (Middleware)` 로 빌드 결과에서 정상 인식 확인
+- `actions/auth.ts` — 로그인 + 회원가입 Server Actions
+  - `loginUser`: signIn('credentials') 호출, AuthError → 에러 메시지 반환, NEXT_REDIRECT re-throw
+  - `registerUser`: 이메일 중복 체크, bcrypt.hash(pw, 12), prisma.user.create
+- `app/auth/login/page.tsx` — 로그인 페이지 (클라이언트 컴포넌트)
+  - 이메일·비밀번호 입력, 에러 메시지, `useTransition` pending 상태
+  - DESIGN_SYSTEM.md 토큰 기반 UI: surface-container-lowest 카드, primary-container CTA
+- `app/auth/register/page.tsx` — 회원가입 페이지 (클라이언트 컴포넌트)
+  - 이름·이메일·비밀번호 입력, 이용약관 체크박스, 성공 시 /auth/login 이동
+- `.env.local.example` — `NEXTAUTH_SECRET` → `AUTH_SECRET` (NextAuth v5 권장)
+- `pnpm build` 정상 (19개 라우트, 타입 에러 없음)
+
+### 미완료 / 다음 세션
+- 헤더에 로그인/로그아웃 버튼 연동 (`auth()` 서버 컴포넌트에서 세션 확인)
+- 장바구니 Server Actions (`actions/cart.ts`)
+- NextAuth `AUTH_SECRET` 환경변수 .env.local에 추가 필요
+
+### 현재 상태
+- `pnpm build`: 정상 (19개 라우트)
+- `pnpm dev`: 정상
+- 인증: NextAuth v5 JWT 세션, /auth/login + /auth/register 구현
+- proxy.ts: /cart 비로그인 접근 차단
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
 ## 형식
 
 ```

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GIFT PET - 장바구니</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e0e3e6",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#5c5f60",
+                    "surface-container-low": "#f1f4f7",
+                    "primary-fixed-dim": "#ffb4a4",
+                    "on-primary-fixed-variant": "#8a1c04",
+                    "on-tertiary-container": "#343434",
+                    "surface-container": "#ebeef1",
+                    "secondary-fixed": "#e1e3e4",
+                    "inverse-on-surface": "#eef1f4",
+                    "tertiary": "#5f5e5e",
+                    "on-surface-variant": "#59413c",
+                    "on-secondary-fixed": "#191c1d",
+                    "on-primary-fixed": "#3d0500",
+                    "inverse-surface": "#2d3133",
+                    "secondary-container": "#e1e3e4",
+                    "primary": "#ac341b",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#ff7051",
+                    "on-secondary-fixed-variant": "#454748",
+                    "on-background": "#181c1e",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "tertiary-container": "#9e9c9c",
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "surface-container-high": "#e5e8eb",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f7fafd",
+                    "outline-variant": "#e0bfb8",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d7dadd",
+                    "primary-fixed": "#ffdad3",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "surface-variant": "#e0e3e6",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#ac341b",
+                    "on-secondary-container": "#626566",
+                    "on-error-container": "#93000a",
+                    "surface": "#f7fafd",
+                    "on-surface": "#181c1e",
+                    "inverse-primary": "#ffb4a4",
+                    "background": "#f7fafd",
+                    "tertiary-fixed": "#e4e2e1",
+                    "secondary-fixed-dim": "#c5c7c8",
+                    "outline": "#8c716b",
+                    "on-primary-container": "#6a1000"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px",
+                    "container-max-width": "1280px",
+                    "margin-desktop": "80px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top AppBar -->
+<header class="sticky top-0 z-50 bg-surface-container-lowest shadow-sm px-margin-mobile py-4 flex items-center justify-between">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="text-headline-sm font-headline-sm text-on-surface">장바구니</h1>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<main class="max-w-container-max-width mx-auto pb-32">
+<!-- Select All Section -->
+<section class="px-margin-mobile py-4 flex items-center justify-between border-b border-surface-container-highest">
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-label-md font-label-md text-on-surface">전체 선택 (1/1)</span>
+</label>
+<button class="text-label-md font-label-md text-secondary hover:text-primary transition-colors">선택 삭제</button>
+</section>
+<!-- Cart Items List -->
+<section class="px-margin-mobile py-6 flex flex-col gap-4">
+<!-- Item Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm relative flex gap-4 transition-transform active:scale-[0.98]">
+<button class="absolute top-2 right-2 text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="pt-1">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="High-quality studio photograph of premium organic dog treats in a modern minimalist bag. The product is placed against a soft warm peach background, reflecting a boutique pet store aesthetic. Bright, professional lighting highlights the natural textures of the treats, evoking a sense of trust and premium quality for GIFT PET brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBogUYq5CeQDY7FUfW-1PuGroTeEQ7UOULGEmKAvFM3dLkkoTqnYB7NtlHls1Ssg4mrDvX3IE83nKbOUiMtmKkMESTGhie6ZpftRfatZnFvhT5vd0ePUNT9k7DrA8P7lPvzhFG6U0exIxb4ZBpo0iXrcD0mB2Foxq19rkFF4VV93g69xHyLiprKxKz2atgWIumFWod7m6SPGS4h601egZnXlgE-obH31J6fjRw4FXVBLo2tAhF39XK4fI2JCEuBRfAq37x2hf1OPUc"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<p class="text-label-sm font-label-sm text-secondary mb-1">유기농 사료</p>
+<h3 class="text-body-md font-body-md text-on-surface font-semibold line-clamp-1">프리미엄 오가닉 비프 1.2kg</h3>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-headline-sm font-headline-sm text-primary">35,000원</span>
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface-container-lowest overflow-hidden">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-label-md">remove</span>
+</button>
+<span class="w-8 text-center text-label-md font-label-md text-on-surface">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-label-md">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Summary Details -->
+<section class="mt-4 px-margin-mobile py-6 bg-surface-container-low">
+<h2 class="text-label-md font-label-md text-on-surface-variant uppercase mb-4">결제 예정 금액</h2>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center text-body-md font-body-md text-secondary">
+<span>주문금액</span>
+<span>35,000원</span>
+</div>
+<div class="flex justify-between items-center text-body-md font-body-md text-secondary">
+<span>배송비</span>
+<span>3,000원</span>
+</div>
+<div class="flex justify-between items-center text-body-md font-body-md text-primary">
+<span>상품 할인</span>
+<span>-3,000원</span>
+</div>
+<div class="mt-2 pt-4 border-t border-outline-variant flex justify-between items-center">
+<span class="text-headline-sm font-headline-sm text-on-surface">총 결제 금액</span>
+<span class="text-headline-md font-headline-md text-primary">35,000원</span>
+</div>
+</div>
+</section>
+<!-- Frequently Bought Together -->
+<section class="mt-8">
+<div class="px-margin-mobile flex justify-between items-end mb-4">
+<h2 class="text-headline-sm font-headline-sm text-on-surface">함께 구매하면 좋은 상품</h2>
+</div>
+<div class="flex overflow-x-auto gap-4 px-margin-mobile pb-6 hide-scrollbar snap-x">
+<!-- Recommended Product 1 -->
+<div class="min-w-[160px] snap-start flex flex-col gap-2">
+<div class="w-40 h-40 rounded-xl overflow-hidden shadow-sm bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="A stylish, modern ceramic pet bowl with a soft matte finish in a warm terracotta color. The bowl is set in a bright, airy room with natural sunlight creating soft shadows. The overall mood is sophisticated and clean, perfectly matching the GIFT PET modern minimalist brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7QZlyw5Tg6ntx0ZzqlmwAEUY1AdgydG7CZyK6ZKa9CTmrzOcCaegXNep8fsrm2j-8dSiNiEdDofYIWdBO_NtxEY3jluU5MQcO9N6t23rtzbQ380g2FVMYTTT1XKdy1umMPOUVQIfWifc6AMSeog4qScQJAcwSB06XhZ-vs5q4WlHXS7ehO5-op5CRMIKubJGiboDYTgOojiNj5ef1-5CcfwvA22zpVAySaBGDMU0GUlfhe5XuETPIQG9U4TC2zihYuTxQFzLvTBk"/>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-secondary">식기류</p>
+<h4 class="text-body-md font-body-md text-on-surface font-medium truncate">세라믹 슬로우 식기</h4>
+<p class="text-headline-sm font-headline-sm text-on-surface">18,500원</p>
+</div>
+</div>
+<!-- Recommended Product 2 -->
+<div class="min-w-[160px] snap-start flex flex-col gap-2">
+<div class="w-40 h-40 rounded-xl overflow-hidden shadow-sm bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="Premium leather pet leash in a deep mahogany color, featuring polished brass hardware. The leash is coiled neatly on a white marble surface, illuminated by warm, ambient boutique lighting. The image conveys a sense of artisanal craftsmanship and high-end luxury for discerning pet owners." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFBUi7_g0E5J7efCCIav0hKHIrvEIUopx-xhuP_uqg5gi5gi2i5ChlIA5uT7tBf_RwdIW3k77lHrT7JjlEVDGcX4dCCHerTcq7WFIqWcBZmoJaOI7U_6v-BQuZXY1Q5Fqg9KdKjmW4njqQldBs43wTJB9rStxGiTZIAW_Uu8dNqedISx_HU2wabYCNzxBOxmNkdMqL0iPJsmCCbEkcsSOVrLvwEOBqHFXGrckP0vEvMY6NqWBZSdrWQJZjlULz7tVVnXTUdrxj8sY"/>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-secondary">외출용품</p>
+<h4 class="text-body-md font-body-md text-on-surface font-medium truncate">클래식 가죽 리드줄</h4>
+<p class="text-headline-sm font-headline-sm text-on-surface">29,000원</p>
+</div>
+</div>
+<!-- Recommended Product 3 -->
+<div class="min-w-[160px] snap-start flex flex-col gap-2 opacity-60">
+<div class="w-40 h-40 rounded-xl overflow-hidden shadow-sm bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="A soft, plush pet toy shaped like a bone, made from textured grey recycled fabric with a minimalist coral-colored embroidered logo. The toy is positioned in a bright playroom with blurred wooden elements in the background, maintaining the joyful and trustworthy mood of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH3_ohKLarwcAnja83lvb2LKJG92HCXSzIboWkCylZlBSim67t8A1dsBgV0V2hfahGieQt8cHwc4Ae9YTshkPB0EXSYFpeJaamXBUJe1a4vKa_4Gfk-Y2ALr2M6ZqpQO-58xWkyDKgLwdIklrZUIq9iu9Cw9VZPrTUJ7isL3JdsIucSlcYl4dJ1X5oTpI5tjtaCYTTSJqUeveSneulphoRR9kkffYUdbWmTAFnisf3_sEMRvT7138X8pqy1L04MyDx2Layvyyi_NE"/>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-secondary">장난감</p>
+<h4 class="text-body-md font-body-md text-on-surface font-medium truncate">친환경 코튼 뼈다귀</h4>
+<p class="text-headline-sm font-headline-sm text-on-surface">12,000원</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Sticky Bar -->
+<footer class="fixed bottom-0 left-0 right-0 z-50 bg-surface-container-lowest border-t border-surface-container-highest px-margin-mobile py-4 pb-8 max-w-container-max-width mx-auto">
+<div class="flex items-center gap-4">
+<div class="flex-shrink-0">
+<p class="text-label-sm font-label-sm text-secondary">총 1건</p>
+<p class="text-headline-sm font-headline-sm text-primary">35,000원</p>
+</div>
+<button class="flex-1 h-14 bg-primary text-on-primary font-headline-sm rounded-xl flex items-center justify-center transition-all hover:brightness-110 active:scale-[0.97] shadow-lg shadow-primary/20">
+                주문하기
+            </button>
+</div>
+</footer>
+<script>
+        // Simple Interaction for quantity buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if(this.innerText.includes('add') || this.innerText.includes('remove')) {
+                    // Logic would go here for a real app
+                    const icon = this.querySelector('.material-symbols-outlined').innerText;
+                    console.log('Action:', icon);
+                }
+            });
+        });
+
+        // Scroll shadow for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

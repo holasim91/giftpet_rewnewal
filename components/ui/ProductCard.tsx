@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@/types';
 import { PRODUCT_CATEGORY_LABELS } from '@/types';
+import AddToCartButton from '@/components/ui/AddToCartButton';
 
 interface ProductCardProps {
   product: Product;
@@ -99,9 +100,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
 
             {/* Desktop: Add to Cart */}
-            <div className="hidden md:block bg-primary-container text-white px-4 py-1.5 rounded-full text-[12px] text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-              Add to Cart
-            </div>
+            <AddToCartButton productId={product.id} />
           </div>
         </div>
       </div>

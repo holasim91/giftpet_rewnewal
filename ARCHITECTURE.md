@@ -109,10 +109,12 @@ gift-pet/
 ## 컴포넌트 책임 분리
 
 ### layout/ — 페이지 공통 요소
-- `Header.tsx`: 데스크톱(md 이상)에서 표시. sticky 포지션. 메가메뉴 포함.
-- `MobileHeader.tsx`: 모바일(md 미만)에서 표시. 햄버거 버튼으로 Drawer 제어.
-- `MobileDrawer.tsx`: `'use client'`. 열림/닫힘 상태 관리. overlay 포함.
+- `Header.tsx`: async 서버 컴포넌트. 데스크톱(md 이상)에서 표시. sticky 포지션. 메가메뉴 포함. `auth()`로 세션 확인 후 로그인 상태 표시.
+- `MobileHeader.tsx`: async 서버 래퍼. 모바일(md 미만)에서 표시. `auth()` 호출 후 session을 `MobileHeaderClient`에 전달.
+- `MobileHeaderClient.tsx`: `'use client'`. MobileHeader의 인터랙션 로직 분리 컴포넌트 (햄버거 버튼, Drawer 열기). session prop 수신.
+- `MobileDrawer.tsx`: `'use client'`. 열림/닫힘 상태 관리. overlay 포함. session prop으로 로그인/비로그인 하단 영역 분기.
 - `Footer.tsx`: 데스크톱 3컬럼 / 모바일 단일 컬럼. 뉴스레터 input 포함.
+- `BottomNav.tsx`: `md:hidden` 모바일 전용 하단 고정 네비게이션 (Home/Search/My Page/Cart).
 
 ### sections/ — 메인페이지 섹션
 - 각 섹션은 독립적. page.tsx에서 순서대로 배치.
@@ -125,6 +127,12 @@ gift-pet/
 - `CircularItem.tsx`: 원형 이미지 + 라벨. MD 추천 섹션에서 사용.
 - `ProductGrid.tsx`: 상품 카드를 4열 그리드로 렌더링. 상품 리스트 페이지에서 사용.
 - `CategorySidebar.tsx`: 카테고리 필터 사이드바. 상품 리스트 페이지 좌측 고정.
+- `ShopListContent.tsx`: 상품 리스트 페이지 공유 레이아웃 (사이드바 + 정렬 + 그리드 + 페이지네이션). `title`·`products` props만으로 구성.
+- `AddToCartButton.tsx`: `'use client'`. 상품 카드용 장바구니 추가 버튼. 비로그인 시 `/auth/login` 리다이렉트, 성공 시 Toast 표시.
+- `SignOutButton.tsx`: `'use client'`. `logoutUser` Server Action을 폼 액션으로 호출하는 로그아웃 버튼.
+- `ConfirmModal.tsx`: `'use client'`. 삭제 확인 모달 (overlay + 확인/취소 버튼). 데이터 삭제 전 반드시 사용.
+- `Toast.tsx`: `'use client'`. `ToastProvider` + `useToast` hook. `app/layout.tsx`에 전역 등록.
+- `ComingSoon.tsx`: 미구현 페이지 임시 플레이스홀더. `pageLabel` prop으로 페이지 구분 표시.
 
 ---
 
@@ -229,11 +237,11 @@ Supabase 연동 후 더미 데이터는 전부 제거하고 Server Actions으로
 - Vercel 배포
 
 ### v1 목표 (백엔드 연동)
-- Supabase + Prisma 연결
-- 상품 데이터 DB 연동 (더미 데이터 → 실제 DB)
-- 회원가입 / 로그인 (NextAuth.js)
-- 장바구니 (Server Actions)
-- 검색 (`/shop/search?q=`)
+- [x] Supabase + Prisma 연결
+- [x] 상품 데이터 DB 연동 (더미 데이터 → 실제 DB)
+- [x] 회원가입 / 로그인 (NextAuth.js v5 beta, Credentials Provider)
+- [x] 장바구니 (Server Actions — CRUD 완전 구현, 헤더 배지 실시간 반영)
+- [ ] 검색 (`/shop/search?q=`)
 
 ### v2 이후
 - 결제 (토스페이먼츠 또는 포트원)

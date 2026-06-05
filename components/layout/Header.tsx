@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import { auth } from '@/auth';
+import SignOutButton from '@/components/ui/SignOutButton';
+import { getCartCount } from '@/actions/cart';
 
 interface NavItem {
   label: string;
@@ -45,7 +48,10 @@ const NAV_ITEMS: NavItem[] = [
   { label: '영양제',       href: '/shop/supplements' },
 ];
 
-export default function Header() {
+export default async function Header() {
+  const session = await auth();
+  const displayName = session?.user?.name ?? session?.user?.email?.split('@')[0];
+  const cartCount = await getCartCount();
   return (
     <header className="hidden md:block bg-surface border-b border-outline-variant shadow-[0px_4px_20px_rgba(0,0,0,0.05)] sticky top-0 z-50 w-full">
       {/* Inner container — relative 유지 (메가메뉴 절대위치 기준점), group 제거 */}
@@ -59,19 +65,47 @@ export default function Header() {
               GIFT PET
             </Link>
           </div>
-          <div className="w-1/3 flex justify-end items-center space-x-6 text-on-surface">
-            <button type="button" aria-label="person" className="hover:text-primary transition-colors duration-200 ease-out">
-              <span className="material-symbols-outlined text-[28px]">person</span>
-            </button>
-            <button type="button" aria-label="favorite" className="hover:text-primary transition-colors duration-200 ease-out">
+          <div className="w-1/3 flex justify-end items-center gap-6 text-on-surface">
+
+            {/* Person — 비로그인: 아이콘 링크 / 로그인: 드롭다운 */}
+            {session ? (
+              <div className="group relative flex items-center">
+                {/* Trigger */}
+                <div className="flex items-center gap-1.5 cursor-pointer text-on-surface hover:text-primary transition-colors duration-200 ease-out select-none">
+                  <span className="material-symbols-outlined text-[28px]">person</span>
+                  <span className="text-label-md">{displayName}</span>
+                </div>
+
+                {/* pt-1: 투명 버퍼 — trigger → dropdown 이동 시 hover 유지 */}
+                <div className="absolute top-full right-0 pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50">
+                  <div className="min-w-[180px] bg-surface-container-lowest rounded-xl shadow-[0px_8px_30px_rgba(0,0,0,0.1)] border border-outline-variant py-3 px-4">
+                    <p className="text-label-md text-on-surface whitespace-nowrap">
+                      안녕하세요, {displayName}님
+                    </p>
+                    <div className="mt-3 pt-3 border-t border-outline-variant">
+                      <SignOutButton className="w-full text-left text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link href="/auth/login" aria-label="로그인" className="flex items-center hover:text-primary transition-colors duration-200 ease-out">
+                <span className="material-symbols-outlined text-[28px]">person</span>
+              </Link>
+            )}
+
+            <button type="button" aria-label="찜" className="flex items-center hover:text-primary transition-colors duration-200 ease-out">
               <span className="material-symbols-outlined text-[28px]">favorite</span>
             </button>
-            <button type="button" aria-label="shopping_cart" className="hover:text-primary transition-colors duration-200 ease-out relative">
+            <Link href="/cart" aria-label="장바구니" className="flex items-center hover:text-primary transition-colors duration-200 ease-out relative">
               <span className="material-symbols-outlined text-[28px]">shopping_cart</span>
-              <span className="absolute -top-2 -right-2 bg-primary-container text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                0
-              </span>
-            </button>
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary-container text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {cartCount > 9 ? '9+' : cartCount}
+                </span>
+              )}
+            </Link>
+
           </div>
         </div>
 

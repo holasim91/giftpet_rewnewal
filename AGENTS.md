@@ -64,3 +64,51 @@
 - 검색 기능 (input UI는 있지만 동작 없음)
 - 인증/로그인
 - 실제 상품 데이터 연동
+
+## 테스트 전략
+- 비즈니스 로직은 순수 함수로 분리하고 테스트 먼저 작성
+- 테스트 프레임워크: Vitest
+- UI 테스트는 하지 않음
+- 테스트 파일 위치: 구현 파일과 같은 디렉토리 (*.test.ts)
+
+---
+
+## 5. 공통 UI 컴포넌트 사용 규칙
+
+### Toast (`components/ui/Toast.tsx`)
+- `ToastProvider`는 `app/layout.tsx`에 전역으로 등록되어 있다. 중복 추가 금지.
+- 사용법: `'use client'` 컴포넌트 내에서 `const { showToast } = useToast()` 호출 후 `showToast('메시지', 'success' | 'error')`.
+- Server Action 성공/실패 결과는 반드시 Toast로 사용자에게 피드백한다.
+- 서버 컴포넌트에서는 직접 사용 불가. 클라이언트 래퍼를 만든다.
+
+### ConfirmModal (`components/ui/ConfirmModal.tsx`)
+- **데이터 삭제 액션은 반드시 `<ConfirmModal>`로 사용자 확인을 받은 뒤 실행한다.**
+- 필수 props: `isOpen`, `message`, `onConfirm`, `onCancel`.
+- `isPending` prop으로 처리 중 상태를 표시한다 (버튼 disabled + "처리 중..." 텍스트).
+- 취소(overlay 클릭 포함)·확인 버튼 모두 핸들러를 연결해야 한다.
+- 삭제가 아닌 일반 확인 대화상자에도 재사용 가능하다 (`confirmLabel` prop 변경).
+
+---
+
+## 6. Server Actions 규칙
+
+- 모든 Server Action은 `actions/` 디렉토리에 도메인별로 분리한다.
+  - `actions/auth.ts` — 로그인(`loginUser`)·로그아웃(`logoutUser`)·회원가입(`registerUser`)
+  - `actions/cart.ts` — 장바구니 CRUD (`getCart`, `getCartCount`, `addToCart`, `removeFromCart`, `removeSelectedFromCart`, `updateCartQuantity`)
+  - `actions/product.ts` — 상품 조회 (`getProducts`, `getProductById`, `getNewArrivals`, `getMdPickProducts`)
+- 파일 최상단에 `'use server'` 선언 필수.
+- 인증이 필요한 쓰기 액션은 내부 첫 줄에서 `const session = await auth()`로 세션을 확인하고, 없으면 즉시 early return 또는 에러 반환.
+- 쓰기 액션(`add`, `remove`, `update`) 완료 후 `revalidatePath('/관련경로')` 호출.
+- 새 도메인의 Server Action이 생기면 `actions/도메인.ts`로 신규 파일 생성. 기존 파일에 무관한 로직 혼재 금지.
+
+---
+
+## 7. 인증 규칙
+
+- 인증 구현: NextAuth v5 (beta). 설정은 루트의 `auth.ts`에서 Credentials Provider + JWT 전략.
+- 세션 확인 (서버): `import { auth } from '@/auth'` → `const session = await auth()`.
+- 세션 확인 (클라이언트): Server Action 내부에서 처리하고 결과만 반환. 클라이언트에서 `auth()` 직접 호출 금지.
+- 보호 라우트: `proxy.ts`(미들웨어)가 `/cart/*` 비로그인 접근을 `/auth/login?callbackUrl=...`으로 차단. 새 보호 라우트 추가 시 `proxy.ts`의 matcher에 경로 추가.
+- 비로그인 유저가 클라이언트에서 인증 필요 기능 사용 시: `router.push('/auth/login')`.
+- 로그아웃: `<SignOutButton />` 컴포넌트 사용 (`logoutUser` Server Action이 폼 액션으로 연결됨).
+- 비밀번호 해싱: `bcryptjs`, cost factor 12 (`bcrypt.hash(password, 12)`).
