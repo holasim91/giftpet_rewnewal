@@ -4,6 +4,12 @@
 // 관계 필드(cart 등)는 UI에서 불필요하므로 제외.
 // createdAt / updatedAt는 선택적(?)으로 정의해 더미 데이터에서도 사용 가능하게 함.
 
+// ── Server Action 공통 반환 타입 ──────────────────────────────────────────
+
+export type ActionResult<T = void> =
+  | { success: true; data?: T }
+  | { success: false; error: string };
+
 // ── Enum ───────────────────────────────────────────────────────────────────
 
 export type AnimalCategory = 'dog' | 'cat';

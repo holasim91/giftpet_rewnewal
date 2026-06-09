@@ -7,9 +7,10 @@ import MobileDrawer from '@/components/layout/MobileDrawer';
 
 interface MobileHeaderProps {
   session: Session | null;
+  cartCount: number;
 }
 
-export default function MobileHeaderClient({ session }: MobileHeaderProps) {
+export default function MobileHeaderClient({ session, cartCount }: MobileHeaderProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -43,16 +44,18 @@ export default function MobileHeaderClient({ session }: MobileHeaderProps) {
               >
                 <span className="material-symbols-outlined">favorite</span>
               </button>
-              <button
-                type="button"
-                aria-label="Shopping cart"
+              <Link
+                href="/cart"
+                aria-label="장바구니"
                 className="hover:text-primary transition-colors duration-200 ease-out focus:outline-none relative"
               >
                 <span className="material-symbols-outlined">shopping_cart</span>
-                <span className="absolute -top-1 -right-1 bg-primary-container text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
-                  2
-                </span>
-              </button>
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary-container text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                    {cartCount > 9 ? '9+' : cartCount}
+                  </span>
+                )}
+              </Link>
             </div>
           </div>
 

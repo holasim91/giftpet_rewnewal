@@ -5,6 +5,37 @@
 
 ---
 
+## 2026-06-09 세션 23
+
+### 완료
+- `components/layout/MobileHeader.tsx` — `getCartCount()` import 추가, `Promise.all([auth(), getCartCount()])` 병렬 호출 후 `cartCount` prop 전달
+- `components/layout/MobileHeaderClient.tsx` — 하드코딩된 배지 `'2'` 제거, `cartCount: number` prop 수신, 0개 시 배지 숨김·9개 초과 시 `'9+'`, `<button>` → `<Link href="/cart">` 교체
+- `app/cart/page.tsx` + `app/cart/CartClient.tsx` — `SuggestionsSection` 더미 데이터(`SUGGESTIONS` 상수) 제거, `getMdPickProducts()` DB 연동, `suggestions: Product[]` prop 주입, 카드 → `<Link>` 교체
+- `app/mypage/MypageClient.tsx` 분리 — 22줄 조합 컴포넌트로 축소
+  - `components/mypage/ProfileCard.tsx` — 아바타·이름·이메일·로그아웃 버튼
+  - `components/mypage/NameChangeForm.tsx` — 이름 변경 폼, `useState`·`useTransition` 소유
+  - `components/mypage/PasswordModal.tsx` — 비밀번호 변경 카드 + 모달 + 닫기 확인 ConfirmModal
+  - `components/mypage/OrderHistory.tsx` — 주문 내역 플레이스홀더
+- `app/shop/product/[id]/ProductDetailClient.tsx` 분리 — 23줄 조합 컴포넌트로 축소
+  - `components/product/ProductImages.tsx` — 데스크톱 갤러리 + 모바일 히어로, `activeThumb` 상태 소유
+  - `components/product/ProductInfo.tsx` — 데스크톱 상품 정보 + 모바일 info card
+  - `components/product/ProductTabs.tsx` — 데스크톱/모바일 탭, `desktopTab`·`mobileTab` 상태 소유
+  - `components/product/AddToCartSection.tsx` — `qty`·`isPending`·`handleAddToCart` 소유, 데스크톱 action box + 모바일 sticky bar
+  - `components/ui/QuantityControl.tsx` — 수량 +/- 공통 컴포넌트 (`compact` / 기본 variant), `CartClient`·`AddToCartSection` 재사용
+- `types/index.ts` — `ActionResult<T = void>` 공통 타입 추가
+- Server Action 반환 타입 통일 (`{ error?: string }` / `{ success: boolean }` / `void` → `ActionResult`)
+  - `actions/cart.ts` — `addToCart`, `removeFromCart`, `removeSelectedFromCart`, `updateCartQuantity`
+  - `actions/auth.ts` — `loginUser`, `registerUser`
+  - `actions/user.ts` — `updateUserName`, `updateUserPassword`
+- 영향받는 컴포넌트 6개 `result?.error` → `!result.success` 교체
+  - `AddToCartButton`, `AddToCartSection`, `login/page`, `register/page`, `NameChangeForm`, `PasswordModal`
+
+### 현재 상태
+- `pnpm build`: 정상 (21개 라우트, TypeScript 에러 없음)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
 ## 2026-06-09 세션 22
 
 ### 완료

@@ -12,22 +12,18 @@ import {
 import { useToast } from '@/components/ui/Toast';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import AlertModal from '@/components/ui/AlertModal';
+import QuantityControl from '@/components/ui/QuantityControl';
+import type { Product } from '@/types';
 
 const SHIPPING_FEE = 3000;
 const FREE_SHIPPING_THRESHOLD = 100000;
 
-const SUGGESTIONS = [
-  { id: 's1', name: '프리미엄 세라믹 펫 식기 세트', price: 24000, badge: 'BEST' },
-  { id: 's2', name: '클라우드 메모리폼 펫 쿠션', price: 68000, badge: 'NEW' },
-  { id: 's3', name: '천연 실리콘 치발기 장난감', price: 12500, badge: null },
-  { id: 's4', name: '저소음 스마트 자동 급수기', price: 45000, badge: 'BEST' },
-];
-
 interface Props {
   initialItems: CartItemWithProduct[];
+  suggestions: Product[];
 }
 
-export default function CartClient({ initialItems }: Props) {
+export default function CartClient({ initialItems, suggestions }: Props) {
   const [items, setItems] = useState(initialItems);
   const [optimisticItems, addOptimistic] = useOptimistic(
     items,
@@ -183,7 +179,7 @@ export default function CartClient({ initialItems }: Props) {
         </div>
 
         {/* 추천 상품 */}
-        <SuggestionsSection />
+        <SuggestionsSection products={suggestions} />
       </main>
     );
   }
@@ -443,7 +439,7 @@ export default function CartClient({ initialItems }: Props) {
       </div>
 
       {/* 함께 구매하면 좋은 상품 */}
-      <SuggestionsSection />
+      <SuggestionsSection products={suggestions} />
 
       {/* Mobile: sticky bottom bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-surface-container-lowest border-t border-surface-container-highest px-margin-mobile py-4">
@@ -543,91 +539,35 @@ function OrderSummary({
   );
 }
 
-// ── Quantity control ──────────────────────────────────────────────────────────
-function QuantityControl({
-  quantity,
-  onDecrease,
-  onIncrease,
-  disabled,
-  compact = false,
-}: {
-  quantity: number;
-  onDecrease: () => void;
-  onIncrease: () => void;
-  disabled: boolean;
-  compact?: boolean;
-}) {
-  if (compact) {
-    return (
-      <div className="flex items-center border border-outline-variant rounded-lg bg-surface-container-lowest overflow-hidden">
-        <button
-          type="button"
-          onClick={onDecrease}
-          disabled={disabled || quantity <= 1}
-          className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-low transition-colors"
-        >
-          <span className="material-symbols-outlined text-label-md">remove</span>
-        </button>
-        <span className="w-8 text-center text-label-md font-bold">{quantity}</span>
-        <button
-          type="button"
-          onClick={onIncrease}
-          disabled={disabled}
-          className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-low transition-colors"
-        >
-          <span className="material-symbols-outlined text-label-md">add</span>
-        </button>
-      </div>
-    );
-  }
+// ── Suggestions section ───────────────────────────────────────────────────────
+function SuggestionsSection({ products }: { products: Product[] }) {
+  if (products.length === 0) return null;
 
-  return (
-    <div className="flex items-center border border-outline-variant rounded-full px-2 py-1">
-      <button
-        type="button"
-        onClick={onDecrease}
-        disabled={disabled || quantity <= 1}
-        className="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded-full transition-colors"
-      >
-        <span className="material-symbols-outlined text-sm">remove</span>
-      </button>
-      <span className="w-10 text-center text-body-md font-medium">{quantity}</span>
-      <button
-        type="button"
-        onClick={onIncrease}
-        disabled={disabled}
-        className="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded-full transition-colors"
-      >
-        <span className="material-symbols-outlined text-sm">add</span>
-      </button>
-    </div>
-  );
-}
-
-// ── Suggestions section (UI 전용, 데이터 연동 없음) ──────────────────────────
-function SuggestionsSection() {
   return (
     <section className="mt-16 md:mt-24 px-margin-mobile md:px-margin-desktop max-w-container mx-auto">
       <h3 className="text-headline-md font-bold mb-6 md:mb-8">함께 구매하면 좋은 상품</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {SUGGESTIONS.map((item) => (
-          <div key={item.id} className="group cursor-pointer">
+        {products.map((product) => (
+          <Link key={product.id} href={`/shop/product/${product.id}`} className="group">
             <div className="aspect-square bg-surface-container rounded-2xl overflow-hidden mb-3 md:mb-4 relative">
               <Image
-                src="/images/placeholder.jpg"
-                alt={item.name}
+                src={product.imageUrl}
+                alt={product.name}
                 fill
+                unoptimized
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              {item.badge && (
-                <span className="absolute top-2 left-2 bg-primary-container text-on-primary text-label-sm px-2 py-0.5 rounded text-[10px] font-bold uppercase">
-                  {item.badge}
+              {product.badges[0] && (
+                <span className="absolute top-2 left-2 bg-primary-container text-on-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                  {product.badges[0]}
                 </span>
               )}
             </div>
-            <h4 className="text-body-md font-semibold mb-1 line-clamp-1">{item.name}</h4>
-            <p className="text-headline-sm font-bold">{item.price.toLocaleString()}원</p>
-          </div>
+            <h4 className="text-body-md font-semibold mb-1 line-clamp-1">{product.name}</h4>
+            <p className="text-headline-sm font-bold">
+              {(product.discountPrice ?? product.price).toLocaleString()}원
+            </p>
+          </Link>
         ))}
       </div>
     </section>

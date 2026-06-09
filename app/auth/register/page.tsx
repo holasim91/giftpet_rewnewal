@@ -40,7 +40,7 @@ export default function RegisterPage() {
   function onSubmit(data: FormValues) {
     startTransition(async () => {
       const result = await registerUser(data.email, data.password, data.name);
-      if (result?.error) {
+      if (!result.success) {
         setError('email', { message: result.error });
       } else {
         router.push('/auth/login');

@@ -15,7 +15,7 @@ export default function LoginPage() {
     setError('');
     startTransition(async () => {
       const result = await loginUser(email, password);
-      if (result?.error) setError(result.error);
+      if (!result.success) setError(result.error);
     });
   }
 

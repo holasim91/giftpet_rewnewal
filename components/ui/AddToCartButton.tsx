@@ -20,7 +20,7 @@ export default function AddToCartButton({ productId, disabled = false }: Props) 
     if (disabled) return;
     startTransition(async () => {
       const result = await addToCart(productId, 1);
-      if (result?.error) {
+      if (!result.success) {
         router.push('/auth/login');
       } else {
         showToast('장바구니에 추가되었습니다', 'success');

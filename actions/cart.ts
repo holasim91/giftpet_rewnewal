@@ -3,6 +3,7 @@
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import type { ActionResult } from '@/types';
 
 export type CartItemWithProduct = {
   id: string;
@@ -51,9 +52,9 @@ export async function getCartCount(): Promise<number> {
   return prisma.cart.count({ where: { userId: session.user.id } });
 }
 
-export async function addToCart(productId: string, quantity = 1): Promise<{ error?: string }> {
+export async function addToCart(productId: string, quantity = 1): Promise<ActionResult> {
   const session = await auth();
-  if (!session?.user?.id) return { error: '로그인이 필요합니다.' };
+  if (!session?.user?.id) return { success: false, error: '로그인이 필요합니다.' };
 
   const existing = await prisma.cart.findFirst({
     where: { userId: session.user.id, productId },
@@ -71,38 +72,40 @@ export async function addToCart(productId: string, quantity = 1): Promise<{ erro
   }
 
   revalidatePath('/cart');
-  return {};
+  return { success: true };
 }
 
-export async function removeFromCart(cartId: string): Promise<void> {
+export async function removeFromCart(cartId: string): Promise<ActionResult> {
   const session = await auth();
-  if (!session?.user?.id) return;
+  if (!session?.user?.id) return { success: false, error: '로그인이 필요합니다.' };
 
   await prisma.cart.deleteMany({
     where: { id: cartId, userId: session.user.id },
   });
 
   revalidatePath('/cart');
+  return { success: true };
 }
 
-export async function removeSelectedFromCart(cartIds: string[]): Promise<void> {
+export async function removeSelectedFromCart(cartIds: string[]): Promise<ActionResult> {
   const session = await auth();
-  if (!session?.user?.id) return;
+  if (!session?.user?.id) return { success: false, error: '로그인이 필요합니다.' };
 
   await prisma.cart.deleteMany({
     where: { id: { in: cartIds }, userId: session.user.id },
   });
 
   revalidatePath('/cart');
+  return { success: true };
 }
 
 export async function updateCartQuantity(
   cartId: string,
   quantity: number,
-): Promise<{ success: boolean }> {
+): Promise<ActionResult> {
   const session = await auth();
-  if (!session?.user?.id) return { success: false };
-  if (quantity < 1) return { success: false };
+  if (!session?.user?.id) return { success: false, error: '로그인이 필요합니다.' };
+  if (quantity < 1) return { success: false, error: '수량은 1 이상이어야 합니다.' };
 
   try {
     await prisma.cart.updateMany({
@@ -111,6 +114,6 @@ export async function updateCartQuantity(
     });
     return { success: true };
   } catch {
-    return { success: false };
+    return { success: false, error: '수량 변경에 실패했습니다.' };
   }
 }
