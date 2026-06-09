@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#ac341b",
+                        "on-secondary-fixed-variant": "#454748",
+                        "on-secondary-container": "#626566",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "on-surface": "#181c1e",
+                        "on-primary": "#ffffff",
+                        "background": "#f7fafd",
+                        "surface-container-highest": "#e0e3e6",
+                        "tertiary-container": "#9e9c9c",
+                        "surface-dim": "#d7dadd",
+                        "on-error": "#ffffff",
+                        "surface-container": "#ebeef1",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#8a1c04",
+                        "secondary": "#5c5f60",
+                        "primary-fixed": "#ffdad3",
+                        "outline-variant": "#e0bfb8",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-primary-container": "#6a1000",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-container": "#343434",
+                        "inverse-on-surface": "#eef1f4",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#e1e3e4",
+                        "on-secondary-fixed": "#191c1d",
+                        "inverse-primary": "#ffb4a4",
+                        "surface-container-high": "#e5e8eb",
+                        "on-surface-variant": "#59413c",
+                        "tertiary": "#5f5e5e",
+                        "surface-bright": "#f7fafd",
+                        "surface-container-low": "#f1f4f7",
+                        "surface": "#f7fafd",
+                        "surface-variant": "#e0e3e6",
+                        "outline": "#8c716b",
+                        "primary-fixed-dim": "#ffb4a4",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "secondary-container": "#e1e3e4",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "on-error-container": "#93000a",
+                        "on-background": "#181c1e",
+                        "primary-container": "#ff7051",
+                        "primary": "#ac341b",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#c5c7c8",
+                        "on-primary-fixed": "#3d0500"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "8px",
+                        "lg": "12px",
+                        "xl": "16px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "80px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "container-max-width": "1280px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .nav-item-active {
+            border-bottom: 2px solid #ac341b;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface shadow-sm sticky top-0 z-50 w-full">
+<div class="max-w-container-max-width mx-auto flex flex-col items-center px-4 md:px-margin-desktop py-4">
+<div class="w-full flex justify-between items-center mb-4">
+<div class="flex items-center gap-2">
+<span class="text-headline-md font-headline-md font-extrabold text-primary">GIFT PET</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-primary hover:scale-95 transition-transform" data-icon="person">person</button>
+<button class="material-symbols-outlined text-primary hover:scale-95 transition-transform" data-icon="favorite">favorite</button>
+<button class="material-symbols-outlined text-primary hover:scale-95 transition-transform" data-icon="shopping_cart">shopping_cart</button>
+</div>
+</div>
+<nav class="w-full flex justify-between items-center">
+<div class="flex gap-8">
+<a class="font-label-md text-label-md uppercase text-secondary hover:text-primary transition-colors" href="#">NEW</a>
+<a class="font-label-md text-label-md uppercase text-secondary hover:text-primary transition-colors" href="#">BEST</a>
+<a class="font-label-md text-label-md uppercase text-secondary hover:text-primary transition-colors" href="#">EVENT</a>
+<a class="font-label-md text-label-md uppercase text-secondary hover:text-primary transition-colors" href="#">COMMUNITY</a>
+<a class="font-label-md text-label-md uppercase text-secondary hover:text-primary transition-colors" href="#">Q&amp;A</a>
+</div>
+<div class="relative hidden md:block w-64">
+<input class="w-full bg-surface-container border-none rounded-full px-4 py-2 text-body-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-secondary" data-icon="search">search</span>
+</div>
+</nav>
+</div>
+</header>
+<main class="max-w-container-max-width mx-auto px-4 md:px-margin-desktop py-12">
+<!-- User Profile Section -->
+<section class="mb-12">
+<div class="bg-surface-container-lowest rounded-xl p-8 flex flex-col md:flex-row items-center gap-8 shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<div class="w-24 h-24 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[48px]" data-icon="pets" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<div class="flex-grow text-center md:text-left">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-1">홍길동 님</h1>
+<p class="font-body-md text-body-md text-secondary">petlover@email.com</p>
+<div class="mt-4 flex flex-wrap justify-center md:justify-start gap-4">
+<span class="px-3 py-1 bg-surface-container rounded-full font-label-sm text-label-sm text-secondary">골드 회원</span>
+<span class="px-3 py-1 bg-primary-container/10 rounded-full font-label-sm text-label-sm text-primary">적립금 12,500P</span>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full px-6 py-3 bg-white border border-outline-variant text-primary font-label-md text-label-md rounded-lg hover:bg-surface-container transition-colors">
+                        로그아웃
+                    </button>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Account Management -->
+<div class="lg:col-span-1 flex flex-col gap-gutter">
+<div class="bg-white rounded-xl p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-container">
+<h2 class="font-headline-sm text-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="settings">settings</span>
+                        회원 정보 수정
+                    </h2>
+<form class="space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm text-secondary mb-2">이름</label>
+<input class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" type="text" value="홍길동"/>
+</div>
+<button class="w-full bg-primary text-white font-label-md text-label-md py-3 rounded-lg hover:bg-surface-tint active:scale-95 transition-all" type="submit">
+                            이름 변경하기
+                        </button>
+</form>
+</div>
+<div class="bg-white rounded-xl p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-container">
+<h2 class="font-headline-sm text-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="lock">lock</span>
+                        비밀번호 변경
+                    </h2>
+<form class="space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm text-secondary mb-2">현재 비밀번호</label>
+<input class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="••••••••" type="password"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-secondary mb-2">새 비밀번호</label>
+<input class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="••••••••" type="password"/>
+</div>
+<button class="w-full bg-white border border-primary text-primary font-label-md text-label-md py-3 rounded-lg hover:bg-primary-container/10 active:scale-95 transition-all" type="submit">
+                            비밀번호 저장
+                        </button>
+</form>
+</div>
+</div>
+<!-- Order History Section -->
+<div class="lg:col-span-2">
+<div class="bg-white rounded-xl p-8 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-container h-full flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline-sm text-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="shopping_bag">shopping_bag</span>
+                            주문 내역
+                        </h2>
+<button class="text-secondary font-label-sm text-label-sm hover:text-primary transition-colors">전체보기 &gt;</button>
+</div>
+<!-- Placeholder State -->
+<div class="flex-grow flex flex-col items-center justify-center py-20 text-center">
+<div class="w-20 h-20 bg-surface-container-low rounded-full flex items-center justify-center mb-4 relative">
+<span class="material-symbols-outlined text-tertiary-container text-[40px]" data-icon="construction">construction</span>
+<div class="absolute -top-1 -right-1">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+</div>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface mb-2">준비 중입니다</p>
+<p class="font-body-md text-body-md text-secondary max-w-xs">
+                            현재 주문 내역 시스템을 고도화하고 있습니다. <br/>곧 더 편리한 내역 확인 기능을 제공해 드릴게요.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Links Bento -->
+<section class="mt-gutter grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="p-6 bg-surface-container-high rounded-lg hover:bg-primary-container/20 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-primary mb-2 group-hover:scale-110 transition-transform" data-icon="local_shipping">local_shipping</span>
+<p class="font-label-md text-label-md">배송지 관리</p>
+</div>
+<div class="p-6 bg-surface-container-high rounded-lg hover:bg-primary-container/20 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-primary mb-2 group-hover:scale-110 transition-transform" data-icon="confirmation_number">confirmation_number</span>
+<p class="font-label-md text-label-md">쿠폰함</p>
+</div>
+<div class="p-6 bg-surface-container-high rounded-lg hover:bg-primary-container/20 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-primary mb-2 group-hover:scale-110 transition-transform" data-icon="rate_review">rate_review</span>
+<p class="font-label-md text-label-md">나의 리뷰</p>
+</div>
+<div class="p-6 bg-surface-container-high rounded-lg hover:bg-primary-container/20 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-primary mb-2 group-hover:scale-110 transition-transform" data-icon="help">help</span>
+<p class="font-label-md text-label-md">1:1 문의</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low w-full border-t border-surface-container">
+<div class="max-w-container-max-width mx-auto py-12 px-4 md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-8">
+<div class="flex flex-col gap-4">
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface">GIFT PET</span>
+<p class="text-secondary font-body-md text-body-md max-w-sm">
+                    반려동물과의 행복한 삶을 위한 프리미엄 큐레이션 서비스. <br/>기프트 펫이 당신의 가족을 응원합니다.
+                </p>
+</div>
+<div class="flex flex-wrap gap-x-12 gap-y-6">
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md text-on-surface uppercase">Company</h4>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">About Us</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md text-on-surface uppercase">Support</h4>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Shipping Info</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">FAQ</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Contact Us</a>
+</div>
+</div>
+</div>
+<div class="max-w-container-max-width mx-auto px-4 md:px-margin-desktop pb-8">
+<p class="font-label-sm text-label-sm text-secondary border-t border-surface-container pt-8">
+                © 2024 GIFT PET. All rights reserved.
+            </p>
+</div>
+</footer>
+<script>
+        // Micro-interaction for input fields
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label')?.classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label')?.classList.remove('text-primary');
+            });
+        });
+    </script>
+</body></html>

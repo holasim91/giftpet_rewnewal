@@ -56,8 +56,9 @@ export default function MobileHeaderClient({ session }: MobileHeaderProps) {
             </div>
           </div>
 
-          {/* Row 2: Search Bar */}
-          <div className="w-full relative">
+          {/* TODO: 검색 기능 구현 예정
+              검색창 UI는 구현되어 있으나 기능 미구현으로 임시 비활성화 */}
+          {/* <div className="w-full relative">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">
               search
             </span>
@@ -66,7 +67,7 @@ export default function MobileHeaderClient({ session }: MobileHeaderProps) {
               placeholder="Search for treats, beds..."
               className="w-full bg-surface-container-low border border-outline-variant rounded-lg pl-10 pr-4 py-2 text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors"
             />
-          </div>
+          </div> */}
 
         </div>
       </header>

@@ -82,7 +82,13 @@ export default async function Header() {
                     <p className="text-label-md text-on-surface whitespace-nowrap">
                       안녕하세요, {displayName}님
                     </p>
-                    <div className="mt-3 pt-3 border-t border-outline-variant">
+                    <div className="mt-3 pt-3 border-t border-outline-variant flex flex-col gap-2">
+                      <Link
+                        href="/mypage"
+                        className="text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200"
+                      >
+                        마이페이지
+                      </Link>
                       <SignOutButton className="w-full text-left text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" />
                     </div>
                   </div>
@@ -109,8 +115,9 @@ export default async function Header() {
           </div>
         </div>
 
-        {/* Row 2: Search Bar */}
-        <div className="flex justify-center w-full">
+        {/* TODO: 검색 기능 구현 예정
+            검색창 UI는 구현되어 있으나 기능 미구현으로 임시 비활성화 */}
+        {/* <div className="flex justify-center w-full">
           <div className="relative w-full max-w-md">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-tertiary">search</span>
             <input
@@ -119,7 +126,7 @@ export default async function Header() {
               className="w-full bg-surface-container rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-1 focus:ring-primary border-none text-body-md transition-shadow"
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Row 3: GNB — self-center로 텍스트 너비에 맞게 축소, relative로 메가메뉴 기준점 */}
         <nav className="flex items-center space-x-8 self-center relative">

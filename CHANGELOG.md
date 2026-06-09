@@ -5,6 +5,41 @@
 
 ---
 
+## 2026-06-09 세션 22
+
+### 완료
+- `app/mypage/MypageClient.tsx` — 좌측 카드(회원 정보 수정, 비밀번호 변경)와 우측 카드(주문 내역) 높이 통일
+  - 그리드 컨테이너에 `items-stretch` 추가
+  - 회원 정보 수정 카드에 `flex-1` 추가 → 우측 카드와 동일 높이 채움
+- `components/layout/Header.tsx` — 데스크톱 검색창 UI 주석 처리 (TODO 포함)
+- `components/layout/MobileHeaderClient.tsx` — 모바일 검색창 UI 주석 처리 (TODO 포함)
+- `README.md` — `## v2 구현 예정` 섹션 추가 (배송지 관리 / 상품 옵션 / 찜 목록 / 주문 내역 / 소셜 로그인 / 장바구니 개선 / 상품 리뷰 / 결제)
+
+### 현재 상태
+- `pnpm build`: 정상 (21개 라우트, TypeScript 에러 없음)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-09 세션 21
+
+### 완료
+- `app/auth/register/page.tsx` — react-hook-form 적용 및 유효성 검사·UX 개선
+  - `useForm<FormValues>({ mode: 'onTouched' })` — 첫 blur 후 onChange 재검사
+  - 유효성 검사: 이름(1자 이상) / 이메일(형식 검사) / 비밀번호(8자 이상) / 비밀번호 확인(일치 검사) / 약관 동의(필수)
+  - 비밀번호 확인 실시간 일치 표시: `watch` 값 직접 비교 → 일치 시 초록 체크 + 링 표시
+  - 비밀번호 변경 시 confirmPassword 자동 재검사 (`trigger('confirmPassword')` via onChange)
+  - 비밀번호 / 비밀번호 확인 보기/숨기기 토글 (visibility / visibility_off 아이콘)
+  - 각 필드 에러 메시지 필드 하단 표시 + 에러 상태 붉은 링
+  - 서버 액션 `registerUser` 반환 에러("이미 사용 중인 이메일입니다.") → `setError('email')` 로 이메일 필드 하단 표시
+  - 기존 useState 기반 → react-hook-form으로 전면 교체, 코드 간소화
+
+### 현재 상태
+- `pnpm build`: 정상 (21개 라우트, TypeScript 에러 없음)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
 ## 2026-06-08 세션 20
 
 ### 완료

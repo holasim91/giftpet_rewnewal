@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GIFT PET - My Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .custom-scroll-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .active-interaction:active {
+            transform: scale(0.95);
+            transition: transform 0.1s ease-out;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f1f4f7",
+                        "error": "#ba1a1a",
+                        "primary-container": "#ff7051",
+                        "on-background": "#181c1e",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#ffdad3",
+                        "on-secondary-container": "#626566",
+                        "primary-fixed-dim": "#ffb4a4",
+                        "tertiary-container": "#9e9c9c",
+                        "surface-bright": "#f7fafd",
+                        "on-secondary-fixed-variant": "#454748",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#e1e3e4",
+                        "surface": "#f7fafd",
+                        "background": "#f7fafd",
+                        "on-primary": "#ffffff",
+                        "secondary": "#5c5f60",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#ac341b",
+                        "secondary-fixed": "#e1e3e4",
+                        "on-primary-fixed": "#3d0500",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-secondary-fixed": "#191c1d",
+                        "inverse-on-surface": "#eef1f4",
+                        "outline-variant": "#e0bfb8",
+                        "outline": "#8c716b",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e5e8eb",
+                        "on-surface-variant": "#59413c",
+                        "on-surface": "#181c1e",
+                        "tertiary": "#5f5e5e",
+                        "tertiary-fixed": "#e4e2e1",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-tertiary-container": "#343434",
+                        "surface-dim": "#d7dadd",
+                        "surface-tint": "#ac341b",
+                        "inverse-primary": "#ffb4a4",
+                        "surface-variant": "#e0e3e6",
+                        "on-primary-fixed-variant": "#8a1c04",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-container": "#6a1000",
+                        "surface-container": "#ebeef1",
+                        "secondary-fixed-dim": "#c5c7c8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "base": "8px",
+                        "margin-desktop": "80px",
+                        "gutter": "24px",
+                        "container-max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-xl": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm text-primary flex justify-between items-center px-margin-mobile h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-headline-md active-interaction">menu</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile uppercase tracking-wider text-primary">GIFT PET</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-headline-md active-interaction">shopping_cart</span>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile flex flex-col gap-6 max-w-md mx-auto">
+<!-- User Profile Card -->
+<section class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A clean, professional portrait of a smiling middle-aged man with short dark hair, wearing a casual stylish linen shirt. The lighting is soft and natural, coming from the side to highlight warm skin tones. The background is a minimalist, blurred modern interior with soft neutral colors, maintaining a high-end boutique aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3YylIkMMHpdwyX2cLUw1xOLWZg2B6zsA9uenw2wD21iRopQQo0xT8n2z323SNDssxZv6SAK6gobNo2Pkn8yqxVd0Bk8S3QzXVV_OzDbMJV5AkpTryaWqXJHy_MUzpqAybUvVkCMi18xHXVgkfFZQJbV_oSY0eRnPTeILCspa3U6ppbiaXhmUJGF6qx9uNWY9DvtFgeoRxdrTPLrTQijlv6btWYfbeSgA-Rc1RXWsfXwLY30uimSHuMLrNeoxDspDhUFu2rW-KtA8"/>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">홍길동 님</h2>
+<p class="font-body-md text-label-md text-secondary">petlover@email.com</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-2">
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col items-center justify-center gap-1">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-tight">Grade</span>
+<span class="text-primary font-headline-sm text-headline-sm">골드 회원</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col items-center justify-center gap-1">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-tight">Points</span>
+<span class="text-on-surface font-headline-sm text-headline-sm">12,500P</span>
+</div>
+</div>
+</section>
+<!-- Section 1: Edit Info -->
+<section class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<h3 class="font-headline-sm text-headline-sm mb-4">회원 정보 수정</h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-secondary">이름</label>
+<input class="w-full h-12 px-4 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none text-body-md font-body-md bg-surface" type="text" value="홍길동"/>
+</div>
+<button class="w-full h-12 bg-primary text-on-primary rounded-lg font-label-md text-label-md active-interaction">
+                    이름 변경하기
+                </button>
+</div>
+</section>
+<!-- Section 2: Change Password -->
+<section class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<h3 class="font-headline-sm text-headline-sm mb-4">비밀번호 변경</h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-secondary">현재 비밀번호</label>
+<input class="w-full h-12 px-4 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none text-body-md font-body-md bg-surface" placeholder="••••••••" type="password"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-secondary">새 비밀번호</label>
+<input class="w-full h-12 px-4 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none text-body-md font-body-md bg-surface" placeholder="새 비밀번호 입력" type="password"/>
+</div>
+<button class="w-full h-12 border border-outline text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container active-interaction">
+                    비밀번호 저장
+                </button>
+</div>
+</section>
+<!-- Section 3: Order History -->
+<section class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] mb-8">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm">주문 내역</h3>
+<span class="material-symbols-outlined text-secondary">chevron_right</span>
+</div>
+<div class="py-12 flex flex-col items-center justify-center gap-4 border-2 border-dashed border-outline-variant rounded-xl bg-surface-container-low/50">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings: 'FILL' 1;">construction</span>
+</div>
+<div class="text-center">
+<p class="font-headline-sm text-headline-sm text-secondary">준비 중입니다</p>
+<p class="font-body-md text-label-md text-outline-variant mt-1">곧 새로운 주문 내역 기능을 만나보세요!</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-surface-container-lowest shadow-[0px_-4px_20px_rgba(0,0,0,0.05)] rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-secondary px-3 py-1 active-interaction">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary px-3 py-1 active-interaction">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-sm text-label-sm">Shop</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary px-3 py-1 active-interaction">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Best</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary px-3 py-1 active-interaction">
+<span class="material-symbols-outlined">local_activity</span>
+<span class="font-label-sm text-label-sm">Event</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 active-interaction">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">My Page</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label').classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label').classList.remove('text-primary');
+            });
+        });
+
+        // Simple button click ripple effect or visual feedback
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                let ripple = document.createElement('span');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+<style>
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+            width: 20px;
+            height: 20px;
+        }
+        @keyframes ripple {
+            to {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
+    </style>
+</body></html>
