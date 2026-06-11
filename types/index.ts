@@ -36,6 +36,13 @@ export interface Product {
   updatedAt?: Date;
 }
 
+// ── Wishlist (찜 목록, 상품 정보 포함) ─────────────────────────────────────
+
+export interface WishlistItemWithProduct {
+  id: string;
+  product: Product;
+}
+
 // ── CircularRecommendation (UI 전용, DB 없음) ──────────────────────────────
 
 export interface CircularRecommendation {

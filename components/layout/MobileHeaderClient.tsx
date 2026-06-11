@@ -8,9 +8,14 @@ import MobileDrawer from '@/components/layout/MobileDrawer';
 interface MobileHeaderProps {
   session: Session | null;
   cartCount: number;
+  wishlistCount: number;
 }
 
-export default function MobileHeaderClient({ session, cartCount }: MobileHeaderProps) {
+export default function MobileHeaderClient({
+  session,
+  cartCount,
+  wishlistCount,
+}: MobileHeaderProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -37,13 +42,18 @@ export default function MobileHeaderClient({ session, cartCount }: MobileHeaderP
             </Link>
 
             <div className="flex items-center space-x-3 text-on-surface-variant">
-              <button
-                type="button"
+              <Link
+                href="/wishlist"
                 aria-label="Wishlist"
-                className="hover:text-primary transition-colors duration-200 ease-out focus:outline-none"
+                className="hover:text-primary transition-colors duration-200 ease-out focus:outline-none relative"
               >
                 <span className="material-symbols-outlined">favorite</span>
-              </button>
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary-container text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                    {wishlistCount > 9 ? '9+' : wishlistCount}
+                  </span>
+                )}
+              </Link>
               <Link
                 href="/cart"
                 aria-label="장바구니"

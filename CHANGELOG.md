@@ -5,6 +5,201 @@
 
 ---
 
+## 2026-06-11 세션 31
+
+### 완료 (배지 스타일 상수 통합 + 메인 품절 dimming)
+- `lib/badge.ts` — `BADGE_STYLES` 상수 추가. `BEST: 'bg-[#4E7CAE] text-white'`, `NEW: 'bg-primary-container text-on-primary'`, `SOLD_OUT: 'bg-inverse-surface text-inverse-on-surface'`
+  - `getRightBadge` 반환값 '품절' → **'SOLD OUT'** 변경
+  - `getLeftBadge` 반환 타입 `string | null` → `'BEST' | 'NEW' | null` 명시
+- `lib/constants.ts` — 기존 `BADGE_STYLES` 제거 (badge.ts로 이관 완료)
+- `ProductCardBase` · `ProductCard` — import를 `@/lib/constants` → `@/lib/badge`로 교체, 좌측 배지 `BADGE_STYLES[leftBadge]`, 우측 SOLD OUT 배지 `BADGE_STYLES.SOLD_OUT` 사용
+- `ProductImages` · `ProductInfo` — 상세 페이지 배지도 동일 import 교체 (`as Record<string, string>` 캐스트로 동적 key 허용)
+- `components/ui/ProductCard.tsx` — `soldOut` 시 `opacity-60` 추가. 메인 신상품 캐러셀의 품절 상품도 shop 리스트와 동일하게 dimmed 처리됨.
+
+### 검증
+- `pnpm build`: 정상 (22개 라우트, 타입 에러 없음)
+- 브라우저(dev): 메인 신상품 캐러셀에서 힐스 사이언스 다이어트 어덜트 1.5kg `opacity-60` 적용 확인 (DOM querySelector 검증)
+
+### 현재 상태
+- `pnpm build`: 정상 (22개 라우트)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-11 세션 30
+
+### 완료 (배지 시스템 통일 + 품절 카드 처리)
+
+#### 1. seed 품절 상품 추가 + 버그 수정
+- `prisma/seed.ts` — `prisma.wishlist.deleteMany()` 추가 (외래키 참조 순서: Cart → Wishlist → Product). Wishlist 모델 추가 이후 누락된 delete 로직이었음.
+- '힐스 사이언스 다이어트 어덜트 1.5kg' 신규 추가 (`stock: 0`, `badges: ['BEST']`, 강아지 사료). 강아지 사료 3개 → 4개, 전체 15개.
+- `pnpm prisma db seed` 실행: Cart 1건·Wishlist 2건·Product 14건 삭제 후 15개 재삽입 완료.
+
+#### 2. 배지 시스템 통일
+- `lib/badge.ts` 신규 — `getLeftBadge(product)` (BEST > NEW 우선순위, null 가능), `getRightBadge(product)` (stock===0일 때만 '품절', null 가능)
+- `components/ui/ProductCardBase.tsx` — WishlistButton 제거, getLeftBadge/getRightBadge 적용. 우측 배지 영역이 하트 자리를 대체. 품절(`!isActive || stock===0`) 시 `opacity-60`. Quick Add 버튼: 판매종료 → '판매종료', stock===0 → '품절' + `bg-surface-container text-tertiary cursor-not-allowed` 스타일.
+- `components/ui/ProductCard.tsx` — WishlistButton 제거. StockBadge/StatusBadge/hasStockIssue 로직 제거. getLeftBadge/getRightBadge 적용. 좌하단 품절임박 배지 제거. `cartDisabled = !isActive || stock===0`, `disabledLabel = isDiscontinued ? '판매종료' : '품절'`.
+- `components/ui/AddToCartButton.tsx` — `disabledLabel?: string` prop 추가 (기본값 '품절'). disabled 시 prop 텍스트 표시.
+
+### 검증
+- `pnpm build`: 정상 (22개 라우트, 타입 에러 없음)
+- 브라우저(dev) `/shop/dog/food`: 4개 카드 중 힐스 사이언스 다이어트 어덜트 1.5kg가 좌BEST·우품절 배지 + opacity-60 표시. Quick Add 호버 텍스트: 정상 카드 "Add to Cart", 품절 카드 "품절" 확인.
+
+### 현재 상태
+- `pnpm build`: 정상 (22개 라우트)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-11 세션 29
+
+### 완료 (ProductCardBase 통합 리팩터링)
+- `components/ui/ProductCardBase.tsx` 신규 — ShopProductCard(ProductGrid)와 찜 전용 카드(WishlistClient)의 공통 베이스 컴포넌트
+  - 이미지(`aspect-square md:aspect-[4/5]`, `rounded-xl`, `object-cover`, shadow + hover lift) · 배지 · 하트(WishlistButton) · 카테고리/상품명/가격 포함
+  - 이미지~가격 영역만 `<Link href="/shop/product/${id}">` 래핑, 하단 액션 영역은 `children`으로 Link 바깥에 주입
+  - 품절(`!isActive || stock === 0`) 시 `opacity-60` + "품절" 배지 — WishlistClient에 있던 로직을 베이스로 이관 (ProductGrid도 품절 상태 표시 가능하게 됨)
+  - `showQuickAdd?: boolean` — `true` 시 이미지 하단 호버 Quick Add 오버레이 렌더 (ProductGrid 전용)
+- `components/ui/ProductGrid.tsx` — `ShopProductCard` 인라인 정의 제거, `<ProductCardBase showQuickAdd />` 로 교체. 파일 50줄 → 14줄
+- `app/(main)/wishlist/WishlistClient.tsx` — 인라인 카드 마크업 제거, `<ProductCardBase>` + `children`(체크박스 + 담기 버튼) 패턴으로 교체. 불필요해진 Image/Link/WishlistButton/BADGE_STYLES/PRODUCT_CATEGORY_LABELS import 제거
+
+### 검증
+- `pnpm build`: 정상 (22개 라우트, 타입 에러 없음)
+- 브라우저(dev): `/shop` 4열 그리드·배지·하트 동일, `/wishlist` 카드 디자인 동일 + 카드 아래 체크박스·장바구니 담기 버튼 정상 렌더 확인
+
+### 현재 상태
+- `pnpm build`: 정상 (22개 라우트)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-10 세션 28
+
+### 완료 (찜 목록 4-2단계 — 장바구니 담기 + 일괄 담기)
+- `app/(main)/wishlist/WishlistClient.tsx` 신규 (`'use client'`) — 찜 전용 그리드. `ProductGrid`는 `/shop` 공유 컴포넌트라 오염 방지 차원에서 카드 비주얼만 미러링하고 별도 작성
+  - 각 카드: 선택 체크박스 + "장바구니 담기" 버튼 → `addToCart(productId, 1)`. 담아도 찜 유지(`toggleWishlist` 미호출)
+  - 상단 툴바: 전체 선택 체크박스 `(선택/담기가능)` + "선택 상품 장바구니 담기" 버튼 → 선택 상품 `Promise.all`로 일괄 `addToCart`
+  - 담기 성공 시 Toast "장바구니에 추가되었습니다" (일괄도 동일, 일부 실패 시 "N개 상품을 담지 못했습니다")
+  - 품절(`!isActive || stock === 0`): "품절" 배지 + 카드 dimmed + 체크박스·담기 버튼 disabled, 전체 선택 분모에서 제외
+  - 전체 선택 기본값은 미선택 (찜은 "선택 후 담기" 흐름이 자연스러움)
+- `app/(main)/wishlist/page.tsx` — 목록 표시를 `ProductGrid` → `WishlistClient`로 교체 (빈 상태·헤더는 서버 컴포넌트 유지)
+
+### 검증
+- `pnpm build`: 정상 (22개 라우트, 타입 에러 없음)
+- 브라우저(dev): 찜 3건(정상 2 + 품절 1) 시드 후
+  - 툴바 전체 선택 `(0/2)` — 품절 제외 분모 정확, 일괄 버튼 초기 비활성
+  - 품절 카드: 버튼 "품절"·disabled, 체크박스 disabled, dimmed 확인
+  - 단건 담기 → Toast "장바구니에 추가되었습니다", 찜 하트 3개 유지(담아도 찜 해제 안 됨), 헤더 장바구니 배지 1→2
+  - 전체 선택 `(2/2)` → 일괄 담기 → 배지 2→3 (아카나 수량 누적 + 네츄럴코어 신규)
+  - 검증용 시드(찜 3건·임시 품절 stock0·테스트 장바구니 2건)는 모두 원복: cart 오리젠 q1만, wishlist 0, 오리젠 stock 45
+- 참고: 헤더 배지가 담기 직후 갱신된 것은 Server Action 호출이 현재 라우트를 재검증하기 때문
+
+### 현재 상태
+- `pnpm build`: 정상 (22개 라우트)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-10 세션 27
+
+### 완료 (찜 목록 페이지 1차)
+- `app/(main)/wishlist/page.tsx` 신규 — 서버 컴포넌트. `getWishlist()` 조회 → `item.product` 매핑 후 `ProductGrid` 재사용 (`/shop`과 동일 그리드 디자인)
+  - 헤더: "찜 목록" + 총 개수 (데스크톱 중앙 / 모바일 좌측, ShopListContent 헤더 스타일 차용)
+  - 빈 상태: 원형 favorite 아이콘 + "찜한 상품이 없습니다." + "쇼핑하러 가기"(→ `/shop`) 버튼
+- `proxy.ts` — matcher에 `/wishlist`, `/wishlist/:path*` 추가 (비로그인 시 `/auth/login?callbackUrl=` 리다이렉트)
+- `actions/wishlist.ts` — `getWishlist()`의 product select를 부분 필드 → `product: true`(전체 Product)로 변경. `ProductGrid`(props `Product[]`)에 그대로 전달 가능하게 함
+- `types/index.ts` — `WishlistItemWithProduct.product` 타입을 부분 객체 → `Product`로 단순화
+- `ARCHITECTURE.md` — (main) 트리에 `wishlist/`, URL 표 `/wishlist` 보호 라우트, v1 찜하기 항목 완료 체크
+
+### 검증
+- `pnpm build`: 정상 (22개 라우트, `/wishlist` ƒ Dynamic 추가, 타입 에러 없음)
+- 브라우저(dev): 빈 상태(총 0개 + 안내 + 버튼) 정상, 찜 3개 추가 후 `/wishlist` → `/shop` 동일 그리드 3개 + "총 3개 상품" + 헤더 배지 "3" 확인. 검증 후 찜 전체 해제, DB `wishlist` 0 rows 확인
+- 참고: 1차 작업이라 `/wishlist`에서 하트 해제 시 카드가 즉시 사라지지 않고 다음 새로고침에 반영됨 (서버 렌더 목록 + Provider Optimistic 분리)
+
+### 현재 상태
+- `pnpm build`: 정상 (22개 라우트)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-10 세션 26
+
+### 완료 (찜하기 3단계 — 헤더 찜 배지)
+- `components/layout/Header.tsx` (데스크톱) — `getWishlistCount()` import 추가, `Promise.all([getCartCount(), getWishlistCount()])` 병렬 호출. 찜 `<button>` → `<Link href="/wishlist">` 교체 + 배지(`wishlistCount > 0`일 때, 9 초과 시 `9+`). 장바구니 배지와 동일 스타일(`-top-2 -right-2`)
+- `components/layout/MobileHeader.tsx` (서버 래퍼) — `Promise.all`에 `getWishlistCount()` 추가, `wishlistCount` prop 전달
+- `components/layout/MobileHeaderClient.tsx` — `wishlistCount: number` prop 수신, 찜 `<button>` → `<Link href="/wishlist">` 교체 + 배지(`-top-1 -right-1`, 동일 규칙)
+- `ARCHITECTURE.md` — Header/MobileHeader/MobileHeaderClient 설명에 찜 배지·`/wishlist` 링크 반영
+
+### 검증
+- `pnpm build`: 정상 (21개 라우트, TypeScript 에러 없음)
+- 브라우저(dev): 찜 2개 추가 후 새로고침 → 데스크톱·모바일 헤더 모두 찜 아이콘 배지 "2" 표시, `href="/wishlist"` 확인. 검증 후 찜 2개 해제로 DB 정리
+- 참고: 헤더 배지는 서버 렌더 값이라 찜 토글 직후 즉시 갱신되지 않고 다음 네비게이션/새로고침 때 반영됨 (장바구니 배지와 동일 동작). `/wishlist` 페이지는 아직 미구현이라 링크 클릭 시 404 (다음 단계)
+
+### 미완료 / 다음 세션
+- `/wishlist` 페이지 + `proxy.ts` matcher 보호 라우트 (현재 헤더 링크 대상)
+
+### 현재 상태
+- `pnpm build`: 정상 (21개 라우트)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-10 세션 25
+
+### 완료 (찜하기 2단계 — UI 연동)
+- 찜 상태 전달 방식: **별도 단건 조회 + Context** 채택 (상품 조회에 isWishlisted 미포함)
+  - `actions/wishlist.ts` — `getWishlistedProductIds(): Promise<string[]>` 추가 (유저 찜 ID 전체 1쿼리)
+  - `app/(main)/layout.tsx` — async 전환, `getWishlistedProductIds()` 호출 후 `WishlistProvider`에 초기값 주입
+- `components/wishlist/WishlistProvider.tsx` 신규 — 찜 ID `Set<string>` Context
+  - `isWishlisted(id)` / `toggle(id)`. `toggle`은 Optimistic(즉시 setIds) → `toggleWishlist` 서버 호출 → 실패 시 롤백 + `/auth/login`, 성공 시 Toast
+- `components/ui/WishlistButton.tsx` 신규 — `useWishlist()` 구독 하트 (`div role="button"`, Link 내부 중첩 대비 `preventDefault`/`stopPropagation`)
+  - 찜 상태에 따라 채움(`icon-fill`)/비움 + 색상 분기, `className`·`iconClassName`으로 위치/크기 주입
+- `app/globals.css` — `@utility icon-fill` 추가 (Material Symbols `FILL 1` 채워진 하트)
+- `components/ui/ProductCard.tsx` — 이미지 우상단 `WishlistButton` 오버레이 추가, 기존 미동작 모바일 하트 div 제거, 재고이슈 보조 배지 우상단→좌하단 이동(하트와 겹침 방지)
+- `components/ui/ProductGrid.tsx` — 자체 `ShopProductCard`의 미동작 hover 하트 div를 `WishlistButton`으로 교체 (상품 리스트 13개 페이지가 ProductCard가 아닌 이 컴포넌트를 사용하므로 함께 연동, 상시 표시로 찜 상태 노출)
+- `components/product/AddToCartSection.tsx` — 데스크톱 액션 박스의 기존 찜 `<button>`을 `WishlistButton`으로 교체
+
+### 검증
+- `pnpm build`: 정상 (21개 라우트, TypeScript 에러 없음)
+- 브라우저(dev): `/shop` 그리드·상품 상세 양쪽에서 클릭 시 Optimistic 채움/비움, 서버 영속화, 재클릭 해제 확인. 콘솔/서버 에러 없음. (테스트로 추가한 찜은 모두 해제해 DB 정리)
+- 주의: 스키마 변경 후 dev 서버는 stale Prisma 클라이언트를 들고 있어 재시작 필요했음 (`prisma.wishlist` undefined → 재시작 후 해결)
+
+### 미완료 / 다음 세션
+- `/wishlist` 페이지 + `proxy.ts` matcher 보호 라우트
+- 헤더 찜 아이콘 카운트 배지 (`getWishlistCount()`)
+
+### 현재 상태
+- `pnpm build`: 정상 (21개 라우트)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
+## 2026-06-10 세션 24
+
+### 완료 (찜하기 1단계 — 스키마·Server Actions)
+- `prisma/schema.prisma` — `Wishlist` 모델 추가
+  - `id` / `userId` / `productId` / `createdAt`, `@@unique([userId, productId])`로 중복 찜 방지
+  - `User`·`Product`와 relation, `User.wishlist`·`Product.wishlist` 역참조 필드 추가
+- `prisma db push` + `generate` 실행 — Supabase DB에 Wishlist 테이블 반영
+  - prisma CLI가 `.env.local`을 자동 로드하지 않아 `node --env-file=.env.local node_modules/prisma/build/index.js db push`로 실행 (`prisma.config.ts`가 `process.env.DIRECT_URL` 참조)
+- `types/index.ts` — `WishlistItemWithProduct` 인터페이스 추가 (`getWishlist()` 반환 타입, 상품 정보 포함)
+- `actions/wishlist.ts` 신규 작성
+  - `toggleWishlist(productId)` — 있으면 삭제·없으면 추가, `ActionResult<{ wishlisted: boolean }>` 반환
+  - `getWishlist()` — 현재 유저 찜 목록 (상품 정보 포함, createdAt 내림차순)
+  - `getWishlistCount()` — 찜 개수
+  - 비로그인 처리: 조회는 빈 배열/0, 토글은 `{ success: false, error: '로그인이 필요합니다.' }`
+- `ARCHITECTURE.md` — `actions/wishlist.ts`, `/wishlist` 라우팅, `Wishlist` 테이블(DB 모델 섹션), `WishlistItemWithProduct` 타입, v1 목표에 찜하기 항목 반영
+
+### 미완료 / 다음 세션 (찜하기 2단계 — UI)
+- `/wishlist` 페이지 + `proxy.ts` matcher에 `/wishlist` 추가 (보호 라우트)
+- 상품 카드·상세 페이지에 찜 토글 버튼 (`favorite` 아이콘) 연동
+- 헤더 찜 아이콘 카운트 배지 (`getWishlistCount()`)
+
+### 현재 상태
+- `pnpm build`: 정상 (21개 라우트, TypeScript 에러 없음)
+- 마지막 수정 파일: `CHANGELOG.md`
+
+---
+
 ## 2026-06-09 세션 23
 
 ### 완료

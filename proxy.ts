@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import { NextResponse } from 'next/server';
 
-// /cart 경로는 로그인 필수. 비로그인 유저는 /auth/login으로 리다이렉트.
+// /cart·/mypage·/wishlist 경로는 로그인 필수. 비로그인 유저는 /auth/login으로 리다이렉트.
 export default auth((req) => {
   const isLoggedIn = !!req.auth;
 
@@ -13,5 +13,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ['/cart/:path*', '/mypage/:path*', '/mypage'],
+  matcher: ['/cart/:path*', '/mypage/:path*', '/mypage', '/wishlist/:path*', '/wishlist'],
 };

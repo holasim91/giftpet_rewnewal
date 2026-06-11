@@ -8,9 +8,10 @@ import { useToast } from '@/components/ui/Toast';
 interface Props {
   productId: string;
   disabled?: boolean;
+  disabledLabel?: string;
 }
 
-export default function AddToCartButton({ productId, disabled = false }: Props) {
+export default function AddToCartButton({ productId, disabled = false, disabledLabel = '품절' }: Props) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const { showToast } = useToast();
@@ -32,7 +33,7 @@ export default function AddToCartButton({ productId, disabled = false }: Props) 
   if (disabled) {
     return (
       <div className="hidden md:block bg-surface-container text-tertiary px-4 py-1.5 rounded-full text-[12px] text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-not-allowed select-none">
-        품절
+        {disabledLabel}
       </div>
     );
   }

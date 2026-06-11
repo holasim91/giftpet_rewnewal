@@ -30,7 +30,7 @@ const prisma = new PrismaClient({ adapter });
 // ─── 시드 데이터 ─────────────────────────────────────────────────────────────
 
 const PRODUCTS = [
-  // ── 강아지 사료 3개 ────────────────────────────────────────────────────────
+  // ── 강아지 사료 4개 ────────────────────────────────────────────────────────
   {
     name: '오리젠 오리지날 그레인프리 소고기&연어 800g',
     description: '신선한 소고기와 연어로 만든 그레인프리 프리미엄 강아지 사료.',
@@ -67,6 +67,19 @@ const PRODUCTS = [
     animalCategory: 'dog' as const,
     productCategory: 'food' as const,
     badges: [],
+  },
+
+  {
+    name: '힐스 사이언스 다이어트 어덜트 1.5kg',
+    description: '수의사 추천 1위 브랜드, 균형 잡힌 영양의 강아지 건식 사료.',
+    detailContent: null,
+    price: 42000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80',
+    stock: 0,
+    animalCategory: 'dog' as const,
+    productCategory: 'food' as const,
+    badges: ['BEST'],
   },
 
   // ── 강아지 간식 3개 ────────────────────────────────────────────────────────
@@ -220,10 +233,11 @@ const PRODUCTS = [
 async function main() {
   console.log('\n🌱 GIFT PET 데이터 시딩 시작\n');
 
-  // 외래 키 참조 순서: Cart → Product
+  // 외래 키 참조 순서: Cart → Wishlist → Product
   const cartCount = await prisma.cart.deleteMany();
+  const wishlistCount = await prisma.wishlist.deleteMany();
   const productCount = await prisma.product.deleteMany();
-  console.log(`🗑️  기존 데이터 삭제: Cart ${cartCount.count}건, Product ${productCount.count}건`);
+  console.log(`🗑️  기존 데이터 삭제: Cart ${cartCount.count}건, Wishlist ${wishlistCount.count}건, Product ${productCount.count}건`);
 
   const result = await prisma.product.createMany({
     data: PRODUCTS.map((p) => ({ ...p, badges: [...p.badges] })),
@@ -231,7 +245,7 @@ async function main() {
 
   console.log(`✅ 상품 ${result.count}개 시딩 완료\n`);
   console.log('── 구성 ────────────────────────────');
-  console.log('  강아지 사료    3개');
+  console.log('  강아지 사료    4개 (품절 1 포함)');
   console.log('  강아지 간식    3개');
   console.log('  강아지 용품    2개');
   console.log('  강아지 영양제  2개');

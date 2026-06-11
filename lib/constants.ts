@@ -1,10 +1,3 @@
-// 상품 배지(NEW/BEST/HIT) 색상 스타일. 여러 카드 컴포넌트에서 공유한다.
-export const BADGE_STYLES: Record<string, string> = {
-  NEW: 'bg-primary-container text-on-primary',
-  BEST: 'bg-[#343434] text-white',
-  HIT: 'bg-[#343434] text-white',
-};
-
 export interface NavSubItem {
   icon: string;
   label: string;

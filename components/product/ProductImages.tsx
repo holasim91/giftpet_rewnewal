@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import type { Product } from '@/types';
-import { BADGE_STYLES } from '@/lib/constants';
+import { BADGE_STYLES } from '@/lib/badge';
 
 interface Props {
   product: Product;
@@ -65,7 +65,7 @@ export default function ProductImages({ product }: Props) {
           sizes="100vw"
         />
         {firstBadge && (
-          <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-label-sm uppercase tracking-wider shadow-sm font-bold ${BADGE_STYLES[firstBadge] ?? 'bg-surface-container text-on-surface'}`}>
+          <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-label-sm uppercase tracking-wider shadow-sm font-bold ${(BADGE_STYLES as Record<string, string>)[firstBadge] ?? 'bg-surface-container text-on-surface'}`}>
             {firstBadge}
           </div>
         )}

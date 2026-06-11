@@ -134,3 +134,8 @@ body {
     display: none;
   }
 }
+
+/* Material Symbols FILL axis — 채워진 아이콘(예: 찜한 하트) 표현 */
+@utility icon-fill {
+  font-variation-settings: "FILL" 1;
+}

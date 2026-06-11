@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { addToCart } from '@/actions/cart';
 import { useToast } from '@/components/ui/Toast';
 import QuantityControl from '@/components/ui/QuantityControl';
+import WishlistButton from '@/components/ui/WishlistButton';
 import type { Product } from '@/types';
 
 interface Props {
@@ -67,13 +68,11 @@ export default function AddToCartSection({ product }: Props) {
           </div>
         </div>
         <div className="flex gap-3">
-          <button
-            type="button"
-            aria-label="찜하기"
-            className="w-12 h-12 flex items-center justify-center border border-surface-variant rounded-lg text-secondary hover:text-primary-container hover:border-primary-container transition-colors"
-          >
-            <span className="material-symbols-outlined">favorite</span>
-          </button>
+          <WishlistButton
+            productId={product.id}
+            className="w-12 h-12 flex items-center justify-center border border-surface-variant rounded-lg hover:border-primary-container"
+            iconClassName=""
+          />
           <button
             type="button"
             onClick={handleAddToCart}

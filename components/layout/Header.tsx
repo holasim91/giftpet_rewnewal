@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { auth } from '@/auth';
 import SignOutButton from '@/components/ui/SignOutButton';
 import { getCartCount } from '@/actions/cart';
+import { getWishlistCount } from '@/actions/wishlist';
 import { NAV_CATEGORIES, PRODUCT_CATEGORIES } from '@/lib/constants';
 
 interface NavItem {
@@ -20,7 +21,7 @@ const NAV_ITEMS: NavItem[] = [
 export default async function Header() {
   const session = await auth();
   const displayName = session?.user?.name ?? session?.user?.email?.split('@')[0];
-  const cartCount = await getCartCount();
+  const [cartCount, wishlistCount] = await Promise.all([getCartCount(), getWishlistCount()]);
   return (
     <header className="hidden md:block bg-surface border-b border-outline-variant shadow-[0px_4px_20px_rgba(0,0,0,0.05)] sticky top-0 z-50 w-full">
       {/* Inner container — relative 유지 (메가메뉴 절대위치 기준점), group 제거 */}
@@ -69,9 +70,14 @@ export default async function Header() {
               </Link>
             )}
 
-            <button type="button" aria-label="찜" className="flex items-center hover:text-primary transition-colors duration-200 ease-out">
+            <Link href="/wishlist" aria-label="찜" className="flex items-center hover:text-primary transition-colors duration-200 ease-out relative">
               <span className="material-symbols-outlined text-[28px]">favorite</span>
-            </button>
+              {wishlistCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary-container text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {wishlistCount > 9 ? '9+' : wishlistCount}
+                </span>
+              )}
+            </Link>
             <Link href="/cart" aria-label="장바구니" className="flex items-center hover:text-primary transition-colors duration-200 ease-out relative">
               <span className="material-symbols-outlined text-[28px]">shopping_cart</span>
               {cartCount > 0 && (
