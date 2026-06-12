@@ -13,13 +13,16 @@ export async function updateUserName(name: string): Promise<ActionResult> {
   const trimmed = name.trim();
   if (!trimmed) return { success: false, error: '이름을 입력해주세요.' };
 
-  await prisma.user.update({
-    where: { id: session.user.id },
-    data: { name: trimmed },
-  });
-
-  revalidatePath('/mypage');
-  return { success: true };
+  try {
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { name: trimmed },
+    });
+    revalidatePath('/mypage');
+    return { success: true };
+  } catch {
+    return { success: false, error: '오류가 발생했습니다.' };
+  }
 }
 
 export async function updateUserPassword(
@@ -37,18 +40,23 @@ export async function updateUserPassword(
     return { success: false, error: '새 비밀번호는 8자 이상이어야 합니다.' };
   }
 
-  const user = await prisma.user.findUnique({ where: { id: session.user.id } });
-  if (!user) return { success: false, error: '사용자를 찾을 수 없습니다.' };
+  try {
+    const user = await prisma.user.findUnique({ where: { id: session.user.id } });
+    if (!user) return { success: false, error: '사용자를 찾을 수 없습니다.' };
 
-  const isValid = await bcrypt.compare(currentPassword, user.password);
-  if (!isValid) return { success: false, error: '현재 비밀번호가 올바르지 않습니다.' };
+    const isValid = await bcrypt.compare(currentPassword, user.password);
+    if (!isValid) return { success: false, error: '현재 비밀번호가 올바르지 않습니다.' };
 
-  const hashed = await bcrypt.hash(newPassword, 12);
-  await prisma.user.update({
-    where: { id: session.user.id },
-    data: { password: hashed },
-  });
+    const hashed = await bcrypt.hash(newPassword, 12);
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { password: hashed },
+    });
+  } catch {
+    return { success: false, error: '오류가 발생했습니다.' };
+  }
 
+  // signOut은 NEXT_REDIRECT를 throw하므로 try/catch 밖에서 호출
   await signOut({ redirectTo: '/auth/login' });
   return { success: true };
 }

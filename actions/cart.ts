@@ -24,79 +24,97 @@ export async function getCart(): Promise<CartItemWithProduct[]> {
   const session = await auth();
   if (!session?.user?.id) return [];
 
-  return prisma.cart.findMany({
-    where: { userId: session.user.id },
-    select: {
-      id: true,
-      quantity: true,
-      product: {
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          discountPrice: true,
-          imageUrl: true,
-          isBest: true,
-          isActive: true,
-          stock: true,
+  try {
+    return await prisma.cart.findMany({
+      where: { userId: session.user.id },
+      select: {
+        id: true,
+        quantity: true,
+        product: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            discountPrice: true,
+            imageUrl: true,
+            isBest: true,
+            isActive: true,
+            stock: true,
+          },
         },
       },
-    },
-    orderBy: { createdAt: 'asc' },
-  });
+      orderBy: { createdAt: 'asc' },
+    });
+  } catch {
+    return [];
+  }
 }
 
 export async function getCartCount(): Promise<number> {
   const session = await auth();
   if (!session?.user?.id) return 0;
-  return prisma.cart.count({ where: { userId: session.user.id } });
+  try {
+    return await prisma.cart.count({ where: { userId: session.user.id } });
+  } catch {
+    return 0;
+  }
 }
 
 export async function addToCart(productId: string, quantity = 1): Promise<ActionResult> {
   const session = await auth();
   if (!session?.user?.id) return { success: false, error: '로그인이 필요합니다.' };
 
-  const existing = await prisma.cart.findFirst({
-    where: { userId: session.user.id, productId },
-  });
+  try {
+    const existing = await prisma.cart.findFirst({
+      where: { userId: session.user.id, productId },
+    });
 
-  if (existing) {
-    await prisma.cart.update({
-      where: { id: existing.id },
-      data: { quantity: existing.quantity + quantity },
-    });
-  } else {
-    await prisma.cart.create({
-      data: { userId: session.user.id, productId, quantity },
-    });
+    if (existing) {
+      await prisma.cart.update({
+        where: { id: existing.id },
+        data: { quantity: existing.quantity + quantity },
+      });
+    } else {
+      await prisma.cart.create({
+        data: { userId: session.user.id, productId, quantity },
+      });
+    }
+
+    revalidatePath('/cart');
+    return { success: true };
+  } catch {
+    return { success: false, error: '오류가 발생했습니다.' };
   }
-
-  revalidatePath('/cart');
-  return { success: true };
 }
 
 export async function removeFromCart(cartId: string): Promise<ActionResult> {
   const session = await auth();
   if (!session?.user?.id) return { success: false, error: '로그인이 필요합니다.' };
 
-  await prisma.cart.deleteMany({
-    where: { id: cartId, userId: session.user.id },
-  });
-
-  revalidatePath('/cart');
-  return { success: true };
+  try {
+    await prisma.cart.deleteMany({
+      where: { id: cartId, userId: session.user.id },
+    });
+    revalidatePath('/cart');
+    return { success: true };
+  } catch {
+    return { success: false, error: '오류가 발생했습니다.' };
+  }
 }
 
 export async function removeSelectedFromCart(cartIds: string[]): Promise<ActionResult> {
   const session = await auth();
   if (!session?.user?.id) return { success: false, error: '로그인이 필요합니다.' };
 
-  await prisma.cart.deleteMany({
-    where: { id: { in: cartIds }, userId: session.user.id },
-  });
-
-  revalidatePath('/cart');
-  return { success: true };
+  try {
+    await prisma.cart.deleteMany({
+      where: { id: { in: cartIds }, userId: session.user.id },
+    });
+    revalidatePath('/cart');
+    return { success: true };
+  } catch {
+    return { success: false, error: '오류가 발생했습니다.' };
+  }
 }
 
 export async function updateCartQuantity(

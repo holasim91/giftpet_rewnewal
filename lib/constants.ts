@@ -1,3 +1,6 @@
+export const SHIPPING_FEE = 3000;
+export const FREE_SHIPPING_THRESHOLD = 100000;
+
 export interface NavSubItem {
   icon: string;
   label: string;

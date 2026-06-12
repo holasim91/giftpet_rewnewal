@@ -56,13 +56,27 @@ model Product {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  email     String     @unique
-  password  String
-  name      String?
-  createdAt DateTime   @default(now())
-  cart      Cart[]
-  wishlist  Wishlist[]
+  id                String              @id @default(cuid())
+  email             String              @unique
+  password          String
+  name              String?
+  createdAt         DateTime            @default(now())
+  cart              Cart[]
+  wishlist          Wishlist[]
+  shippingAddresses ShippingAddress[]
+}
+
+model ShippingAddress {
+  id            String   @id @default(cuid())
+  userId        String
+  recipientName String
+  phone         String
+  zipCode       String
+  address       String
+  addressDetail String?
+  isDefault     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Cart {

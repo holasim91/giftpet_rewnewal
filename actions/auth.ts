@@ -31,15 +31,19 @@ export async function registerUser(
   password: string,
   name: string,
 ): Promise<ActionResult> {
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) {
-    return { success: false, error: '이미 사용 중인 이메일입니다.' };
+  try {
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) {
+      return { success: false, error: '이미 사용 중인 이메일입니다.' };
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+    await prisma.user.create({
+      data: { email, password: hashedPassword, name },
+    });
+
+    return { success: true };
+  } catch {
+    return { success: false, error: '오류가 발생했습니다.' };
   }
-
-  const hashedPassword = await bcrypt.hash(password, 12);
-  await prisma.user.create({
-    data: { email, password: hashedPassword, name },
-  });
-
-  return { success: true };
 }

@@ -42,6 +42,20 @@ export interface WishlistItemWithProduct {
   product: Product;
 }
 
+// ── ShippingAddress ────────────────────────────────────────────────────────
+
+export interface ShippingAddress {
+  id: string;
+  userId: string;
+  recipientName: string;
+  phone: string;
+  zipCode: string;
+  address: string;
+  addressDetail: string | null;
+  isDefault: boolean;
+  createdAt: Date | string;
+}
+
 // ── CircularRecommendation (UI 전용, DB 없음) ──────────────────────────────
 
 export interface CircularRecommendation {

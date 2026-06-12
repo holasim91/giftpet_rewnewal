@@ -9,39 +9,55 @@ interface GetProductsParams {
 }
 
 export async function getProducts({ animalCategory, productCategory }: GetProductsParams = {}) {
-  return prisma.product.findMany({
-    where: {
-      isActive: true,
-      ...(animalCategory !== undefined && { animalCategory }),
-      ...(productCategory !== undefined && { productCategory }),
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+  try {
+    return await prisma.product.findMany({
+      where: {
+        isActive: true,
+        ...(animalCategory !== undefined && { animalCategory }),
+        ...(productCategory !== undefined && { productCategory }),
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch {
+    return [];
+  }
 }
 
 export async function getProductById(id: string) {
-  return prisma.product.findUnique({
-    where: { id, isActive: true },
-  });
+  try {
+    return await prisma.product.findUnique({
+      where: { id, isActive: true },
+    });
+  } catch {
+    return null;
+  }
 }
 
 export async function getNewArrivals(limit = 8) {
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-  return prisma.product.findMany({
-    where: {
-      isActive: true,
-      createdAt: { gte: thirtyDaysAgo },
-    },
-    orderBy: { createdAt: 'desc' },
-    take: limit,
-  });
+  try {
+    return await prisma.product.findMany({
+      where: {
+        isActive: true,
+        createdAt: { gte: thirtyDaysAgo },
+      },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    });
+  } catch {
+    return [];
+  }
 }
 
 export async function getMdPickProducts() {
-  return prisma.product.findMany({
-    where: { isMdPick: true, isActive: true },
-    orderBy: { createdAt: 'desc' },
-  });
+  try {
+    return await prisma.product.findMany({
+      where: { isMdPick: true, isActive: true },
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch {
+    return [];
+  }
 }

@@ -9,20 +9,28 @@ export async function getWishlist(): Promise<WishlistItemWithProduct[]> {
   const session = await auth();
   if (!session?.user?.id) return [];
 
-  return prisma.wishlist.findMany({
-    where: { userId: session.user.id },
-    select: {
-      id: true,
-      product: true, // ProductGrid에 그대로 넘길 수 있도록 전체 Product
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+  try {
+    return await prisma.wishlist.findMany({
+      where: { userId: session.user.id },
+      select: {
+        id: true,
+        product: true, // ProductGrid에 그대로 넘길 수 있도록 전체 Product
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch {
+    return [];
+  }
 }
 
 export async function getWishlistCount(): Promise<number> {
   const session = await auth();
   if (!session?.user?.id) return 0;
-  return prisma.wishlist.count({ where: { userId: session.user.id } });
+  try {
+    return await prisma.wishlist.count({ where: { userId: session.user.id } });
+  } catch {
+    return 0;
+  }
 }
 
 // 유저가 찜한 상품 ID 전체를 한 번에 조회 (WishlistProvider 초기값용)
@@ -30,11 +38,15 @@ export async function getWishlistedProductIds(): Promise<string[]> {
   const session = await auth();
   if (!session?.user?.id) return [];
 
-  const rows = await prisma.wishlist.findMany({
-    where: { userId: session.user.id },
-    select: { productId: true },
-  });
-  return rows.map((r) => r.productId);
+  try {
+    const rows = await prisma.wishlist.findMany({
+      where: { userId: session.user.id },
+      select: { productId: true },
+    });
+    return rows.map((r) => r.productId);
+  } catch {
+    return [];
+  }
 }
 
 // 있으면 삭제, 없으면 추가하는 토글. data로 추가/삭제 여부를 반환한다.
@@ -44,19 +56,23 @@ export async function toggleWishlist(
   const session = await auth();
   if (!session?.user?.id) return { success: false, error: '로그인이 필요합니다.' };
 
-  const existing = await prisma.wishlist.findUnique({
-    where: { userId_productId: { userId: session.user.id, productId } },
-  });
+  try {
+    const existing = await prisma.wishlist.findUnique({
+      where: { userId_productId: { userId: session.user.id, productId } },
+    });
 
-  if (existing) {
-    await prisma.wishlist.delete({ where: { id: existing.id } });
+    if (existing) {
+      await prisma.wishlist.delete({ where: { id: existing.id } });
+      revalidatePath('/wishlist');
+      return { success: true, data: { wishlisted: false } };
+    }
+
+    await prisma.wishlist.create({
+      data: { userId: session.user.id, productId },
+    });
     revalidatePath('/wishlist');
-    return { success: true, data: { wishlisted: false } };
+    return { success: true, data: { wishlisted: true } };
+  } catch {
+    return { success: false, error: '오류가 발생했습니다.' };
   }
-
-  await prisma.wishlist.create({
-    data: { userId: session.user.id, productId },
-  });
-  revalidatePath('/wishlist');
-  return { success: true, data: { wishlisted: true } };
 }
