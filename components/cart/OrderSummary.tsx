@@ -5,9 +5,11 @@ interface Props {
   discount: number;
   shippingFee: number;
   total: number;
+  onOrder: () => void;
+  isOrdering: boolean;
 }
 
-export default function OrderSummary({ subtotal, discount, shippingFee, total }: Props) {
+export default function OrderSummary({ subtotal, discount, shippingFee, total, onOrder, isOrdering }: Props) {
   return (
     <div className="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] sticky top-32 border border-surface-container-high">
       <h2 className="text-headline-sm font-bold mb-8">주문 요약</h2>
@@ -48,9 +50,11 @@ export default function OrderSummary({ subtotal, discount, shippingFee, total }:
       </div>
       <button
         type="button"
-        className="w-full bg-primary text-on-primary py-5 rounded-xl font-headline-sm hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20"
+        onClick={onOrder}
+        disabled={isOrdering}
+        className="w-full bg-primary text-on-primary py-5 rounded-xl font-headline-sm hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        주문하기
+        {isOrdering ? '처리 중...' : '주문하기'}
       </button>
     </div>
   );

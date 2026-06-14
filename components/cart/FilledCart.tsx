@@ -33,6 +33,8 @@ export default function FilledCart({
   handleRemoveSelected,
   confirmDelete,
   handleQuantity,
+  handleOrder,
+  isOrdering,
   cancelDelete,
   closeStockAlert,
   suggestions,
@@ -273,6 +275,8 @@ export default function FilledCart({
               discount={discount}
               shippingFee={shippingFee}
               total={total}
+              onOrder={handleOrder}
+              isOrdering={isOrdering}
             />
           </div>
         </div>
@@ -319,9 +323,11 @@ export default function FilledCart({
           </div>
           <button
             type="button"
-            className="flex-1 h-14 bg-primary text-on-primary font-headline-sm rounded-xl flex items-center justify-center hover:brightness-110 active:scale-[0.97] transition-all shadow-lg shadow-primary/20"
+            onClick={handleOrder}
+            disabled={isOrdering}
+            className="flex-1 h-14 bg-primary text-on-primary font-headline-sm rounded-xl flex items-center justify-center hover:brightness-110 active:scale-[0.97] transition-all shadow-lg shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            주문하기
+            {isOrdering ? '처리 중...' : '주문하기'}
           </button>
         </div>
       </div>

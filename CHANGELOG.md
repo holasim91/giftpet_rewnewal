@@ -5,6 +5,15 @@
 
 ---
 
+## v1.4.0 (2026-06-14)
+
+### 장바구니 주문하기 버튼 연결
+- `hooks/useCart.ts` — `handleOrder` 추가: 체크 없으면 Toast, `createPendingOrder` 호출, 성공 시 `/checkout?order_id=` 리다이렉트, 실패 시 Toast. `isOrdering` 상태 추가. 반환값에 `handleOrder`·`isOrdering` 포함.
+- `components/cart/OrderSummary.tsx` — `onOrder`·`isOrdering` props 추가, 주문하기 버튼 연결 (처리 중 disabled + "처리 중..." 텍스트)
+- `components/cart/FilledCart.tsx` — `handleOrder`·`isOrdering` 구조분해, 데스크톱 `OrderSummary` + 모바일 sticky 버튼 모두 연결
+
+---
+
 ## v1.3.0 (2026-06-12)
 
 ### 주문 플로우 PENDING/PAID 방식으로 재설계

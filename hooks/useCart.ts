@@ -1,12 +1,14 @@
 'use client';
 
 import { useOptimistic, useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   removeFromCart,
   removeSelectedFromCart,
   updateCartQuantity,
   type CartItemWithProduct,
 } from '@/actions/cart';
+import { createPendingOrder } from '@/actions/order';
 import { useToast } from '@/components/ui/Toast';
 import { SHIPPING_FEE, FREE_SHIPPING_THRESHOLD } from '@/lib/constants';
 
@@ -15,6 +17,7 @@ export type PendingDelete =
   | { type: 'selected'; count: number };
 
 export function useCart(initialItems: CartItemWithProduct[]) {
+  const router = useRouter();
   const [items, setItems] = useState(initialItems);
   const [optimisticItems, addOptimistic] = useOptimistic(
     items,
@@ -30,6 +33,7 @@ export function useCart(initialItems: CartItemWithProduct[]) {
   const [isSelectedDeleting, setIsSelectedDeleting] = useState(false);
   const [pendingDelete, setPendingDelete] = useState<PendingDelete | null>(null);
   const [stockAlertOpen, setStockAlertOpen] = useState(false);
+  const [isOrdering, setIsOrdering] = useState(false);
   const { showToast } = useToast();
 
   const activeItems = optimisticItems.filter((i) => i.product.isActive);
@@ -109,6 +113,28 @@ export function useCart(initialItems: CartItemWithProduct[]) {
     }
   };
 
+  const handleOrder = async () => {
+    if (checked.size === 0) {
+      showToast('주문할 상품을 선택해주세요', 'error');
+      return;
+    }
+    const orderItems = selectedItems.map((i) => ({
+      productId: i.product.id,
+      quantity: i.quantity,
+    }));
+    setIsOrdering(true);
+    try {
+      const result = await createPendingOrder(orderItems);
+      if (result.success) {
+        router.push(`/checkout?order_id=${result.data!.orderId}`);
+      } else {
+        showToast(result.error, 'error');
+      }
+    } finally {
+      setIsOrdering(false);
+    }
+  };
+
   const handleQuantity = (cartId: string, newQty: number) => {
     if (newQty < 1) return;
     const stock = items.find((i) => i.id === cartId)?.product.stock ?? Infinity;
@@ -153,6 +179,8 @@ export function useCart(initialItems: CartItemWithProduct[]) {
     handleRemoveSelected,
     confirmDelete,
     handleQuantity,
+    handleOrder,
+    isOrdering,
     cancelDelete: () => setPendingDelete(null),
     closeStockAlert: () => setStockAlertOpen(false),
   };
