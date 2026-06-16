@@ -5,6 +5,25 @@
 
 ---
 
+## v1.5.0 (2026-06-15)
+
+### 상품 리뷰 기능
+- `prisma/schema.prisma` — `Review` 모델 추가 (`@@unique([userId, orderId, productId])`), `User`·`Product`·`Order`에 `reviews Review[]` relation 추가
+- `lib/image.ts` 신규 — `convertToWebP(file)` (canvas, 브라우저 전용), `uploadReviewImage(blob, userId)` (Supabase Storage `review-images` 버킷), `deleteReviewImage(url)` (Storage 삭제)
+- `actions/review.ts` 신규 — `getReviews`, `createReview`, `deleteReview`, `getMyReviewableProducts`, `getMyReviewedKeys`, `uploadReviewImageAction`, `deleteReviewImageAction`
+- `types/index.ts` — `ReviewForDisplay`, `ReviewedKey` 타입 추가
+- `components/review/StarRating.tsx` 신규 — 별점 선택/표시 (readonly/interactive, sm/md/lg 크기)
+- `components/review/ImageLightbox.tsx` 신규 — 이미지 확대 뷰어 (Escape 닫기)
+- `components/review/ReviewCard.tsx` 신규 — 단일 리뷰 카드 (이미지 클릭 확대, 본인 리뷰 삭제)
+- `components/review/ReviewWriteModal.tsx` 신규 — 리뷰 작성 모달 (파일 선택 즉시 WebP 변환·업로드, 닫을 때 미제출 이미지 자동 삭제)
+- `components/product/ProductTabs.tsx` — Reviews 탭 실제 리뷰 표시 (평균 별점·리뷰 수, 본인 리뷰 삭제)
+- `components/mypage/OrderHistory.tsx` — `'use client'` 전환, 주문 항목별 리뷰 작성/완료 버튼, `ReviewWriteModal` 연결
+- `app/(main)/mypage/page.tsx` — `getMyReviewedKeys` 병렬 조회
+- `app/(main)/mypage/MypageClient.tsx` — `initialReviewedKeys` prop 전달
+- `package.json` — `@supabase/supabase-js` 추가
+
+---
+
 ## v1.4.0 (2026-06-14)
 
 ### 장바구니 주문하기 버튼 연결

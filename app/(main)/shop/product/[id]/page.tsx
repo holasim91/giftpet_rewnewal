@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getProductById } from '@/actions/product';
+import { getReviews } from '@/actions/review';
 import ProductDetailClient from './ProductDetailClient';
 
 interface Props {
@@ -8,9 +9,9 @@ interface Props {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { id } = await params;
-  const product = await getProductById(id);
+  const [product, reviews] = await Promise.all([getProductById(id), getReviews(id)]);
 
   if (!product) notFound();
 
-  return <ProductDetailClient product={product} />;
+  return <ProductDetailClient product={product} initialReviews={reviews} />;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type { Product } from '@/types';
+import type { Product, ReviewForDisplay } from '@/types';
 import { PRODUCT_CATEGORY_LABELS, ANIMAL_CATEGORY_LABELS } from '@/types';
 import ProductImages from '@/components/product/ProductImages';
 import ProductInfo from '@/components/product/ProductInfo';
@@ -10,9 +10,10 @@ import AddToCartSection from '@/components/product/AddToCartSection';
 
 interface Props {
   product: Product;
+  initialReviews: ReviewForDisplay[];
 }
 
-export default function ProductDetailClient({ product }: Props) {
+export default function ProductDetailClient({ product, initialReviews }: Props) {
   const categoryLabelKo = PRODUCT_CATEGORY_LABELS[product.productCategory];
 
   return (
@@ -43,7 +44,7 @@ export default function ProductDetailClient({ product }: Props) {
           </div>
         </div>
 
-        <ProductTabs product={product} />
+        <ProductTabs product={product} initialReviews={initialReviews} />
       </div>
     </main>
   );

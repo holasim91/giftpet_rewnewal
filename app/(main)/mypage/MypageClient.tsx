@@ -5,15 +5,24 @@ import NameChangeForm from '@/components/mypage/NameChangeForm';
 import PasswordModal from '@/components/mypage/PasswordModal';
 import ShippingSection from '@/components/mypage/ShippingSection';
 import OrderHistory from '@/components/mypage/OrderHistory';
-import type { ShippingAddress } from '@/types';
+import type { ShippingAddress, ReviewedKey } from '@/types';
+import type { OrderWithItems } from '@/actions/order';
 
 interface Props {
   name: string;
   email: string;
   initialAddresses: ShippingAddress[];
+  initialOrders: OrderWithItems[];
+  initialReviewedKeys: ReviewedKey[];
 }
 
-export default function MypageClient({ name, email, initialAddresses }: Props) {
+export default function MypageClient({
+  name,
+  email,
+  initialAddresses,
+  initialOrders,
+  initialReviewedKeys,
+}: Props) {
   return (
     <main className="max-w-container mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
       <ProfileCard name={name} email={email} />
@@ -24,7 +33,7 @@ export default function MypageClient({ name, email, initialAddresses }: Props) {
         </div>
         <div className="lg:col-span-2 flex flex-col gap-6">
           <ShippingSection initialAddresses={initialAddresses} />
-          <OrderHistory />
+          <OrderHistory orders={initialOrders} initialReviewedKeys={initialReviewedKeys} />
         </div>
       </div>
     </main>

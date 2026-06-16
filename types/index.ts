@@ -96,6 +96,24 @@ export interface CircularRecommendation {
   bgColor: string; // Tailwind 클래스
 }
 
+// ── Review ─────────────────────────────────────────────────────────────────
+
+export interface ReviewForDisplay {
+  id: string;
+  rating: number;
+  content: string;
+  imageUrls: string[];
+  createdAt: string; // ISO string (서버→클라이언트 직렬화)
+  authorName: string;
+  isMyReview: boolean;
+}
+
+export interface ReviewedKey {
+  reviewId: string;
+  orderId: string;
+  productId: string;
+}
+
 // ── 카테고리 표시 레이블 ───────────────────────────────────────────────────
 
 export const PRODUCT_CATEGORY_LABELS: Record<ProductCategory, string> = {
