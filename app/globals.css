@@ -139,3 +139,12 @@ body {
 @utility icon-fill {
   font-variation-settings: "FILL" 1;
 }
+
+/* 아이콘 박스 크기 고정 — 폰트 로딩 전·후 동일한 1em×1em 공간을 확보해 CLS 방지 */
+.material-symbols-outlined {
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  display: inline-block;
+  flex-shrink: 0;
+}
