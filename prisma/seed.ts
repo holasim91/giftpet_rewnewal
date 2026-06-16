@@ -237,6 +237,182 @@ const PRODUCTS = [
     productCategory: 'supplies' as const,
     createdAt: daysAgo(25),
   },
+
+  // ── 고양이 사료 3개 ────────────────────────────────────────────────────────
+  {
+    name: '로얄캐닌 인도어 어덜트 2kg',
+    description: '실내 고양이의 체중 관리와 헤어볼 예방을 위한 전용 사료.',
+    detailContent: null,
+    price: 38000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=600&q=80',
+    stock: 40,
+    animalCategory: 'cat' as const,
+    productCategory: 'food' as const,
+    isBest: true,
+    createdAt: daysAgo(10),
+  },
+  {
+    name: '오리젠 캣 오리지날 340g',
+    description: '신선한 육류 85%로 만든 그레인프리 고양이 건식 사료.',
+    detailContent: null,
+    price: 22000,
+    discountPrice: 18900,
+    imageUrl: 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=600&q=80',
+    stock: 35,
+    animalCategory: 'cat' as const,
+    productCategory: 'food' as const,
+    createdAt: daysAgo(5),
+  },
+  {
+    name: '네츄럴코어 유기농 캣 치킨 800g',
+    description: '100% 유기농 인증 닭고기로 만든 고양이 건식 사료.',
+    detailContent: null,
+    price: 29000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1574144611937-0df059b5ef3e?w=600&q=80',
+    stock: 50,
+    animalCategory: 'cat' as const,
+    productCategory: 'food' as const,
+    createdAt: daysAgo(40),
+  },
+
+  // ── 고양이 영양제 2개 ──────────────────────────────────────────────────────
+  {
+    name: '닥터캣 관절영양제 60정',
+    description: '글루코사민·콘드로이틴 복합 함유 고양이 관절 건강 영양제.',
+    detailContent: null,
+    price: 21000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=600&q=80',
+    stock: 30,
+    animalCategory: 'cat' as const,
+    productCategory: 'supplements' as const,
+    isMdPick: true,
+    createdAt: daysAgo(15),
+  },
+  {
+    name: '고양이 오메가3 연어오일 150ml',
+    description: '피부 보습과 피모 윤기를 개선하는 천연 연어 추출 오메가3.',
+    detailContent: null,
+    price: 17500,
+    discountPrice: 14900,
+    imageUrl: 'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=600&q=80',
+    stock: 45,
+    animalCategory: 'cat' as const,
+    productCategory: 'supplements' as const,
+    createdAt: daysAgo(55),
+  },
+
+  // ── 고양이 간식 1개 ────────────────────────────────────────────────────────
+  {
+    name: '몬프티 고양이 크런치 간식 70g',
+    description: '바삭한 식감의 소형 크런치 타입 고양이 간식.',
+    detailContent: null,
+    price: 6500,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&q=80',
+    stock: 85,
+    animalCategory: 'cat' as const,
+    productCategory: 'treats' as const,
+    createdAt: daysAgo(20),
+  },
+
+  // ── 고양이 용품 1개 ────────────────────────────────────────────────────────
+  {
+    name: '고양이 터널 장난감 접이식',
+    description: '접이식 설계로 수납이 편리한 고양이 놀이용 터널.',
+    detailContent: null,
+    price: 16000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=600&q=80',
+    stock: 20,
+    animalCategory: 'cat' as const,
+    productCategory: 'supplies' as const,
+    createdAt: daysAgo(30),
+  },
+
+  // ── 강아지 사료 1개 ────────────────────────────────────────────────────────
+  {
+    name: '로얄캐닌 미니 어덜트 2kg',
+    description: '소형견 전용으로 설계된 작은 크기의 키블과 균형 잡힌 영양 사료.',
+    detailContent: null,
+    price: 35000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=600&q=80',
+    stock: 40,
+    animalCategory: 'dog' as const,
+    productCategory: 'food' as const,
+    createdAt: daysAgo(18),
+  },
+
+  // ── 강아지 간식 1개 ────────────────────────────────────────────────────────
+  {
+    name: '강아지 오리고기 저키 100g',
+    description: '저알러지 오리고기를 통째로 건조한 단일 원료 간식.',
+    detailContent: null,
+    price: 11000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?w=600&q=80',
+    stock: 60,
+    animalCategory: 'dog' as const,
+    productCategory: 'treats' as const,
+    isBest: true,
+    createdAt: daysAgo(7),
+  },
+
+  // ── 강아지 용품 2개 ────────────────────────────────────────────────────────
+  {
+    name: '펫도매 LED 산책 목줄 M',
+    description: 'USB 충전식 LED 발광 목줄로 야간 산책 안전성을 높인다.',
+    detailContent: null,
+    price: 23000,
+    discountPrice: 19900,
+    imageUrl: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=600&q=80',
+    stock: 25,
+    animalCategory: 'dog' as const,
+    productCategory: 'supplies' as const,
+    createdAt: daysAgo(22),
+  },
+  {
+    name: '강아지 발바닥 보호 왁스 50g',
+    description: '천연 비즈왁스로 건조하고 갈라진 발바닥을 보호·보습.',
+    detailContent: null,
+    price: 14000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1615751072497-5f5169febe17?w=600&q=80',
+    stock: 30,
+    animalCategory: 'dog' as const,
+    productCategory: 'supplies' as const,
+    createdAt: daysAgo(45),
+  },
+
+  // ── 강아지 영양제 2개 ──────────────────────────────────────────────────────
+  {
+    name: '프로바이오틱스 강아지용 30포',
+    description: '유산균 100억 CFU 함유, 장 건강과 면역력 향상을 위한 영양제.',
+    detailContent: null,
+    price: 26000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=600&q=80',
+    stock: 40,
+    animalCategory: 'dog' as const,
+    productCategory: 'supplements' as const,
+    isMdPick: true,
+    createdAt: daysAgo(12),
+  },
+  {
+    name: '관절영양제 글루코사민 60정',
+    description: '글루코사민·MSM 복합 처방으로 반려견 관절 연골을 보호.',
+    detailContent: null,
+    price: 31000,
+    discountPrice: null,
+    imageUrl: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&q=80',
+    stock: 35,
+    animalCategory: 'dog' as const,
+    productCategory: 'supplements' as const,
+    createdAt: daysAgo(70),
+  },
 ];
 
 // ─── 메인 ────────────────────────────────────────────────────────────────────
@@ -244,11 +420,14 @@ const PRODUCTS = [
 async function main() {
   console.log('\n🌱 GIFT PET 데이터 시딩 시작\n');
 
-  // 외래 키 참조 순서: Cart → Wishlist → Product
+  // 외래 키 참조 순서: Review → OrderItem → Order → Cart → Wishlist → Product
+  const reviewCount = await prisma.review.deleteMany();
+  const orderItemCount = await prisma.orderItem.deleteMany();
+  const orderCount = await prisma.order.deleteMany();
   const cartCount = await prisma.cart.deleteMany();
   const wishlistCount = await prisma.wishlist.deleteMany();
   const productCount = await prisma.product.deleteMany();
-  console.log(`🗑️  기존 데이터 삭제: Cart ${cartCount.count}건, Wishlist ${wishlistCount.count}건, Product ${productCount.count}건`);
+  console.log(`🗑️  기존 데이터 삭제: Review ${reviewCount.count}건, OrderItem ${orderItemCount.count}건, Order ${orderCount.count}건, Cart ${cartCount.count}건, Wishlist ${wishlistCount.count}건, Product ${productCount.count}건`);
 
   const result = await prisma.product.createMany({
     data: PRODUCTS.map((p) => ({ ...p })),
@@ -256,12 +435,14 @@ async function main() {
 
   console.log(`✅ 상품 ${result.count}개 시딩 완료\n`);
   console.log('── 구성 ────────────────────────────');
-  console.log('  강아지 사료    4개 (품절 1 포함)');
-  console.log('  강아지 간식    3개');
-  console.log('  강아지 용품    2개');
-  console.log('  강아지 영양제  2개');
-  console.log('  고양이 간식    2개');
-  console.log('  고양이 용품    2개');
+  console.log('  강아지 사료    5개 (품절 1 포함)');
+  console.log('  강아지 간식    4개');
+  console.log('  강아지 용품    4개');
+  console.log('  강아지 영양제  4개');
+  console.log('  고양이 사료    3개');
+  console.log('  고양이 간식    3개');
+  console.log('  고양이 용품    3개');
+  console.log('  고양이 영양제  2개');
   console.log('────────────────────────────────────\n');
 }
 

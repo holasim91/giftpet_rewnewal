@@ -58,7 +58,7 @@ export async function createReview(
       where: {
         id: orderId,
         userId: session.user.id,
-        status: { in: ['PAID', 'SHIPPING', 'DELIVERED'] },
+        status: 'DELIVERED',
       },
       include: { items: { where: { productId }, select: { id: true } } },
     });
@@ -127,7 +127,7 @@ export async function getMyReviewableProducts(): Promise<
     const orders = await prisma.order.findMany({
       where: {
         userId: session.user.id,
-        status: { in: ['PAID', 'SHIPPING', 'DELIVERED'] },
+        status: 'DELIVERED',
       },
       select: {
         id: true,

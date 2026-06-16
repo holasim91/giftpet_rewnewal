@@ -1,15 +1,13 @@
+import { Suspense } from 'react';
 import CategorySidebar from './CategorySidebar';
 import ProductGrid from './ProductGrid';
+import SortBar from './SortBar';
 import type { Product } from '@/types';
 
 interface ShopListContentProps {
   title: string;
   products: Product[];
 }
-
-const SORT_OPTIONS = ['추천순', '신상순', '낮은가격순', '높은가격순'] as const;
-type SortOption = (typeof SORT_OPTIONS)[number];
-const ACTIVE_SORT: SortOption = '추천순';
 
 export default function ShopListContent({ title, products }: ShopListContentProps) {
   const totalCount = products.length;
@@ -45,7 +43,7 @@ export default function ShopListContent({ title, products }: ShopListContentProp
       {/* Main flex layout: sidebar + content */}
       <div className="flex gap-8 items-start">
 
-        {/* Sidebar — 1024px 이상에서만 표시. 768~1023px 구간에서는 숨겨 카드 너비 확보 */}
+        {/* Sidebar — 1024px 이상에서만 표시 */}
         <aside className="hidden lg:block sticky top-28">
           <CategorySidebar />
         </aside>
@@ -55,34 +53,9 @@ export default function ShopListContent({ title, products }: ShopListContentProp
 
           {/* Desktop: Sort bar */}
           <div className="hidden md:flex justify-end items-center border-b border-surface-variant pb-4 mb-8">
-            <div className="flex gap-6 text-sm text-secondary">
-              {SORT_OPTIONS.map((opt) => (
-                <button
-                  key={opt}
-                  type="button"
-                  className={`transition-colors hover:text-primary ${
-                    opt === ACTIVE_SORT ? 'font-semibold text-on-background' : ''
-                  }`}
-                >
-                  {opt}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile: Sort chips */}
-          <div className="md:hidden flex gap-4 mb-6 overflow-x-auto pb-2 no-scrollbar">
-            {SORT_OPTIONS.map((opt) => (
-              <button
-                key={opt}
-                type="button"
-                className={`text-label-md whitespace-nowrap transition-colors ${
-                  opt === ACTIVE_SORT ? 'text-primary' : 'text-on-surface-variant'
-                }`}
-              >
-                {opt}
-              </button>
-            ))}
+            <Suspense fallback={null}>
+              <SortBar />
+            </Suspense>
           </div>
 
           {/* Product Grid */}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useSession } from 'next-auth/react';
 import { updateUserName } from '@/actions/user';
 import { useToast } from '@/components/ui/Toast';
 
@@ -10,6 +11,7 @@ interface Props {
 
 export default function NameChangeForm({ initialName }: Props) {
   const { showToast } = useToast();
+  const { update } = useSession();
   const [nameValue, setNameValue] = useState(initialName);
   const [isNamePending, startNameTransition] = useTransition();
 
@@ -21,6 +23,7 @@ export default function NameChangeForm({ initialName }: Props) {
         showToast(result.error, 'error');
       } else {
         showToast('이름이 변경되었습니다.', 'success');
+        await update({ name: nameValue });
       }
     });
   }

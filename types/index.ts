@@ -15,6 +15,8 @@ export type AnimalCategory = 'dog' | 'cat';
 
 export type ProductCategory = 'food' | 'treats' | 'supplies' | 'supplements';
 
+export type SortOption = 'recommended' | 'newest' | 'price_asc' | 'price_desc';
+
 // ── Product ────────────────────────────────────────────────────────────────
 
 export interface Product {

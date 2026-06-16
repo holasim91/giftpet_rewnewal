@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { addToCart } from '@/actions/cart';
 import { useToast } from '@/components/ui/Toast';
+import { useWishlist } from '@/components/wishlist/WishlistProvider';
 import QuantityControl from '@/components/ui/QuantityControl';
 import WishlistButton from '@/components/ui/WishlistButton';
 import type { Product } from '@/types';
@@ -17,19 +18,30 @@ export default function AddToCartSection({ product }: Props) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const { showToast } = useToast();
+  const { isLoggedIn } = useWishlist();
 
   const totalPrice = (product.discountPrice ?? product.price) * qty;
 
   const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      router.push('/auth/login');
+      return;
+    }
     startTransition(async () => {
       const result = await addToCart(product.id, qty);
       if (!result.success) {
-        router.push('/auth/login');
+        showToast('담기에 실패했습니다', 'error');
       } else {
         showToast('장바구니에 추가되었습니다', 'success');
         router.refresh();
       }
     });
+  };
+
+  const handleBuyNow = () => {
+    if (!isLoggedIn) {
+      router.push('/auth/login');
+    }
   };
 
   return (
@@ -83,6 +95,7 @@ export default function AddToCartSection({ product }: Props) {
           </button>
           <button
             type="button"
+            onClick={handleBuyNow}
             className="flex-1 h-12 bg-primary-container text-on-primary rounded-lg text-label-md hover:bg-primary transition-colors"
           >
             BUY NOW
@@ -121,6 +134,7 @@ export default function AddToCartSection({ product }: Props) {
           </button>
           <button
             type="button"
+            onClick={handleBuyNow}
             className="flex-[2] py-3 px-4 rounded-lg bg-primary-container text-on-primary text-label-md font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all flex justify-center items-center"
           >
             바로 구매

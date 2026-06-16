@@ -4,12 +4,13 @@ import MobileHeader from '@/components/layout/MobileHeader';
 import Footer from '@/components/layout/Footer';
 import WishlistProvider from '@/components/wishlist/WishlistProvider';
 import { getWishlistedProductIds } from '@/actions/wishlist';
+import { auth } from '@/auth';
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
-  const wishlistedIds = await getWishlistedProductIds();
+  const [wishlistedIds, session] = await Promise.all([getWishlistedProductIds(), auth()]);
 
   return (
-    <WishlistProvider initialIds={wishlistedIds}>
+    <WishlistProvider initialIds={wishlistedIds} isLoggedIn={!!session}>
       <Script
         src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
         strategy="afterInteractive"

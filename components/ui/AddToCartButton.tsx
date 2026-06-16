@@ -4,6 +4,7 @@ import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { addToCart } from '@/actions/cart';
 import { useToast } from '@/components/ui/Toast';
+import { useWishlist } from '@/components/wishlist/WishlistProvider';
 
 interface Props {
   productId: string;
@@ -15,14 +16,19 @@ export default function AddToCartButton({ productId, disabled = false, disabledL
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const { showToast } = useToast();
+  const { isLoggedIn } = useWishlist();
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (disabled) return;
+    if (!isLoggedIn) {
+      router.push('/auth/login');
+      return;
+    }
     startTransition(async () => {
       const result = await addToCart(productId, 1);
       if (!result.success) {
-        router.push('/auth/login');
+        showToast('담기에 실패했습니다', 'error');
       } else {
         showToast('장바구니에 추가되었습니다', 'success');
         router.refresh();

@@ -144,10 +144,10 @@ export default function ReviewWriteModal({ productId, orderId, productName, onCl
                     <button
                       type="button"
                       onClick={() => handleRemoveImage(idx)}
-                      className="absolute top-0.5 right-0.5 w-5 h-5 bg-inverse-surface/80 rounded-full flex items-center justify-center"
+                      className="absolute top-0.5 right-0.5 w-4 h-4 bg-inverse-surface/80 rounded-full flex items-center justify-center"
                       aria-label="이미지 삭제"
                     >
-                      <span className="material-symbols-outlined text-inverse-on-surface text-[12px] leading-none">close</span>
+                      <span className="material-symbols-outlined text-inverse-on-surface text-[10px] leading-none">close</span>
                     </button>
                   </div>
                 ))}
@@ -160,7 +160,7 @@ export default function ReviewWriteModal({ productId, orderId, productName, onCl
                     className="w-20 h-20 rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-1 text-tertiary hover:border-primary hover:text-primary transition-colors disabled:opacity-50"
                   >
                     {isUploading ? (
-                      <span className="text-label-sm">업로드 중</span>
+                      <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
                     ) : (
                       <>
                         <span className="material-symbols-outlined text-[20px]">add_photo_alternate</span>

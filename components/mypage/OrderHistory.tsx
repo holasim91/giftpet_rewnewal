@@ -23,7 +23,7 @@ const STATUS_STYLE: Record<string, string> = {
   CANCELLED: 'bg-error-container text-on-error-container',
 };
 
-const REVIEWABLE_STATUSES = new Set(['PAID', 'SHIPPING', 'DELIVERED']);
+const REVIEWABLE_STATUSES = new Set(['DELIVERED']);
 
 interface ReviewTarget {
   productId: string;
@@ -43,10 +43,13 @@ interface Props {
   initialReviewedKeys: ReviewedKey[];
 }
 
+const PAGE_SIZE = 3;
+
 export default function OrderHistory({ orders, initialReviewedKeys }: Props) {
   const [reviewedKeys, setReviewedKeys] = useState<ReviewedKey[]>(initialReviewedKeys);
   const [writeTarget, setWriteTarget] = useState<ReviewTarget | null>(null);
   const [viewTarget, setViewTarget] = useState<ViewTarget | null>(null);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   function getReviewedKey(orderId: string, productId: string) {
     return reviewedKeys.find((k) => k.orderId === orderId && k.productId === productId) ?? null;
@@ -91,7 +94,7 @@ export default function OrderHistory({ orders, initialReviewedKeys }: Props) {
           </div>
         ) : (
           <div className="space-y-4">
-            {orders.map((order) => {
+            {orders.slice(0, visibleCount).map((order) => {
               const orderNumber = order.id.slice(0, 8).toUpperCase();
               const date = new Date(order.createdAt).toLocaleDateString('ko-KR', {
                 year: 'numeric',
@@ -191,6 +194,15 @@ export default function OrderHistory({ orders, initialReviewedKeys }: Props) {
                 </div>
               );
             })}
+            {visibleCount < orders.length && (
+              <button
+                type="button"
+                onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
+                className="w-full py-3 rounded-lg border border-outline-variant text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors"
+              >
+                더보기 ({orders.length - visibleCount}건 남음)
+              </button>
+            )}
           </div>
         )}
       </div>

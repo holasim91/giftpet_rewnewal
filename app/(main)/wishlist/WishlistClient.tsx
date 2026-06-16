@@ -25,6 +25,7 @@ export default function WishlistClient({ products }: Props) {
 
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [cardPendingIds, setCardPendingIds] = useState<Set<string>>(new Set());
+  const [addedIds, setAddedIds] = useState<Set<string>>(new Set());
   const [isBulkPending, startBulk] = useTransition();
   const [, startRemove] = useTransition();
   const { showToast } = useToast();
@@ -52,6 +53,7 @@ export default function WishlistClient({ products }: Props) {
       });
       if (result.success) {
         setChecked((prev) => new Set(prev).add(productId));
+        setAddedIds((prev) => new Set(prev).add(productId));
         showToast('장바구니에 추가되었습니다', 'success');
       } else {
         showToast('담기에 실패했습니다', 'error');
@@ -168,8 +170,8 @@ export default function WishlistClient({ products }: Props) {
                   type="checkbox"
                   aria-label="상품 선택"
                   checked={checked.has(product.id)}
-                  onChange={() => !soldOut && toggleOne(product.id)}
-                  disabled={soldOut}
+                  onChange={() => !soldOut && !addedIds.has(product.id) && toggleOne(product.id)}
+                  disabled={soldOut || addedIds.has(product.id)}
                   className="w-5 h-5 shrink-0 rounded border-outline text-primary focus:ring-primary disabled:opacity-40"
                 />
                 <button
