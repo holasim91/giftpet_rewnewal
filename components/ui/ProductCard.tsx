@@ -27,7 +27,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         'group cursor-pointer',
         'bg-surface rounded-lg flex flex-col',
         'hover:shadow-[0px_4px_20px_rgba(0,0,0,0.05)] transition-shadow duration-300',
-        'md:bg-transparent md:rounded-none md:hover:shadow-none md:block',
+        'md:bg-transparent md:rounded-none md:hover:shadow-none md:flex md:flex-col',
         'md:min-w-[280px] md:w-[280px] md:snap-start',
         soldOut ? 'opacity-60' : '',
       ].join(' ')}
@@ -35,7 +35,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Desktop inner card / Mobile passthrough */}
       <div
         className={[
-          'flex flex-col flex-1 md:block',
+          'flex flex-col flex-1',
           'md:relative md:bg-white md:rounded-xl',
           'md:shadow-[0px_4px_20px_rgba(0,0,0,0.05)]',
           'md:p-4',
@@ -66,7 +66,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Product info */}
-        <div className="flex flex-col flex-grow px-1 pb-2 md:px-0 md:pb-0 md:flex-none">
+        <div className="flex flex-col flex-1 px-1 pb-2 md:px-0 md:pb-0">
           {/* Category label — mobile only */}
           <span className="md:hidden text-label-sm text-on-surface-variant uppercase mb-1">
             {PRODUCT_CATEGORY_LABELS[product.productCategory]}
@@ -78,7 +78,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </h4>
 
           {/* Bottom row */}
-          <div className="mt-auto md:mt-4 flex items-center justify-between">
+          <div className="mt-auto flex items-center justify-between">
             {product.discountPrice ? (
               <div className="flex flex-col">
                 <span className="text-[16px] md:text-headline-sm font-bold text-primary">

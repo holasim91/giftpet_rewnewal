@@ -1,8 +1,11 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useOptimistic, useState, useTransition } from 'react';
+import Link from 'next/link';
 import { addToCart } from '@/actions/cart';
+import { toggleWishlist } from '@/actions/wishlist';
 import { useToast } from '@/components/ui/Toast';
+import { useWishlist } from '@/components/wishlist/WishlistProvider';
 import ProductCardBase from '@/components/ui/ProductCardBase';
 import type { Product } from '@/types';
 
@@ -13,12 +16,19 @@ interface Props {
 const isSoldOut = (p: Product) => !p.isActive || p.stock === 0;
 
 export default function WishlistClient({ products }: Props) {
-  const addableIds = products.filter((p) => !isSoldOut(p)).map((p) => p.id);
+  const [optimisticProducts, removeOptimistic] = useOptimistic(
+    products,
+    (state: Product[], removedId: string) => state.filter((p) => p.id !== removedId),
+  );
+
+  const addableIds = optimisticProducts.filter((p) => !isSoldOut(p)).map((p) => p.id);
 
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [cardPendingIds, setCardPendingIds] = useState<Set<string>>(new Set());
   const [isBulkPending, startBulk] = useTransition();
+  const [, startRemove] = useTransition();
   const { showToast } = useToast();
+  const { removeId } = useWishlist();
 
   const allChecked = addableIds.length > 0 && checked.size === addableIds.length;
 
@@ -60,6 +70,46 @@ export default function WishlistClient({ products }: Props) {
     });
   };
 
+  const handleRemove = (productId: string) => {
+    setChecked((prev) => {
+      const next = new Set(prev);
+      next.delete(productId);
+      return next;
+    });
+    startRemove(async () => {
+      removeOptimistic(productId);
+      const result = await toggleWishlist(productId);
+      if (!result.success) {
+        showToast('오류가 발생했습니다', 'error');
+      } else {
+        removeId(productId);
+        showToast('찜 목록에서 삭제되었습니다', 'success');
+      }
+    });
+  };
+
+  if (optimisticProducts.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-center gap-6">
+        <div className="w-28 h-28 bg-surface-container rounded-full flex items-center justify-center">
+          <span className="material-symbols-outlined text-6xl text-surface-dim">favorite</span>
+        </div>
+        <div>
+          <h2 className="text-headline-md text-on-surface mb-2">찜한 상품이 없습니다.</h2>
+          <p className="text-body-md text-secondary">
+            GIFT PET의 다양한 상품을 둘러보고 마음에 드는 상품을 찜해보세요!
+          </p>
+        </div>
+        <Link
+          href="/shop"
+          className="mt-2 px-8 py-4 bg-primary text-on-primary rounded-lg text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm"
+        >
+          쇼핑하러 가기
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <>
       {/* Toolbar: 전체 선택 + 선택 담기 */}
@@ -88,12 +138,31 @@ export default function WishlistClient({ products }: Props) {
 
       {/* Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-gutter">
-        {products.map((product) => {
+        {optimisticProducts.map((product) => {
           const soldOut = isSoldOut(product);
           const cardPending = cardPendingIds.has(product.id);
 
           return (
-            <ProductCardBase key={product.id} product={product}>
+            <ProductCardBase
+              key={product.id}
+              product={product}
+              imageOverlay={
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleRemove(product.id);
+                  }}
+                  className="absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 hover:bg-white transition-colors shadow-sm"
+                  aria-label="찜 해제"
+                >
+                  <span className="material-symbols-outlined text-[20px]! text-primary-container icon-fill">
+                    favorite
+                  </span>
+                </button>
+              }
+            >
               <div className="mt-3 md:px-4 flex items-center gap-3">
                 <input
                   type="checkbox"

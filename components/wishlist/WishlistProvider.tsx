@@ -8,11 +8,13 @@ import { useToast } from '@/components/ui/Toast';
 interface WishlistContextValue {
   isWishlisted: (productId: string) => boolean;
   toggle: (productId: string) => void;
+  removeId: (productId: string) => void;
 }
 
 const WishlistContext = createContext<WishlistContextValue>({
   isWishlisted: () => false,
   toggle: () => {},
+  removeId: () => {},
 });
 
 export function useWishlist() {
@@ -32,6 +34,14 @@ export default function WishlistProvider({
   const { showToast } = useToast();
 
   const isWishlisted = useCallback((productId: string) => ids.has(productId), [ids]);
+
+  const removeId = useCallback((productId: string) => {
+    setIds((prev) => {
+      const next = new Set(prev);
+      next.delete(productId);
+      return next;
+    });
+  }, []);
 
   const toggle = useCallback(
     (productId: string) => {
@@ -68,7 +78,7 @@ export default function WishlistProvider({
   );
 
   return (
-    <WishlistContext.Provider value={{ isWishlisted, toggle }}>
+    <WishlistContext.Provider value={{ isWishlisted, toggle, removeId }}>
       {children}
     </WishlistContext.Provider>
   );

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import CircularItem from '@/components/ui/CircularItem';
 import type { Product, CircularRecommendation } from '@/types';
 
@@ -61,7 +62,7 @@ export default function MdRecommendation({ products }: MdRecommendationProps) {
         </div>
         <div className="pl-margin-mobile flex space-x-6 overflow-x-auto no-scrollbar pb-4 pr-margin-mobile">
           {items.map((item) => (
-            <div key={item.id} className="flex flex-col items-center flex-shrink-0 w-24">
+            <Link key={item.id} href={`/shop/product/${item.id}`} className="flex flex-col items-center flex-shrink-0 w-24">
               <div className="w-20 h-20 rounded-full bg-surface-container overflow-hidden mb-3 shadow-sm border border-outline-variant/30">
                 <Image
                   src={item.imageUrl}
@@ -74,7 +75,7 @@ export default function MdRecommendation({ products }: MdRecommendationProps) {
               <span className="text-label-md text-on-surface text-center leading-tight">
                 {item.label}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

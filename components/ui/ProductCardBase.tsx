@@ -9,9 +9,10 @@ interface ProductCardBaseProps {
   product: Product;
   children?: React.ReactNode;
   showQuickAdd?: boolean;
+  imageOverlay?: React.ReactNode;
 }
 
-export default function ProductCardBase({ product, children, showQuickAdd = false }: ProductCardBaseProps) {
+export default function ProductCardBase({ product, children, showQuickAdd = false, imageOverlay }: ProductCardBaseProps) {
   const isDiscontinued = !product.isActive;
   const isSoldByStock = product.stock === 0;
   const soldOut = isDiscontinued || isSoldByStock;
@@ -20,8 +21,8 @@ export default function ProductCardBase({ product, children, showQuickAdd = fals
   const quickAddLabel = isDiscontinued ? '판매종료' : isSoldByStock ? '품절' : 'Add to Cart';
 
   return (
-    <div className={soldOut ? 'opacity-60' : ''}>
-      <Link href={`/shop/product/${product.id}`} className="group block">
+    <div className={`${soldOut ? 'opacity-60' : ''} flex flex-col`}>
+      <Link href={`/shop/product/${product.id}`} className="group flex flex-col flex-1">
         {/* Image container */}
         <div className="relative w-full aspect-square md:aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.05)] group-hover:-translate-y-1 group-hover:shadow-[0px_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300">
           <Image
@@ -42,6 +43,8 @@ export default function ProductCardBase({ product, children, showQuickAdd = fals
             </div>
           )}
 
+          {imageOverlay}
+
           {/* Quick Add (ProductGrid 전용) */}
           {showQuickAdd && (
             <div className="hidden md:block absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -54,13 +57,13 @@ export default function ProductCardBase({ product, children, showQuickAdd = fals
         </div>
 
         {/* Product info */}
-        <div className="mt-3 space-y-1 md:p-4 md:mt-0">
+        <div className="mt-3 flex flex-col flex-1 md:p-4 md:mt-0">
           <p className="text-label-sm text-on-surface-variant">{PRODUCT_CATEGORY_LABELS[product.productCategory]}</p>
-          <h3 className="text-body-md text-on-surface line-clamp-2 overflow-hidden text-ellipsis leading-snug">
+          <h3 className="text-body-md text-on-surface line-clamp-2 overflow-hidden text-ellipsis leading-snug mt-1">
             {product.name}
           </h3>
           {product.discountPrice ? (
-            <div className="mt-2 space-y-0.5">
+            <div className="mt-auto pt-2 space-y-0.5">
               <p className="text-headline-sm text-primary font-bold">
                 {product.discountPrice.toLocaleString()}원
               </p>
@@ -74,7 +77,7 @@ export default function ProductCardBase({ product, children, showQuickAdd = fals
               </div>
             </div>
           ) : (
-            <p className="text-headline-sm text-on-surface font-bold mt-2">
+            <p className="mt-auto pt-2 text-headline-sm text-on-surface font-bold">
               {product.price.toLocaleString()}원
             </p>
           )}

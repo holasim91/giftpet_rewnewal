@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { CircularRecommendation } from '@/types';
 
 interface CircularItemProps {
@@ -7,7 +8,7 @@ interface CircularItemProps {
 
 export default function CircularItem({ item }: CircularItemProps) {
   return (
-    <button type="button" className="flex flex-col items-center group cursor-pointer">
+    <Link href={`/shop/product/${item.id}`} className="flex flex-col items-center group cursor-pointer">
       {/* Circle — desktop: bgColor + border-white + centered small image */}
       {/*          mobile: bg-surface-container + thin border + fill image */}
       <div
@@ -30,6 +31,6 @@ export default function CircularItem({ item }: CircularItemProps) {
       <span className="text-label-md text-on-surface text-center font-semibold max-w-[100px] mt-4">
         {item.label}
       </span>
-    </button>
+    </Link>
   );
 }
