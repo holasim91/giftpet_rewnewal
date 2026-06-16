@@ -38,7 +38,7 @@ export default function MobileDrawer({ isOpen, onClose, session }: MobileDrawerP
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation menu"
+        aria-label="내비게이션 메뉴"
         className={`fixed inset-y-0 left-0 w-[280px] bg-surface z-50 transform transition-transform duration-300 flex flex-col shadow-xl ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
@@ -48,7 +48,7 @@ export default function MobileDrawer({ isOpen, onClose, session }: MobileDrawerP
           <span className="text-headline-sm text-on-surface">Menu</span>
           <button
             type="button"
-            aria-label="Close menu"
+            aria-label="메뉴 닫기"
             onClick={onClose}
             className="text-on-surface-variant hover:text-primary transition-colors"
           >

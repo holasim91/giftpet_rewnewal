@@ -126,7 +126,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
         </div>
 
         {/* Mobile: View All link */}
-        <Link href="/shop" className="md:hidden text-label-sm text-primary hover:underline">
+        <Link href="/shop" aria-label="신상품 전체 보기" className="md:hidden text-label-sm text-primary hover:underline">
           전체 보기
         </Link>
       </div>
@@ -149,6 +149,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
         {/* View More card */}
         <Link
           href="/shop"
+          aria-label="신상품 전체 보기"
           className="min-w-[280px] w-[280px] snap-start group cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
         >
           <div className="relative bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] p-4 transition-all duration-300">

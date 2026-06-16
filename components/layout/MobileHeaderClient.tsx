@@ -27,7 +27,7 @@ export default function MobileHeaderClient({
           <div className="flex items-center justify-between w-full">
             <button
               type="button"
-              aria-label="Open menu"
+              aria-label="메뉴 열기"
               className="text-on-surface-variant focus:outline-none p-1"
               onClick={() => setDrawerOpen(true)}
             >
@@ -44,7 +44,7 @@ export default function MobileHeaderClient({
             <div className="flex items-center space-x-3 text-on-surface-variant">
               <Link
                 href="/wishlist"
-                aria-label="Wishlist"
+                aria-label="찜 목록"
                 className="hover:text-primary transition-colors duration-200 ease-out focus:outline-none relative"
               >
                 <span className="material-symbols-outlined">favorite</span>
